@@ -3,9 +3,9 @@ export default function MostPopular() {
         <div className="popular-container">
             <div className="popular-left">
                 <h5>MOST POPULAR</h5>
-                <p>We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
+                <p>Enjoy our most popular products with exclusive deals and discounts.</p>
                 <img src="" alt="Caramel Cashew" />
-                <a href="#">English Department</a>
+                <a href="#">Snack Products</a>
                 <div className="sales-figures">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <h6>120 Sales</h6>

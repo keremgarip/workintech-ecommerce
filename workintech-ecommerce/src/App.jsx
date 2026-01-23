@@ -1,5 +1,5 @@
 import AllProducts from "./components/AllProducts"
-import BestSeller from "./components/bestSeller"
+import BestSeller from "./components/BestSeller"
 import Blog from "./components/Blog"
 import Clients from "./components/Clients"
 import Footer from "./components/Footer"

@@ -7,9 +7,9 @@ export default function Popular() {
                 </div>
                 <div className="popular-right">
                     <h5>MOST POPULAR</h5>
-                    <p>We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
-                    <img src="" alt="Meat"/>
-                    <a href="#">English Department</a>
+                    <p>Discover the benefits of choosing our products for your needs.</p>
+                    <img src="" alt="Stew Meat"/>
+                    <a href="#">Meat Products</a>
                     <div className="price">
                         <h5>$16.48</h5>
                         <h5>$6.48</h5>
