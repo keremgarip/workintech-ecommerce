@@ -5,9 +5,9 @@ import Clients from "./components/Clients"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import MostPopular from "./components/MostPopular"
-import Popular from "./components/popular"
-import Products from "./components/products"
-import ShopCards from "./components/shopCards"
+import Popular from "./components/Popular"
+import Products from "./components/Products"
+import ShopCards from "./components/ShopCards"
 
 function App() {
 
