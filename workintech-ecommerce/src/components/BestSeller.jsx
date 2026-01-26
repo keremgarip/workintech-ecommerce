@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function BestSeller() {
     return (
-        <div className="px-2 py-4 flex">
+        <div className="px-2 py-12 flex">
             <div className="bestseller-left">
                 <div className="bestseller-bg"></div>
                 <h6 className="text-sm font-bold">ALL PRODUCTS</h6>
@@ -26,8 +26,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Ice Cream</h5>
                             <a href="#">Frozen Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>
@@ -37,8 +37,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Apple</h5>
                             <a href="#">Fruit Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>
@@ -48,8 +48,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Steak</h5>
                             <a href="#">Meat Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>
@@ -59,8 +59,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Ice Cream</h5>
                             <a href="#">Frozen Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Apple</h5>
                             <a href="#">Fruit Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>
@@ -81,8 +81,8 @@ export default function BestSeller() {
                             <h5 className="font-bold">Steak</h5>
                             <a href="#">Meat Products</a>
                             <div className="flex gap-[5px]">
-                                <h5 className="text-[#BDBDBD]">$16.48</h5>
-                                <h5 className="text-[#23856D]">$6.48</h5>
+                                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                <h5 className="text-[#23856D] font-bold">$6.48</h5>
                             </div>
                         </div>
                     </div>

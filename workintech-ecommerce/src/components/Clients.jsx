@@ -1,6 +1,6 @@
 export default function Clients() {
     return(
-        <div className="clients-container">
+        <div className="px-2 py-[50px] flex gap-[30px] bg-[#FAFAFA]">
             <div className="clients-item">
                 <img src="" alt="Hooli"/>
             </div>

@@ -1,6 +1,6 @@
 export default function ShopCards() {
     return (
-        <div className="flex justify-between px-2 py-4 gap-4">
+        <div className="flex justify-between px-2 py-20 gap-4">
             <div className="flex border border-[#ECECEC]">
                 <div className="gap-2">
                     <h6 className="font-normal text-sm">New Arrival</h6>

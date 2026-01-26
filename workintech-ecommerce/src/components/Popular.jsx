@@ -1,6 +1,6 @@
 export default function Popular() {
     return (
-        <div className="px-2 py-4">
+        <div className="px-2 py-12">
             <section className="flex">
                 <div className="popular-left">
                     <img src="" alt="Delivery" />

@@ -1,79 +1,87 @@
+import {Calendar, MessageCircleMore, ChevronRight} from "lucide-react";
+
 export default function Blog() {
     return (
-        <div className="blog-container">
-            <h6>Practice Advice</h6>
-            <h3>Featured Posts</h3>
-            <div className="blog-items">
+        <div className="px-2 py-28">
+            <h6 className="font-bold text-sm text-[#23A6F0] text-center">Practice Advice</h6>
+            <h2 className="font-bold text-[40px] text-center">Featured Posts</h2>
+            <div className="flex gap-[30px]">
                 <div className="blog-item">
                     <img src="" alt="Blog Post 1" />
-                    <ul className="blog-tags">
-                        <li>Google</li>
-                        <li>Trend</li>
-                        <li>New</li>
-                    </ul>
-                    <h4>How to Use Google Trends for Market Research</h4>
-                    <p>Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                    <div className="figures">
-                        <div className="date">
-                            <i class="fa-regular fa-calendar-days"></i>
-                            <span>22 April 2024</span>
+                    <div className="px-[25px] pt-[25px] pb-[35px]">
+                        <ul className="flex gap-[15px] text-xs">
+                            <li>Google</li>
+                            <li>Trend</li>
+                            <li>New</li>
+                        </ul>
+                        <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
+                        <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
+                        <div className="flex text-xs py-[15px] justify-between">
+                            <div className="flex">
+                                <Calendar className="w-4 h-4" />
+                                <span>22 April 2024</span>
+                            </div>
+                            <div className="flex">
+                                <MessageCircleMore className="w-4 h-4" />
+                                <span>10 comments</span>
+                            </div>
                         </div>
-                        <div className="comments">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <span>10 comments</span>
+                        <div className="flex gap-2.5">
+                            <a href="#">Read More</a>
+                            <ChevronRight />
                         </div>
-                    </div>
-                    <div className="read-more">
-                        <a href="#">Read More</a>
-                        <i class="fa-solid fa-chevron-right"></i>
                     </div>
                 </div>
                 <div className="blog-item">
-                    <img src="" alt="Blog Post 1" />
-                    <ul className="blog-tags">
-                        <li>Google</li>
-                        <li>Trend</li>
-                        <li>New</li>
-                    </ul>
-                    <h4>How to Use Google Trends for Market Research</h4>
-                    <p>Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                    <div className="figures">
-                        <div className="date">
-                            <i class="fa-regular fa-calendar-days"></i>
-                            <span>22 April 2024</span>
+                    <img src="" alt="Blog Post 2" />
+                    <div className="px-[25px] pt-[25px] pb-[35px]">
+                        <ul className="flex gap-[15px] text-xs">
+                            <li>Google</li>
+                            <li>Trend</li>
+                            <li>New</li>
+                        </ul>
+                        <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
+                        <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
+                        <div className="flex text-xs py-[15px] justify-between">
+                            <div className="flex">
+                                <Calendar className="w-4 h-4" />
+                                <span>22 April 2024</span>
+                            </div>
+                            <div className="flex">
+                                <MessageCircleMore className="w-4 h-4" />
+                                <span>10 comments</span>
+                            </div>
                         </div>
-                        <div className="comments">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <span>10 comments</span>
+                        <div className="flex gap-2.5">
+                            <a href="#">Read More</a>
+                            <ChevronRight />
                         </div>
-                    </div>
-                    <div className="read-more">
-                        <a href="#">Read More</a>
-                        <i class="fa-solid fa-chevron-right"></i>
                     </div>
                 </div>
                 <div className="blog-item">
-                    <img src="" alt="Blog Post 1" />
-                    <ul className="blog-tags">
-                        <li>Google</li>
-                        <li>Trend</li>
-                        <li>New</li>
-                    </ul>
-                    <h4>How to Use Google Trends for Market Research</h4>
-                    <p>Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                    <div className="figures">
-                        <div className="date">
-                            <i class="fa-regular fa-calendar-days"></i>
-                            <span>22 April 2024</span>
+                    <img src="" alt="Blog Post 3" />
+                    <div className="px-[25px] pt-[25px] pb-[35px]">
+                        <ul className="flex gap-[15px] text-xs">
+                            <li>Google</li>
+                            <li>Trend</li>
+                            <li>New</li>
+                        </ul>
+                        <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
+                        <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
+                        <div className="flex text-xs py-[15px] justify-between">
+                            <div className="flex">
+                                <Calendar className="w-4 h-4" />
+                                <span>22 April 2024</span>
+                            </div>
+                            <div className="flex">
+                                <MessageCircleMore className="w-4 h-4" />
+                                <span>10 comments</span>
+                            </div>
                         </div>
-                        <div className="comments">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <span>10 comments</span>
+                        <div className="flex gap-2.5">
+                            <a href="#">Read More</a>
+                            <ChevronRight />
                         </div>
-                    </div>
-                    <div className="read-more">
-                        <a href="#">Read More</a>
-                        <i class="fa-solid fa-chevron-right"></i>
                     </div>
                 </div>
             </div>

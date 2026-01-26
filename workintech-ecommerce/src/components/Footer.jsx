@@ -1,74 +1,76 @@
+import { Phone, MapPin, Mail, Facebook, Instagram, Twitter } from "lucide-react"
+
 export default function Footer() {
     return (
-        <div className="footerContainer">
-            <div className="footerMain">
-                <h3>Consulting Agency For Your Business</h3>
+        <div className="bg-[#252b42] text-white px-48">
+            <div className="py-10 flex gap-80">
+                <div className="flex flex-col gap-2.5">
+                    <h3 className="font-bold text-2xl">Consulting Agency For Your Business</h3>
                 <p>We provide expert business consulting services to help you achieve your goals and drive growth.</p>
-                <div className="btn-contact">
-                    <button>Contact Us</button>
                 </div>
+                    <button className="py-[15px] px-10 rounded-[5px]">Contact Us</button>
             </div>
-            <div className="footerQuickLinks">
-                <div className="companyInfo">
-                    <h5>Company Info</h5>
-                    <ul className="companyInfoMenus">
+            <div className="flex py-[50px] gap-[30px] font-bold">
+                <div className="flex flex-col gap-5">
+                    <h5 className="text-base">Company Info</h5>
+                    <ul className="flex flex-col gap-2.5 text-sm">
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Carrier</a></li>
                         <li><a href="#">We are hiring</a></li>
                         <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
-                <div className="legal">
-                    <h5>Legal</h5>
-                    <ul className="legalMenus">
+                <div className="flex flex-col gap-5">
+                    <h5 className="text-base">Legal</h5>
+                    <ul className="flex flex-col gap-2.5 text-sm">
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
                         <li><a href="#">Cookie Policy</a></li>
                         <li><a href="#">Data Protection</a></li>
                     </ul>
                 </div>
-                <div className="features">
-                    <h5>Features</h5>
-                    <ul className="featuresMenus">
+                <div className="flex flex-col gap-5">
+                    <h5 className="text-base">Features</h5>
+                    <ul className="flex flex-col gap-2.5 text-sm">
                         <li><a href="#">Business Marketing</a></li>
                         <li><a href="#">User Analytic</a></li>
                         <li><a href="#">Live Chat</a></li>
                         <li><a href="#">Unlimited Support</a></li>
                     </ul>
                 </div>
-                <div className="resources">
-                    <h5>Resources</h5>
-                    <ul className="resourcesMenus">
+                <div className="flex flex-col gap-5">
+                    <h5 className="text-base">Resources</h5>
+                    <ul className="flex flex-col gap-2.5 text-sm">
                         <li><a href="#">Documentation</a></li>
                         <li><a href="#">Support</a></li>
                         <li><a href="#">API Status</a></li>
                         <li><a href="#">Community</a></li>
                     </ul>
                 </div>
-                <div className="contact">
+                <div className="flex flex-col gap-5">
                     <h5>Get In Touch</h5>
-                    <div className="contactInfo">
-                        <div className="phone">
-                            <i className="fa-solid fa-phone"></i>
+                    <div className="flex flex-col gap-2.5">
+                        <div className="flex gap-2.5">
+                            <Phone/>
                             <span>(480) 555-01-03</span>
                         </div>
-                        <div className="location">
-                            <i className="fa-solid fa-location-dot"></i>
+                        <div className="flex gap-2.5">
+                            <MapPin/>
                             <span>4517 Washington Ave.</span>
                         </div>
-                        <div className="email">
-                            <i className="fa-solid fa-envelope"></i>
+                        <div className="flex gap-2.5">
+                            <Mail/>
                             <span>kerem@kerem.com</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="footerBottom">
+            <div className="flex py-[25px] gap-52">
                 <h6>&copy; 2023 Your Company Name. All rights reserved.</h6>
-                <div className="socialMediaIcons">
-                    <i className="fa-brands fa-facebook"></i>
-                    <i className="fa-brands fa-instagram"></i>
-                    <i className="fa-brands fa-twitter"></i>
+                <div className="flex gap-5">
+                    <Facebook/>
+                    <Instagram/>
+                    <Twitter/>
                 </div>
             </div>
         </div>

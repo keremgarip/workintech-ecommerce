@@ -1,18 +1,20 @@
+import { Download } from "lucide-react"
+
 export default function MostPopular() {
     return (
-        <div className="popular-container">
-            <div className="popular-left">
-                <h5>MOST POPULAR</h5>
-                <p>Enjoy our most popular products with exclusive deals and discounts.</p>
+        <div className="flex py-12">
+            <div className="text-center">
+                <h5 className="font-bold text-2xl">MOST POPULAR</h5>
+                <p className="text-[#737373]">Enjoy our most popular products with exclusive deals and discounts.</p>
                 <img src="" alt="Caramel Cashew" />
                 <a href="#">Snack Products</a>
-                <div className="sales-figures">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <h6>120 Sales</h6>
+                <div className="flex gap-[10px]">
+                    <Download />
+                    <h6 className="font-bold text-sm">120 Sales</h6>
                 </div>
-                <div className="price">
-                    <h5>$16.48</h5>
-                    <h5>$6.48</h5>
+                <div className="flex gap-[5px]">
+                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
                 </div>
                 <div className="product-colors"></div>
             </div>
