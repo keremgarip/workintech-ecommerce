@@ -7,7 +7,7 @@ export default function Blog() {
             <h2 className="font-bold text-[40px] text-center">Featured Posts</h2>
             <div className="flex gap-[30px]">
                 <div className="blog-item">
-                    <img src="" alt="Blog Post 1" />
+                    <img src="src\assets\blog\avocado-egg.jpg" alt="Blog Post 1" className="max-h-90 max-w-90 ml-11"/>
                     <div className="px-[25px] pt-[25px] pb-[35px]">
                         <ul className="flex gap-[15px] text-xs">
                             <li>Google</li>
@@ -33,7 +33,7 @@ export default function Blog() {
                     </div>
                 </div>
                 <div className="blog-item">
-                    <img src="" alt="Blog Post 2" />
+                    <img src="src\assets\blog\sandwiches.jpg" alt="Blog Post 2" className="max-h-90 max-w-90 ml-11"/>
                     <div className="px-[25px] pt-[25px] pb-[35px]">
                         <ul className="flex gap-[15px] text-xs">
                             <li>Google</li>
@@ -59,7 +59,7 @@ export default function Blog() {
                     </div>
                 </div>
                 <div className="blog-item">
-                    <img src="" alt="Blog Post 3" />
+                    <img src="src\assets\blog\salad.jpg" alt="Blog Post 3" className="max-h-90 max-w-90 ml-11"/>
                     <div className="px-[25px] pt-[25px] pb-[35px]">
                         <ul className="flex gap-[15px] text-xs">
                             <li>Google</li>

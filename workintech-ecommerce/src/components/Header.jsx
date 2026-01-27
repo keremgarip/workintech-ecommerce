@@ -36,6 +36,13 @@ export default function Header() {
                     </li>
                 </ul>
             </nav>
+            <section className="carousel" style={{ backgroundImage: "url('src/assets/pizza-with-berries.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', height: '640px' }}>
+                <div className="h-full py-10 flex flex-col gap-6 justify-center items-center text-white">
+                    <h1 className="font-bold text-[58px]">GROCERIES DELIVERY</h1>
+                    <h4 className="text-xl">Fast and reliable delivery to your doorstep.</h4>
+                    <h3 className="font-bold text-2xl bg-[#23A6F0] rounded-[5px] px-10 py-[15px] w-50 h-16 text-white">Start Now</h3>
+                </div>
+            </section>
         </div>
     )
 }

@@ -1,18 +1,18 @@
 export default function Popular() {
     return (
         <div className="px-2 py-12">
-            <section className="flex">
+            <section className="flex justify-center">
                 <div className="popular-left">
-                    <img src="" alt="Delivery" />
+                    <img src="src\assets\meat-fire.jpg" className="max-w-[674px]" alt="Delivery" />
                 </div>
-                <div className="text-center">
+                <div className="text-center flex flex-col gap-3 justify-center items-center">
                     <h5 className="font-bold text-2xl">MOST POPULAR</h5>
                     <p className="text-sm">Discover the benefits of choosing our products for your needs.</p>
-                    <img src="" alt="Stew Meat" />
+                    <img src="src\assets\raw-meat.png" className="h-80" alt="Stew Meat" />
                     <a href="#" className="text-sm">Meat Products</a>
                     <div className="flex gap-[5px] justify-center">
-                        <h5 className="text-[#BDBDBD]">$16.48</h5>
-                        <h5 className="text-[#23856D]">$6.48</h5>
+                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
                     </div>
                 </div>
             </section>
