@@ -8,9 +8,9 @@ export default function Footer() {
                     <h3 className="font-bold text-2xl">Consulting Agency For Your Business</h3>
                 <p>We provide expert business consulting services to help you achieve your goals and drive growth.</p>
                 </div>
-                    <button className="py-[15px] px-10 rounded-[5px]">Contact Us</button>
+                    <h3 className="py-[15px] px-10 bg-[#23A6F0] rounded-[5px] w-40 h-13 font-bold text-xs">Contact Us</h3>
             </div>
-            <div className="flex py-[50px] gap-[30px] font-bold">
+            <div className="flex py-[50px] gap-[80px] font-bold">
                 <div className="flex flex-col gap-5">
                     <h5 className="text-base">Company Info</h5>
                     <ul className="flex flex-col gap-2.5 text-sm">
