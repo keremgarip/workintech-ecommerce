@@ -1,40 +1,24 @@
+import { shopCards, bestSellerTabs, bestSellerProducts, benefits, allProducts, clients, blogPosts } from "../data/home.data.js";
+
 import { ChevronLeft, ChevronRight, Calendar, MessageCircleMore, Download } from "lucide-react";
 
 export default function PageContent() {
     return (
         <div className="pagecontent-container">
+            {/* ShopCards */}
             <div className="flex justify-around px-2 py-20 gap-4">
-                <div className="flex border border-[#ECECEC]">
-                    <div className="flex flex-col gap-2 justify-around">
-                        <h6 className="font-normal text-sm">New Arrival</h6>
-                        <h2 className="font-bold text-2xl">Ice Cream</h2>
-                        <h6 className="font-normal text-xs">Explore Items</h6>
+                {shopCards.map((card) => (
+                    <div key={card.id} className="flex border border-[#ECECEC] p-4 justify-between">
+                        <div className="flex flex-col gap-2 justify-center">
+                            <h6 className="font-normal text-sm">{card.tag}</h6>
+                            <h2 className="font-bold text-2xl">{card.title}</h2>
+                            <h6 className="font-normal text-xs">{card.cta}</h6>
+                        </div>
+                        <img src={card.img} className="max-w-[200px]" alt={card.title} />
                     </div>
-                    <div className="shopCardRight">
-                        <img src="src/assets/ice-cream.png" className="max-w-[200px]" alt="Ice Cream" />
-                    </div>
-                </div>
-                <div className="flex border border-[#ECECEC]">
-                    <div className="flex flex-col gap-2 justify-around">
-                        <h6 className="font-normal text-sm">Ends Today</h6>
-                        <h2 className="font-bold text-2xl">Apple</h2>
-                        <h6 className="font-normal text-xs">Explore Items</h6>
-                    </div>
-                    <div className="shopCardRight">
-                        <img src="src/assets/apple.png" className="max-w-[200px]" alt="Apple" />
-                    </div>
-                </div>
-                <div className="flex border border-[#ECECEC]">
-                    <div className="flex flex-col gap-2 justify-around">
-                        <h6 className="font-normal text-sm">Best Seller</h6>
-                        <h2 className="font-bold text-2xl">Steak</h2>
-                        <h6 className="font-normal text-xs">Explore Items</h6>
-                    </div>
-                    <div className="shopCardRight">
-                        <img src="src/assets/steak.png" className="max-w-[200px]" alt="Steak" />
-                    </div>
-                </div>
+                ))}
             </div>
+            {/* Bestseller */}
             <div className="px-2 py-12 flex justify-center gap-7.5">
                 <div className="border border-[#8EC2F2] h-[800px] w-[400px] bg-cover bg-center" style={{ backgroundImage: "url('src/assets/barista-drink.jpg')" }}>
                     <h6 className="text-sm font-bold">ALL PRODUCTS</h6>
@@ -43,84 +27,34 @@ export default function PageContent() {
                 <div className="flex-col">
                     <div className="flex gap-2.5 items-center">
                         <h3 className="font-bold text-base">Bestseller Products</h3>
-                        <h6 className="text-sm">Frozen</h6>
-                        <h6 className="text-sm">Fruits</h6>
-                        <h6 className="text-sm">Meat Products</h6>
+                        {bestSellerTabs.map((tab) => (
+                            <h6 key={tab} className="text-sm">{tab}</h6>
+                        ))}
                         <div className="flex py-3.5 px-5">
                             <div className="border rounded-[34px] border-[#BDBDBD]"><ChevronLeft className="w-5 h-5" /></div>
                             <div className="border rounded-[34px] border-[#BDBDBD]"><ChevronRight className="w-5 h-5" /></div>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                        <div className="justify-items-center">
-                            <img src="src/assets/ice-cream.png" className="max-h-40" alt="Ice Cream" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        {bestSellerProducts.map((product) => (
+                            <div key={product.id} className="flex flex-col items-center text-center gap-2">
+                                <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                                    <img src={product.img} className="max-h-full object-contain" alt={product.name} />
+                                </div>
+                                <div className="space-y-1">
+                                    <h5 className="font-bold">{product.name}</h5>
+                                    <a href="#" className="text-sm text-gray-500 hover:underline">{product.category}</a>
+                                    <div className="flex justify-center gap-2">
+                                        <span className="text-[#BDBDBD] font-bold">${product.oldPrice.toFixed(2)}</span>
+                                        <span className="text-[#23856D] font-bold">${product.price.toFixed(2)}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/apple.png" className="max-h-40" alt="Apple" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Apple</h5>
-                                <a href="#">Fruit Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/steak.png" className="max-h-40" alt="Steak" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Steak</h5>
-                                <a href="#">Meat Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/ice-cream.png" className="max-h-40" alt="Ice Cream" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/apple.png" className="max-h-40" alt="Apple" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Apple</h5>
-                                <a href="#">Fruit Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/steak.png" className="max-h-40" alt="Steak" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Steak</h5>
-                                <a href="#">Meat Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
+            {/* Popular */}
             <div className="px-2 py-12">
                 <section className="flex justify-center gap-5">
                     <div className="popular-left">
@@ -137,116 +71,47 @@ export default function PageContent() {
                         </div>
                     </div>
                 </section>
+                {/* Popular Benefits*/}
                 <section className="mt-2.5 flex">
-                    <div className="flex p-6 gap-5">
-                        <h2 className="font-bold text-[40px] text-[#E74040]">1.</h2>
-                        <div className="benefit-content">
-                            <h6 className="font-bold text-sm">Easy to use</h6>
-                            <p className="text-xs">Our products are designed with user-friendliness in mind, ensuring a seamless experience.</p>
+                    {benefits.map((benefit) => (
+                        <div key={benefit.id} className="flex p-6 gap-5">
+                            <h2 className="font-bold text-[40px] text-[#E74040]">{benefit.id}.</h2>
+                            <div>
+                                <h6 className="font-bold text-sm">{benefit.title}</h6>
+                                <p className="text-xs">{benefit.desc}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex p-6 gap-5">
-                        <h2 className="font-bold text-[40px] text-[#E74040]">2.</h2>
-                        <div className="benefit-content">
-                            <h6 className="font-bold text-sm">Fast delivery</h6>
-                            <p className="text-xs">Get your products delivered quickly and efficiently, saving you time and effort.</p>
-                        </div>
-                    </div>
-                    <div className="flex p-6 gap-5">
-                        <h2 className="font-bold text-[40px] text-[#E74040]">3.</h2>
-                        <div className="benefit-content">
-                            <h6 className="font-bold text-sm">Quality products</h6>
-                            <p className="text-xs">We ensure all our products meet the highest quality standards, providing you with reliable and durable items.</p>
-                        </div>
-                    </div>
-                    <div className="flex p-6 gap-5">
-                        <h2 className="font-bold text-[40px] text-[#E74040]">4.</h2>
-                        <div className="benefit-content">
-                            <h6 className="font-bold text-sm">Non-stop service</h6>
-                            <p className="text-xs">We offer 24/7 support to ensure you never face any issues with our products or services.</p>
-                        </div>
-                    </div>
+                    ))}
                 </section>
             </div>
             <div className="px-2 py-12 flex justify-center gap-7.5">
                 <div className="flex-col">
                     <div className="flex gap-2.5 items-center">
                         <h3 className="font-bold text-base">Bestseller Products</h3>
-                        <h6 className="text-sm">Frozen</h6>
-                        <h6 className="text-sm">Fruits</h6>
-                        <h6 className="text-sm">Meat Products</h6>
+                        {bestSellerTabs.map((tab) => (
+                            <h6 key={tab} className="text-sm">{tab}</h6>
+                        ))}
                         <div className="flex py-3.5 px-5">
                             <div className="border rounded-[34px] border-[#BDBDBD]"><ChevronLeft className="w-5 h-5" /></div>
                             <div className="border rounded-[34px] border-[#BDBDBD]"><ChevronRight className="w-5 h-5" /></div>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                        <div className="justify-items-center">
-                            <img src="src/assets/ice-cream.png" className="max-h-40" alt="Ice Cream" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        {bestSellerProducts.map((product) => (
+                            <div key={product.id} className="flex flex-col items-center text-center gap-2">
+                                <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                                    <img src={product.img} className="max-h-full object-contain" alt={product.name} />
+                                </div>
+                                <div className="space-y-1">
+                                    <h5 className="font-bold">{product.name}</h5>
+                                    <a href="#" className="text-sm text-gray-500 hover:underline">{product.category}</a>
+                                    <div className="flex justify-center gap-2">
+                                        <span className="text-[#BDBDBD] font-bold">${product.oldPrice.toFixed(2)}</span>
+                                        <span className="text-[#23856D] font-bold">${product.price.toFixed(2)}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/apple.png" className="max-h-40" alt="Apple" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Apple</h5>
-                                <a href="#">Fruit Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/steak.png" className="max-h-40" alt="Steak" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Steak</h5>
-                                <a href="#">Meat Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/ice-cream.png" className="max-h-40" alt="Ice Cream" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/apple.png" className="max-h-40" alt="Apple" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Apple</h5>
-                                <a href="#">Fruit Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="justify-items-center">
-                            <img src="src/assets/steak.png" className="max-h-40" alt="Steak" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Steak</h5>
-                                <a href="#">Meat Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
                 <div className="bestseller-left">
@@ -256,6 +121,7 @@ export default function PageContent() {
                     </div>
                 </div>
             </div>
+            {/* Most Popular */}
             <div className="flex py-12 justify-center gap-5">
                 <div className="text-center flex flex-col gap-3 justify-center items-center">
                     <h5 className="font-bold text-2xl">MOST POPULAR</h5>
@@ -276,47 +142,28 @@ export default function PageContent() {
                     <img src="src\assets\dinner.jpg" className="max-h-[800px]" alt="Delivery" />
                 </div>
             </div>
+            {/* All Products */}
             <div className="bg-[#FAFAFA] px-2 py-12">
                 <h3 className="font-bold text-2xl border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</h3>
                 <div className="flex gap-[30px] justify-center mt-4">
-                    <div className="justify-items-center">
-                        <img src="src\assets\carafe.png" alt="Carafe" className="max-h-64 max-w-[240px]" />
-                        <h5 className="font-bold text-base">Carafe</h5>
-                        <a href="#" className="text-sm">Kitchen Department</a>
-                        <div className="flex gap-[5px]">
-                            <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                            <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                    {allProducts.map((product) => (
+                        <div key={product.id} className="flex flex-col items-center text-center gap-2">
+                            <div className="h-64 w-full max-w-[240px] flex items-center justify-center bg-white rounded-xl overflow-hidden">
+                                <img src={product.img} alt={product.name} className="max-h-full object-contain" />
+                            </div>
+
+                            <h5 className="font-bold text-base">{product.name}</h5>
+                            <a href="#" className="text-sm text-gray-500 hover:underline">{product.category}</a>
+
+                            <div className="flex gap-2">
+                                <span className="text-[#BDBDBD] font-bold">${product.oldPrice.toFixed(2)}</span>
+                                <span className="text-[#23856D] font-bold">${product.price.toFixed(2)}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="justify-items-center">
-                        <img src="src\assets\cheese-tray.png" alt="Cheese Tray" className="max-h-64 max-w-[240px]" />
-                        <h5 className="font-bold text-base">Cheese Tray</h5>
-                        <a href="#" className="text-sm">Kitchen Department</a>
-                        <div className="flex gap-[5px]">
-                            <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                            <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                        </div>
-                    </div>
-                    <div className="justify-items-center">
-                        <img src="src\assets\bleach.png" alt="Bleach" className="max-h-64 max-w-[240px]" />
-                        <h5 className="font-bold text-base">Bleach</h5>
-                        <a href="#" className="text-sm">Cleaning Department</a>
-                        <div className="flex gap-[5px]">
-                            <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                            <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                        </div>
-                    </div>
-                    <div className="justify-items-center">
-                        <img src="src\assets\caramel-candy.png" alt="Caramel Candies" className="max-h-64 max-w-[240px]" />
-                        <h5 className="font-bold text-base">Caramel Candies</h5>
-                        <a href="#" className="text-sm">Grocery Department</a>
-                        <div className="flex gap-[5px]">
-                            <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                            <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
+            {/* Clients */}
             <div className="px-2 py-[50px] flex gap-30 bg-[#FAFAFA] flex items-center justify-center">
                 <div className="clients-item">
                     <img src="src\assets\client\hooli.png" alt="Hooli" className="max-w-40" />
@@ -337,88 +184,43 @@ export default function PageContent() {
                     <img src="src\assets\client\reddit.png" alt="Reddit" className="max-w-40 max-h-18" />
                 </div>
             </div>
+            {/* Blogs */}
             <div className="px-2 py-28">
                 <h6 className="font-bold text-sm text-[#23A6F0] text-center">Practice Advice</h6>
                 <h2 className="font-bold text-[40px] text-center">Featured Posts</h2>
                 <div className="flex gap-[30px]">
-                    <div className="blog-item">
-                        <img src="src\assets\blog\avocado-egg.jpg" alt="Blog Post 1" className="max-h-90 max-w-90 ml-11" />
-                        <div className="px-[25px] pt-[25px] pb-[35px]">
-                            <ul className="flex gap-[15px] text-xs">
-                                <li>Google</li>
-                                <li>Trend</li>
-                                <li>New</li>
-                            </ul>
-                            <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
-                            <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                            <div className="flex text-xs py-[15px] justify-between">
-                                <div className="flex">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>22 April 2024</span>
+                    {blogPosts.map((p) => (
+                        <div key={p.id} className="border border-[#ECECEC] bg-white">
+                            <img src={p.img} alt={p.title} className="w-full h-64 object-cover" />
+
+                            <div className="px-[25px] pt-[25px] pb-[35px] space-y-3">
+                                <ul className="flex gap-[15px] text-xs text-gray-500">
+                                    {p.tags.map((t) => (
+                                        <li key={t}>{t}</li>
+                                    ))}
+                                </ul>
+
+                                <h4 className="text-xl font-semibold">{p.title}</h4>
+                                <p className="text-sm text-gray-600">{p.desc}</p>
+
+                                <div className="flex text-xs py-[15px] justify-between text-gray-500">
+                                    <div className="flex items-center gap-2">
+                                        <Calendar className="w-4 h-4" />
+                                        <span>{p.date}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <MessageCircleMore className="w-4 h-4" />
+                                        <span>{p.comments} comments</span>
+                                    </div>
                                 </div>
-                                <div className="flex">
-                                    <MessageCircleMore className="w-4 h-4" />
-                                    <span>10 comments</span>
+
+                                <div className="flex items-center gap-2.5 text-sm font-semibold">
+                                    <a href="#" className="hover:underline">Read More</a>
+                                    <ChevronRight className="w-4 h-4" />
                                 </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <a href="#">Read More</a>
-                                <ChevronRight />
                             </div>
                         </div>
-                    </div>
-                    <div className="blog-item">
-                        <img src="src\assets\blog\sandwiches.jpg" alt="Blog Post 2" className="max-h-90 max-w-90 ml-11" />
-                        <div className="px-[25px] pt-[25px] pb-[35px]">
-                            <ul className="flex gap-[15px] text-xs">
-                                <li>Google</li>
-                                <li>Trend</li>
-                                <li>New</li>
-                            </ul>
-                            <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
-                            <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                            <div className="flex text-xs py-[15px] justify-between">
-                                <div className="flex">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>22 April 2024</span>
-                                </div>
-                                <div className="flex">
-                                    <MessageCircleMore className="w-4 h-4" />
-                                    <span>10 comments</span>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <a href="#">Read More</a>
-                                <ChevronRight />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="blog-item">
-                        <img src="src\assets\blog\salad.jpg" alt="Blog Post 3" className="max-h-90 max-w-90 ml-11" />
-                        <div className="px-[25px] pt-[25px] pb-[35px]">
-                            <ul className="flex gap-[15px] text-xs">
-                                <li>Google</li>
-                                <li>Trend</li>
-                                <li>New</li>
-                            </ul>
-                            <h4 className="text-xl">How to Use Google Trends for Market Research</h4>
-                            <p className="text-sm">Learn how to leverage Google Trends to gain insights into market behavior and consumer interests.</p>
-                            <div className="flex text-xs py-[15px] justify-between">
-                                <div className="flex">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>22 April 2024</span>
-                                </div>
-                                <div className="flex">
-                                    <MessageCircleMore className="w-4 h-4" />
-                                    <span>10 comments</span>
-                                </div>
-                            </div>
-                            <div className="flex gap-2.5">
-                                <a href="#">Read More</a>
-                                <ChevronRight />
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
