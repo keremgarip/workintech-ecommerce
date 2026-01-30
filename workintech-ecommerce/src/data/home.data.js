@@ -1,3 +1,40 @@
+export const headerMenus = [
+  { label: "Home", path: "/"},
+  { label: "Shop", path: "/shop"},
+  { label: "About", path: "/about"},
+  { label: "Blog", path: "/blog"},
+  { label: "Contact", path: "/contact"},
+  { label: "Pages", path: "/pages"},
+];
+
+export const heroSlides = [
+  {
+    id: "slide-1",
+    bg: "src/assets/pizza-with-berries.jpg",
+    title: "GROCERIES DELIVERY",
+    subtitle: "Fast and reliable delivery to your doorstep.",
+    cta: "Start Now",
+    ctaLink: "/shop",
+  },
+  {
+    id: "slide-2",
+    bg: "src/assets/dinner.jpg",
+    title: "FRESH MEALS",
+    subtitle: "Premium quality ingredients, delivered fast.",
+    cta: "Shop Meals",
+    ctaLink: "/shop",
+  },
+  {
+    id: "slide-3",
+    bg: "src/assets/barista-drink.jpg",
+    title: "COFFEE & DRINKS",
+    subtitle: "Discover new tastes for your daily routine.",
+    cta: "Explore",
+    ctaLink: "/shop",
+  },
+];
+
+
 export const shopCards = [
     {id: "ice", tag: "New Arrival", title: "Ice Cream", cta: "Explore Items", img: "src/assets/ice-cream.png"},
     {id: "apple", tag: "Ends Today", title: "Apple", cta: "Explore Items", img: "src/assets/apple.png"},
