@@ -30,8 +30,8 @@ export default function PageContent() {
             </Container>
             {/* Bestseller */}
             <Container>
-                <div className="px-2 py-12 flex justify-center gap-7.5">
-                    <div className="border border-[#8EC2F2] h-[800px] w-[400px] bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]" style={{ backgroundImage: "url('src/assets/barista-drink.jpg')" }}>
+                <div className="px-2 py-12 flex justify-center gap-7.5 items-stretch">
+                    <div className="border border-[#8EC2F2] w-[400px] bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]" style={{ backgroundImage: "url('src/assets/barista-drink.jpg')" }}>
                         <h6 className="text-sm font-bold">ALL PRODUCTS</h6>
                         <h6 className="text-sm font-bold">200 items</h6>
                     </div>
@@ -99,7 +99,7 @@ export default function PageContent() {
                 </div>
             </Container>
             <Container>
-                <div className="px-2 py-12 flex justify-center gap-7.5">
+                <div className="px-2 py-12 flex justify-center gap-7.5 items-stretch">
                     <div className="flex-col">
                         <div className="flex gap-2.5 items-center border-b-2 border-[#ECECEC]">
                             <h3 className="font-bold text-base">Bestseller Products</h3>
@@ -130,7 +130,7 @@ export default function PageContent() {
                         </div>
                     </div>
                     <div className="bestseller-left">
-                        <div className="border border-[#8EC2F2] h-[800px] w-[400px] bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]" style={{ backgroundImage: "url('src/assets/donuts.jpg')" }}>
+                        <div className="border border-[#8EC2F2] w-[400px] h-full bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]" style={{ backgroundImage: "url('src/assets/donuts.jpg')" }}>
                             <h6 className="text-sm font-bold">ALL PRODUCTS</h6>
                             <h6 className="text-sm font-bold">200 items</h6>
                         </div>
