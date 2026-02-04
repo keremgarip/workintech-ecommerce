@@ -54,10 +54,25 @@ export default function Shop() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-4">
+                <div className="grid grid-cols-4 text-center">
+                    <div className="flex gap-[30px] py-2 content-center">
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -70,7 +85,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -83,7 +98,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -96,7 +111,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -109,7 +124,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -122,7 +137,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -135,7 +150,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -148,7 +163,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -161,7 +176,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -174,7 +189,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -187,20 +202,7 @@ export default function Shop() {
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
                         <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="" alt="Ice Cream" className="" />
+                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                             <div className="gap-2.5">
                                 <h5 className="font-bold">Ice Cream</h5>
                                 <a href="#">Frozen Products</a>
@@ -213,37 +215,39 @@ export default function Shop() {
                     </div>
                 </div>
             </div>
-            <div className="inline-flex overflow-hidden rounded-lg border border-gray-300 ">
-                <button className="px-6 py-3 text-gray-400 bg-gray-100 cursor-not-allowed">
-                    First
-                </button>
+            <div className="flex justify-center mt-8">
+                <div className="inline-flex overflow-hidden rounded-lg border border-gray-300">
+                    <button className="px-6 py-3 text-gray-400 bg-gray-100 cursor-not-allowed">
+                        First
+                    </button>
 
-                <button className="px-4 py-3 text-[#23A6F0]">1</button>
-                <button className="px-4 py-3 text-[#23A6F0]">2</button>
-                <button className="px-4 py-3 text-[#23A6F0]">3</button>
+                    <button className="px-4 py-3 text-[#23A6F0]">1</button>
+                    <button className="px-4 py-3 text-[#23A6F0]">2</button>
+                    <button className="px-4 py-3 text-[#23A6F0]">3</button>
 
-                <button className="px-6 py-3 text-[#23A6F0]">Next</button>
+                    <button className="px-6 py-3 text-[#23A6F0]">Next</button>
+                </div>
             </div>
             <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">
-                    <div className="clients-item">
-                        <img src="src\assets\hooli.png" alt="Hooli" className="max-w-40" />
-                    </div>
-                    <div className="clients-item">
-                        <img src="src\assets\lyft.png" alt="Lyft" className="max-w-40 max-h-15" />
-                    </div>
-                    <div className="clients-item">
-                        <img src="src\assets\meta.png" alt="Meta" className="max-w-40 max-h-18" />
-                    </div>
-                    <div className="clients-item">
-                        <img src="src\assets\stripe.png" alt="Stripe" className="max-w-40 max-h-13" />
-                    </div>
-                    <div className="clients-item">
-                        <img src="src\assets\aws.png" alt="Amazon Web Services" className="max-w-40 max-h-15" />
-                    </div>
-                    <div className="clients-item">
-                        <img src="src\assets\reddit.png" alt="Reddit" className="max-w-40 max-h-18" />
-                    </div>
+                <div className="clients-item">
+                    <img src="src\assets\hooli.png" alt="Hooli" className="max-w-40" />
                 </div>
+                <div className="clients-item">
+                    <img src="src\assets\lyft.png" alt="Lyft" className="max-w-40 max-h-15" />
+                </div>
+                <div className="clients-item">
+                    <img src="src\assets\meta.png" alt="Meta" className="max-w-40 max-h-18" />
+                </div>
+                <div className="clients-item">
+                    <img src="src\assets\stripe.png" alt="Stripe" className="max-w-40 max-h-13" />
+                </div>
+                <div className="clients-item">
+                    <img src="src\assets\aws.png" alt="Amazon Web Services" className="max-w-40 max-h-15" />
+                </div>
+                <div className="clients-item">
+                    <img src="src\assets\reddit.png" alt="Reddit" className="max-w-40 max-h-18" />
+                </div>
+            </div>
         </main>
     )
 }

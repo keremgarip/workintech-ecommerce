@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import PageContent from "./components/PageContent"
 import Shop from "./components/Shop";
 import Carousel from "./components/Carousel";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
 
@@ -19,6 +20,10 @@ function App() {
 
         <Route path="/shop">
           <Shop />
+        </Route>
+
+        <Route path="/product">
+          <ProductDetails />
         </Route>
 
       </Switch>
