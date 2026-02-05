@@ -71,147 +71,169 @@ export default function Shop() {
                         </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="flex gap-[30px] py-2 content-center">
-                        <div className="flex flex-col items-center">
-                            <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
-                            <div className="gap-2.5">
-                                <h5 className="font-bold">Ice Cream</h5>
-                                <a href="#">Frozen Products</a>
-                                <div className="flex gap-[5px]">
-                                    <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                                    <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                        <Link to="/product" className="block">
+                            <div className="flex flex-col items-center">
+                                <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
+                                <div className="gap-2.5">
+                                    <h5 className="font-bold">Ice Cream</h5>
+                                    <a href="#">Frozen Products</a>
+                                    <div className="flex gap-[5px]">
+                                        <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                                        <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

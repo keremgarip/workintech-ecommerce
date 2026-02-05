@@ -1,31 +1,234 @@
+import { ChevronRight, Star, Heart, ShoppingBasket, Eye, ChevronDown } from "lucide-react"
+
 export default function ProductDetails() {
-    return (
-        <main className="w-full">
+  return (
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-10">
-        <Link to="/shop" className="text-[#23A6F0] hover:underline">
-          ← Back to Shop
-        </Link>
-
-        <h1 className="text-3xl font-bold mt-4">Product Details</h1>
-        <p className="text-gray-600 mt-2">Slug: {slug}</p>
-
-        {slug === "ice-cream" ? (
-          <div className="mt-8 flex gap-8">
-            <img src="src/assets/ice-cream.png" alt="Ice Cream" className="w-72" />
-            <div>
-              <h2 className="text-2xl font-bold">Ice Cream</h2>
-              <p className="text-gray-600 mt-2">Frozen Products</p>
-
-              <div className="flex gap-3 mt-4">
-                <span className="text-[#BDBDBD] font-bold">$16.48</span>
-                <span className="text-[#23856D] font-bold">$6.48</span>
+        <div className="py-6 px-5 bg-[#FAFAFA]">
+          <div className="flex gap-[15px] py-2.5">
+            <a href="/">Home</a>
+            <ChevronRight />
+            <a href="/shop">Shop</a>
+          </div>
+        </div>
+        <div className="flex gap-7.5">
+          <div className="pb-12 flex flex-col gap-6">
+            <img src="src\assets\pillow.jpg" alt="Pillow" className="h-[450px]" />
+            <div className="flex gap-5">
+              <img src="src\assets\sofa.jpg" alt="" className="h-[100px]" />
+              <img src="src\assets\sofa.jpg" alt="" className="h-[100px]" />
+            </div>
+          </div>
+          <div className="py-4 flex flex-col gap-3">
+            <h4 className="text-xl font-semibold">Pillow</h4>
+            <div className="flex gap-3">
+              <div className="flex gap-[5px]">
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+              </div>
+              <h6 className="font-bold">10 Reviews</h6>
+            </div>
+            <div className="mt-2 flex flex-col gap-3">
+              <h5 className="font-bold text-2xl">$1,139.33</h5>
+              <div className="flex gap-1 font-bold">
+                <span className="text-[#737373]">Availability :</span>
+                <span className="text-[#23A6F0]">In Stock</span>
+              </div>
+            </div>
+            <p>Paragraph</p>
+            <div className="flex gap-2.5 items-center">
+              <button>Select Options</button>
+              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
+                <Heart className="w-5 h-5 text-gray-700" />
+              </div>
+              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
+                <ShoppingBasket className="w-5 h-5 text-gray-700" />
+              </div>
+              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
+                <Eye className="w-5 h-5 text-gray-700" />
               </div>
             </div>
           </div>
-        ) : (
-          <p className="mt-8 text-red-500">Product not found.</p>
-        )}
+        </div>
+        <div className="">
+          <div className="flex justify-center gap-20 font-semibold border-b border-[#ECECEC] py-5">
+            <h6>Description</h6>
+            <h6>Additional Infotmation</h6>
+            <h6>Reviews (0)</h6>
+          </div>
+          <div className="flex gap-70 justify-between mt-4">
+            <div>
+              <img src="src\assets\salad.jpg" alt="" className="w-[316px] h-[372px]" />
+            </div>
+            <div className="pb-[25px] flex flex-col gap-7.5">
+              <h3 className="font-bold text-2xl">Benefit Title</h3>
+              <p>Paragraph 1</p>
+              <p>Paragraph 2</p>
+              <p>Paragraph 3</p>
+            </div>
+            <div>
+              <div className="flex flex-col gap-4">
+                <h3 className="text-2xl font-bold">Product Features</h3>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 1
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 2
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 3
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 4
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 mt-3">
+                <h3 className="text-2xl font-bold">Product Features</h3>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 1
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 2
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 3
+                  </div>
+                  <div className="flex gap-5">
+                    <ChevronDown />
+                    Feature 4
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-[#FAFAFA] py-12">
+          <h3 className="font-bold text-2xl border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</h3>
+          <div className="grid grid-cols-4 text-center mt-5">
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
+              <div className="px-[25px] pt-[25px] pb-[35px]">
+                <h5 className="font-bold">Product Name</h5>
+                <a href="#">Frozen Products</a>
+                <div className="flex gap-[5px] justify-center">
+                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
+                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">
+          <div className="clients-item">
+            <img src="src\assets\hooli.png" alt="Hooli" className="max-w-40" />
+          </div>
+          <div className="clients-item">
+            <img src="src\assets\lyft.png" alt="Lyft" className="max-w-40 max-h-15" />
+          </div>
+          <div className="clients-item">
+            <img src="src\assets\meta.png" alt="Meta" className="max-w-40 max-h-18" />
+          </div>
+          <div className="clients-item">
+            <img src="src\assets\stripe.png" alt="Stripe" className="max-w-40 max-h-13" />
+          </div>
+          <div className="clients-item">
+            <img src="src\assets\aws.png" alt="Amazon Web Services" className="max-w-40 max-h-15" />
+          </div>
+          <div className="clients-item">
+            <img src="src\assets\reddit.png" alt="Reddit" className="max-w-40 max-h-18" />
+          </div>
+        </div>
       </div>
-    </main>
-    )
+    </div>
+  )
 }
