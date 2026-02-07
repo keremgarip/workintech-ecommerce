@@ -5,6 +5,8 @@ import PageContent from "./components/PageContent"
 import Shop from "./components/Shop";
 import Carousel from "./components/Carousel";
 import ProductDetails from "./components/ProductDetails";
+import Contact from "./components/Contact";
+import Team from "./components/Team";
 
 function App() {
 
@@ -24,6 +26,14 @@ function App() {
 
         <Route path="/product">
           <ProductDetails />
+        </Route>
+
+        <Route path="/contact">
+          <Contact />
+        </Route>
+
+        <Route path="/team">
+          <Team />
         </Route>
 
       </Switch>
