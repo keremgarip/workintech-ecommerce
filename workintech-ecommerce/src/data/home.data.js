@@ -104,3 +104,106 @@ export const blogPosts = [
     comments: 10,
   },
 ];
+
+export const locations = [
+  {
+    id: 1,
+    city: "Istanbul",
+    mall: "Emaar Square AVM",
+    address: "34700 Üsküdar",
+    phone: "+90 (850) 290 80 90",
+    fax: "+90 (216) 123 45 67",
+  },
+  {
+    id: 2,
+    city: "Ankara",
+    mall: "ANKAmall",
+    address: "06560 Yenimahalle",
+    phone: "+90 (312) 541 12 12",
+    fax: "+90 (312) 123 45 67",
+  },
+  {
+    id: 3,
+    city: "Bursa",
+    mall: "Korupark",
+    address: "16160 Osmangazi",
+    phone: "+90 (224) 242 35 35",
+    fax: "+90 (224) 123 45 67",
+  },
+  {
+    id: 4,
+    city: "Balıkesir",
+    mall: "Esas 10 Burda AVM",
+    address: "10100 Altıeylül",
+    phone: "+90 (266) 266 10 10",
+    fax: "+90 (266) 123 45 67",
+  },
+];
+
+export const relatedProducts = [
+  {
+    id: 1,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 2,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 3,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 4,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 5,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 6,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 7,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+  {
+    id: 8,
+    name: "Product Name",
+    category: "Frozen Products",
+    img: "src/assets/pillow.jpg",
+    oldPrice: 16.48,
+    price: 6.48,
+  },
+];
+

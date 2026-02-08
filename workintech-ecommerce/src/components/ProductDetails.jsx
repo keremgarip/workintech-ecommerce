@@ -1,5 +1,7 @@
 import { ChevronRight, Star, Heart, ShoppingBasket, Eye, ChevronDown } from "lucide-react"
 
+import { relatedProducts } from "../data/home.data"
+
 export default function ProductDetails() {
   return (
     <div className="w-full">
@@ -118,94 +120,32 @@ export default function ProductDetails() {
         <div className="bg-[#FAFAFA] py-12">
           <h3 className="font-bold text-2xl border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</h3>
           <div className="grid grid-cols-4 text-center mt-5">
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
+            {relatedProducts.map((product) => (
+              <div key={product.id}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="w-[280px]"
+                />
+
+                <div className="px-[25px] pt-[25px] pb-[35px] text-center">
+                  <h5 className="font-bold">{product.name}</h5>
+
+                  <a href="#" className="text-sm text-gray-500">
+                    {product.category}
+                  </a>
+
+                  <div className="flex gap-[5px] justify-center">
+                    <h5 className="text-[#BDBDBD] font-bold">
+                      ${product.oldPrice.toFixed(2)}
+                    </h5>
+                    <h5 className="text-[#23856D] font-bold">
+                      ${product.price.toFixed(2)}
+                    </h5>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="src\assets\pillow.jpg" alt="" className="w-[280px]"/>
-              <div className="px-[25px] pt-[25px] pb-[35px]">
-                <h5 className="font-bold">Product Name</h5>
-                <a href="#">Frozen Products</a>
-                <div className="flex gap-[5px] justify-center">
-                  <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                  <h5 className="text-[#23856D] font-bold">$6.48</h5>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">

@@ -2,8 +2,8 @@ export default function Team() {
   return (
     <main className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold">Our Team</h1>
+        <div className="mb-10 text-center">
+          <h1 className="text-3xl font-bold">Meet Our Team</h1>
           <p className="text-gray-600 mt-2">
             Meet the people behind the project.
           </p>

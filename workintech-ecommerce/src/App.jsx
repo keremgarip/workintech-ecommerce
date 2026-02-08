@@ -7,6 +7,7 @@ import Carousel from "./components/Carousel";
 import ProductDetails from "./components/ProductDetails";
 import Contact from "./components/Contact";
 import Team from "./components/Team";
+import AboutUs from "./components/AboutUs";
 
 function App() {
 
@@ -34,6 +35,10 @@ function App() {
 
         <Route path="/team">
           <Team />
+        </Route>
+
+        <Route path="/about">
+          <AboutUs />
         </Route>
 
       </Switch>
