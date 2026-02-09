@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Team from "./components/Team";
 import AboutUs from "./components/AboutUs";
 import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 function App() {
 
@@ -44,6 +45,10 @@ function App() {
 
         <Route path="/signup">
           <Signup />
+        </Route>
+
+        <Route path="/login">
+          <Login />
         </Route>
 
       </Switch>
