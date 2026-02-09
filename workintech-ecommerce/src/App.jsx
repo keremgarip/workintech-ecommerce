@@ -8,6 +8,7 @@ import ProductDetails from "./components/ProductDetails";
 import Contact from "./components/Contact";
 import Team from "./components/Team";
 import AboutUs from "./components/AboutUs";
+import Signup from "./components/Signup";
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
 
         <Route path="/about">
           <AboutUs />
+        </Route>
+
+        <Route path="/signup">
+          <Signup />
         </Route>
 
       </Switch>
