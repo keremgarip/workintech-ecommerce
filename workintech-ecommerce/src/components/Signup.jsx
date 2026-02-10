@@ -7,9 +7,7 @@ export default function Signup() {
     <main className="w-full">
       <div className="max-w-3xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-bold">Sign Up</h1>
-        <p className="text-gray-600 mt-2">
-          Create an account to continue.
-        </p>
+        <p className="text-gray-600 mt-2">Create an account to continue.</p>
 
         <form className="mt-8 space-y-5">
           {/* Name */}
@@ -131,3 +129,4 @@ export default function Signup() {
     </main>
   );
 }
+

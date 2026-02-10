@@ -10,8 +10,16 @@ import Team from "./components/Team";
 import AboutUs from "./components/AboutUs";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import { verifyTokenOnLoad } from "./actions/authThunks";
 
 function App() {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(verifyTokenOnLoad());
+  }, [dispatch]);
 
   return (
     <>
@@ -43,9 +51,7 @@ function App() {
           <AboutUs />
         </Route>
 
-        <Route path="/signup">
-          <Signup />
-        </Route>
+        <Route path="/signup" component={Signup} />
 
         <Route path="/login">
           <Login />

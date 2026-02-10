@@ -7,4 +7,12 @@ const api = axios.create({
     },
 });
 
+export const setAuthToken = (token) => {
+    api.defaults.headers.common["Authorization"] = token;
+};
+
+export const clearAuthToken = () => {
+    delete api.defaults.headers.common["Authorization"];
+}
+
 export default api;
