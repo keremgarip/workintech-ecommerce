@@ -1,4 +1,4 @@
-import api, { setAuthToken, clearAuthToken } from "../api";
+import api, { setAuthToken, clearAuthToken } from "/src/api/axios.js";
 import { getStoredToken, setStoredToken, removeStoredToken } from "../store/authStorage";
 import { setUser } from "./clientActions";
 

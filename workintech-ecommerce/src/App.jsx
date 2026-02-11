@@ -10,6 +10,8 @@ import Team from "./components/Team";
 import AboutUs from "./components/AboutUs";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import CategoriesList from "./components/CategoriesList";
+import TopCategories from "./components/TopCategories";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { verifyTokenOnLoad } from "./actions/authThunks";
@@ -28,9 +30,12 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Carousel />
+          <TopCategories />
+          <CategoriesList />
           <PageContent />
         </Route>
 
+        <Route path="/shop/:gender/:categoryNane/:categoryId" />
         <Route path="/shop">
           <Shop />
         </Route>
