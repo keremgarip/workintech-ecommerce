@@ -1,5 +1,5 @@
 import api from "../api";
-import {setCategories, setFetchState} from "./productActions";
+import {setProductList, setCategories, setFetchState} from "./productActions";
 import {FETCHED, FAILED, FETCHING} from "../reducers/productReducer";
 
 export const fetchCategoriesIfNeeded = (force = false) => async (dispatch, getState) => {
@@ -16,5 +16,26 @@ export const fetchCategoriesIfNeeded = (force = false) => async (dispatch, getSt
         dispatch(setFetchState(FETCHED));
     } catch (error) {
         dispatch(setFetchState(FAILED));
+    }
+};
+
+export const fetchProductsByQuery = (query = {}) => async (dispatch, getState) => {
+    const {limit, offset} = getState().product;
+
+    try {
+        dispatch(setFetchState(FETCHING));
+
+        const res = await api.get("/products", {
+            params: {limit, offset, ...query},
+        });
+
+        const total = res.data?.total ?? 0;
+        const products = res.data?.products?? [];
+
+        dispatch(setTotal(total));
+        dispatch(setProductList(products));
+        dispatch(setFetchState(FETCHED));
+    } catch (e) {
+        dispatch(setFetchState(FAILED));        
     }
 };

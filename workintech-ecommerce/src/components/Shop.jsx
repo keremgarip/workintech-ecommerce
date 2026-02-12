@@ -1,8 +1,56 @@
 import React from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsByQuery } from "../actions/productThunks";
+import { FETCHING } from "../reducers/productReducer";
 import { Link } from "react-router-dom";
 import { LayoutGrid, ListChecks, ChevronDown } from "lucide-react";
+import PaginationBar from "./PaginationBar";
+import { setOffset } from "../actions/productActions";
 
-export default function Shop() {
+function Spinner() {
+  return (
+    <div className="w-full py-12 flex justify-center">
+      <div className="animate-spin rounded-full h-10 w-10 border-4 border-gray-300 border-t-transparent" />
+    </div>
+  );
+}
+
+export default function Shop(props) {
+    const dispatch = useDispatch();
+    const {productList, fetchState, total, limit, offset, filter, sort} = useSelector((s) => s.product);
+
+    const categoryId = props?.match?.params?.categoryId;
+
+    const query = useMemo(() => {
+        const q = {};
+        if (categoryId) q.category = categoryId;
+        if (filter) q.filter = filter;
+        if (sort) q.sort = sort;
+        return q;
+    }, [categoryId, filter, sort]);
+
+    useEffect(() => {
+        dispatch(fetchProductsByQuery(query));
+    }, [dispatch, offset, query]);
+
+    useEffect(() => {
+        dispatch(setOffset(0));
+    }, [dispatch, categoryId, filter, sort]);
+
+    const page = Math.floor(offset / limit) + 1;
+    const pageCount = Math.max(1, Math.ceil(total / limit));
+
+    const goToPage = (p) => {
+        const newOffset = (p-1) * limit;
+        dispatch(setOffset(newOffset));
+    };
+
+    const onPrev = () => goToPage(Math.max(1, page - 1));
+    const onNext = () => goToPage(Math.min(pageCount, page + 1));
+
+    if (fetchState === FETCHING) return <Spinner />;
+
     return (
         <main className="w-full">
             <div className="max-w-7xl mx-auto px-4 py-10">
