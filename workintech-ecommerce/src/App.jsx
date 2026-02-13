@@ -12,6 +12,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import CategoriesList from "./components/CategoriesList";
 import TopCategories from "./components/TopCategories";
+import CartPage from "./components/CartPage";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { verifyTokenOnLoad } from "./actions/authThunks";
@@ -40,7 +41,7 @@ function App() {
           <Shop />
         </Route>
 
-        <Route path="/product">
+        <Route path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId">
           <ProductDetails />
         </Route>
 
@@ -60,6 +61,10 @@ function App() {
 
         <Route path="/login">
           <Login />
+        </Route>
+
+        <Route path="/cart">
+          <CartPage />
         </Route>
 
       </Switch>

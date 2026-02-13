@@ -1,8 +1,34 @@
 import { ChevronRight, Star, Heart, ShoppingBasket, Eye, ChevronDown } from "lucide-react"
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "../actions/productThunks";
+import { FETCHING } from "../reducers/productReducer";
 
 import { relatedProducts } from "../data/home.data"
 
-export default function ProductDetails() {
+function Spinner() {
+  return (
+    <div className="w-full py-12 flex justify-center">
+      <div className="animate-spin rounded-full h-10 w-10 border-4 border-gray-300 border-t-transparent" />
+    </div>
+  );
+}
+
+export default function ProductDetails(props) {
+  const dispatch = useDispatch();
+  const { productId, gender, categoryName, categoryId } = props.match.params;
+
+  const product = useSelector((s) => s.product.selectedProduct);
+  const fetchState = useSelector((s) => s.product.fetchState);
+
+  useEffect(() => {
+    dispatch(fetchProductById(productId));
+  }, [dispatch, productId]);
+
+  if (fetchState === FETCHING || !product) return <Spinner />;
+
+  const mainImg = product.images?.[0]?.url;
+
   return (
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -46,7 +72,11 @@ export default function ProductDetails() {
               <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
                 <Heart className="w-5 h-5 text-gray-700" />
               </div>
-              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
+              <div
+                className="p-2 border border-[#ECECEC] rounded-full cursor-pointer"
+                onClick={() => dispatch(addToCart(product))}
+                title="Add to cart"
+              >
                 <ShoppingBasket className="w-5 h-5 text-gray-700" />
               </div>
               <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">

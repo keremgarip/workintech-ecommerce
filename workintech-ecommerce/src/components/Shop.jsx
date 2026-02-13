@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { LayoutGrid, ListChecks, ChevronDown } from "lucide-react";
 import PaginationBar from "./PaginationBar";
 import { setOffset } from "../actions/productActions";
+import slugify from "../utils/slugify";
 
 function Spinner() {
   return (
@@ -104,7 +105,7 @@ export default function Shop(props) {
                 </div>
                 <div className="grid grid-cols-4 text-center">
                     <div className="flex gap-[30px] py-2 content-center">
-                        <Link to="/product" className="block">
+                        <Link to={`/shop/${gender}/${categoryName}/${categoryId}/${slugify(p.name ?? p.title)}/${p.id}`} className="block">
                             <div className="flex flex-col items-center">
                                 <img src="src\assets\ice-cream.png" alt="Ice Cream" className="w-52" />
                                 <div className="gap-2.5">

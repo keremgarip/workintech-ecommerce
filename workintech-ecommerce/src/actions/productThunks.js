@@ -1,5 +1,5 @@
 import api from "../api";
-import {setProductList, setCategories, setFetchState} from "./productActions";
+import {setProductList, setCategories, setFetchState, setSelectedProduct} from "./productActions";
 import {FETCHED, FAILED, FETCHING} from "../reducers/productReducer";
 
 export const fetchCategoriesIfNeeded = (force = false) => async (dispatch, getState) => {
@@ -37,5 +37,16 @@ export const fetchProductsByQuery = (query = {}) => async (dispatch, getState) =
         dispatch(setFetchState(FETCHED));
     } catch (e) {
         dispatch(setFetchState(FAILED));        
+    }
+};
+
+export const fetchProductById = (productId) => async (dispatch) => {
+    try {
+        dispatch(setFetchState(FETCHING));
+        const response = await api.get(`/products/${productId}`);
+        dispatch(setSelectedProduct(response.data));
+        dispatch(setFetchState(FETCHED));
+    } catch (error) {
+        dispatch(setFetchState(FAILED));
     }
 };

@@ -6,6 +6,7 @@ export const SET_LIMIT = "product/SET_LIMIT";
 export const SET_OFFSET = "product/SET_OFFSET";
 export const SET_FILTER = "product/SET_FILTER";
 export const SET_SORT = "product/SET_SORT";
+export const SET_SELECTED_PRODUCT = "product/SET_SELECTED_PRODUCT"
 
 export const NOT_FETCHED = "NOT_FETCHED";
 export const FETCHING = "FETCHING";
@@ -21,6 +22,8 @@ const initialState = {
     filter: "",
     sort: "",
     fetchState: NOT_FETCHED,
+
+    selectedProduct: null,
 };
 
 export default function productReducer(state = initialState, action) {
@@ -41,6 +44,8 @@ export default function productReducer(state = initialState, action) {
             return { ...state, filter: action.payload };
         case SET_SORT:
             return { ...state, sort: action.payload};
+        case SET_SELECTED_PRODUCT:
+            return {...state, selectedProduct: action.payload};
         default:
             return state;
     }
