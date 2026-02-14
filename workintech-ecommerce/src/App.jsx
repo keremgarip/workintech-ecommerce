@@ -16,6 +16,8 @@ import CartPage from "./components/CartPage";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { verifyTokenOnLoad } from "./actions/authThunks";
+import ProtectedRoute from "./components/ProtectedRoute";
+import CreateOrderPage from "./components/CreateOrder";
 
 function App() {
 
@@ -66,6 +68,8 @@ function App() {
         <Route path="/cart">
           <CartPage />
         </Route>
+        
+        <ProtectedRoute path="/create-order" component={CreateOrderPage} />
 
       </Switch>
       <Footer />

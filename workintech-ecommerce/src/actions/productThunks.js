@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "../api/axios";
 import {setProductList, setCategories, setFetchState, setSelectedProduct} from "./productActions";
 import {FETCHED, FAILED, FETCHING} from "../reducers/productReducer";
 

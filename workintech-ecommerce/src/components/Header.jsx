@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { headerMenus } from "../data/home.data";
-import { ShoppingCart, Search, UserRound, Heart } from "lucide-react";
+import { ShoppingCart, Search, UserRound, Heart, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriesIfNeeded } from "../actions/productThunks";

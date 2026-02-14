@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, setCartItemCount, toggleCartItemChecked } from "../actions/shoppingCartHelpers";
+import OrderSummaryBox from "./OrderSummaryBox";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function CartPage() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-bold">Shopping Cart</h1>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 items-start">
         {cart.map((item) => (
           <div key={item.product.id} className="border border-[#ECECEC] rounded p-4 flex items-center gap-4">
             <input
@@ -66,14 +67,7 @@ export default function CartPage() {
         ))}
       </div>
 
-      <div className="mt-8 flex justify-end">
-        <div className="w-full md:w-80 border border-[#ECECEC] rounded p-4">
-          <div className="flex justify-between">
-            <span className="text-gray-600">Selected Total</span>
-            <span className="font-bold">₺ {total.toFixed(2)}</span>
-          </div>
-        </div>
-      </div>
+      <OrderSummaryBox cart={cart} />
     </div>
   );
 }
