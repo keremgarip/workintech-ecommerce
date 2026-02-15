@@ -1,4 +1,4 @@
-export default function Signup() {
+export default function Login() {
 
   return (
     <main className="w-full">

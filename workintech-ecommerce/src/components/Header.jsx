@@ -28,8 +28,6 @@ export default function Header() {
                                 </li>
                             );
                         }
-
-                        // Shop dropdown (bozmadan özel case)
                         return (
                             <li
                                 key={menu.path}

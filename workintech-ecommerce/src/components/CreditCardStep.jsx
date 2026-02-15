@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setPayment } from "../actions/shoppingCartActions";
+import { createOrder } from "../actions/orderThunks";
 import api from "../api/axios";
 
 export default function CreditCardStep() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
@@ -12,6 +19,7 @@ export default function CreditCardStep() {
         expire_month: "",
         expire_year: "",
         name_on_card: "",
+        card_ccv: "",
     });
 
     const set = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }));
@@ -122,6 +130,7 @@ export default function CreditCardStep() {
                         <Input label="Kart Üzerindeki İsim" value={form.name_on_card} onChange={set("name_on_card")} />
                         <Input label="Ay" value={form.expire_month} onChange={set("expire_month")} />
                         <Input label="Yıl" value={form.expire_year} onChange={set("expire_year")} />
+                        <Input label="Yıl" value={form.card_ccv} onChange={set("card_ccv")} />
                     </div>
 
                     <div className="mt-4 flex gap-2 justify-end">
@@ -142,7 +151,26 @@ export default function CreditCardStep() {
             )}
 
             <div className="mt-6 flex justify-end">
-                <button className="bg-gray-800 text-white font-bold px-6 py-3 rounded">
+                <button className="bg-gray-800 text-white font-bold px-6 py-3 rounded disabled:opacity-50"
+                    onClick={async () => {
+                        try {
+                            dispatch(
+                                setPayment({
+                                    card_no: String(form.card_no).replace(/\s+/g, ""),
+                                    expire_month: Number(form.expire_month),
+                                    expire_year: Number(form.expire_year),
+                                    name_on_card: String(form.name_on_card),
+                                    card_ccv: Number(form.card_ccv),
+                                })
+                            );
+
+                            await dispatch(createOrder());
+                            history.push("/order-success");
+                        } catch (e) {
+                            alert("Order failed. Please check your address/payment info.");
+                        }
+                    }}
+                >
                     Ödeme Yap
                 </button>
             </div>
@@ -150,7 +178,7 @@ export default function CreditCardStep() {
     );
 }
 
-function Input({label, value, onChange}) {
+function Input({ label, value, onChange }) {
     return (
         <div>
             <label className="block text-sm font-semibold mb-1">{label}</label>
@@ -162,5 +190,5 @@ function Input({label, value, onChange}) {
 function maskCard(cardNo = "") {
     const s = String(cardNo).replace(/\s+/g, "");
     if (s.length < 8) return s;
-    return `${s.slice(0,4)} **** **** ${s.slice(-4)}`;
+    return `${s.slice(0, 4)} **** **** ${s.slice(-4)}`;
 }

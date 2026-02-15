@@ -13,11 +13,13 @@ import Login from "./components/Login";
 import CategoriesList from "./components/CategoriesList";
 import TopCategories from "./components/TopCategories";
 import CartPage from "./components/CartPage";
+import OrderSuccess from "./components/OrderSuccess";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { verifyTokenOnLoad } from "./actions/authThunks";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateOrderPage from "./components/CreateOrder";
+import OrdersPage from "./components/OrdersPage";
 
 function App() {
 
@@ -70,6 +72,12 @@ function App() {
         </Route>
         
         <ProtectedRoute path="/create-order" component={CreateOrderPage} />
+
+        <Route path="/order-success">
+          <OrderSuccess/>
+        </Route>
+        
+        <ProtectedRoute path="/orders" component={OrdersPage} />
 
       </Switch>
       <Footer />
