@@ -15,59 +15,88 @@ export default function CartPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold">Shopping Cart</h1>
+      <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 items-start">
-        {cart.map((item) => (
-          <div key={item.product.id} className="border border-[#ECECEC] rounded p-4 flex items-center gap-4">
-            <input
-              type="checkbox"
-              checked={!!item.checked}
-              onChange={() => dispatch(toggleCartItemChecked(item.product.id))}
-            />
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8 items-start">
 
-            <img
-              src={item.product.images?.[0]?.url}
-              alt={item.product.name}
-              className="w-20 h-20 object-cover rounded bg-gray-100"
-            />
-
-            <div className="flex-1">
-              <div className="font-semibold">{item.product.name}</div>
-              <div className="text-sm text-gray-600">₺ {item.product.price}</div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                className="w-9 h-9 border border-[#ECECEC] rounded"
-                onClick={() => dispatch(setCartItemCount(item.product.id, item.count - 1))}
-              >
-                -
-              </button>
-              <div className="w-10 text-center font-semibold">{item.count}</div>
-              <button
-                className="w-9 h-9 border border-[#ECECEC] rounded"
-                onClick={() => dispatch(setCartItemCount(item.product.id, item.count + 1))}
-              >
-                +
-              </button>
-            </div>
-
-            <div className="w-28 text-right font-bold">
-              ₺ {(Number(item.product.price) || 0) * item.count}
-            </div>
-
-            <button
-              className="text-red-600 font-semibold"
-              onClick={() => dispatch(removeFromCart(item.product.id))}
+        {/* SOL TARAF – ÜRÜNLER */}
+        <div className="space-y-6">
+          {cart.map((item) => (
+            <div
+              key={item.product.id}
+              className="border border-[#ECECEC] rounded p-4 flex items-center gap-4"
             >
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
+              <input
+                type="checkbox"
+                checked={!!item.checked}
+                onChange={() =>
+                  dispatch(toggleCartItemChecked(item.product.id))
+                }
+              />
 
-      <OrderSummaryBox cart={cart} />
+              <img
+                src={item.product.images?.[0]?.url}
+                alt={item.product.name}
+                className="w-20 h-20 object-cover rounded bg-gray-100"
+              />
+
+              <div className="flex-1">
+                <div className="font-semibold">{item.product.name}</div>
+                <div className="text-sm text-gray-600">
+                  ₺ {item.product.price}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  className="w-9 h-9 border border-[#ECECEC] rounded"
+                  onClick={() =>
+                    dispatch(
+                      setCartItemCount(item.product.id, item.count - 1)
+                    )
+                  }
+                >
+                  -
+                </button>
+
+                <div className="w-10 text-center font-semibold">
+                  {item.count}
+                </div>
+
+                <button
+                  className="w-9 h-9 border border-[#ECECEC] rounded"
+                  onClick={() =>
+                    dispatch(
+                      setCartItemCount(item.product.id, item.count + 1)
+                    )
+                  }
+                >
+                  +
+                </button>
+              </div>
+
+              <div className="w-28 text-right font-bold">
+                ₺ {(Number(item.product.price) || 0) * item.count}
+              </div>
+
+              <button
+                className="text-red-600 font-semibold"
+                onClick={() =>
+                  dispatch(removeFromCart(item.product.id))
+                }
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* SAĞ TARAF – ORDER SUMMARY */}
+        <div className="md:sticky md:top-6">
+          <OrderSummaryBox cart={cart} />
+        </div>
+
+      </div>
     </div>
   );
 }

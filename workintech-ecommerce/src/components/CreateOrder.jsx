@@ -45,10 +45,16 @@ export default function CreateOrderPage() {
             } else {
                 await api.post("/user/address", payload);
             }
+
             const res = await api.get("/user/address");
-            dispatch(setAddress(res.data || []));
+
+            dispatch(setAddressList(res.data || []));
+
             setShowForm(false);
             setEditItem(null);
+        } catch (err) {
+            console.error(err);
+            alert(err?.response?.data?.message || "Adres kaydedilemedi.");
         } finally {
             setLoading(false);
         }
@@ -158,7 +164,7 @@ export default function CreateOrderPage() {
 
                             <div className="mt-6 flex justify-end">
                                 <button
-                                    className="bg-[#F57C00] text-white font-bold px-6 py-3 rounded disabled:opacity-50"
+                                    className="bg-[#F57C00] text-white font-bold px-6 py-3 rounded disabled:opacity-50 !text-black"
                                     disabled={!selectedAddress}
                                     onClick={() => setStep(2)}
                                 >
@@ -171,7 +177,7 @@ export default function CreateOrderPage() {
                     )}
                 </div>
 
-                <OrderSummaryBox cart={cart} />
+                <OrderSummaryBox cart={cart} showActions={false} />
             </div>
         </div>
     );

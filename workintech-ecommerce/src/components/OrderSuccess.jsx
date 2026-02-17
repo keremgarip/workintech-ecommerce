@@ -8,10 +8,10 @@ export default function OrderSuccess() {
                 Siparişiniz başarıyla oluşturuldu. Teşekkürler!
             </p>
             <div className="mt-8 flex gap-3 justify-center">
-                <Link to="/shop" className="px-6 py-3 rounded bg-[#23A6F0] text-white font-bold">
+                <Link to="/shop" className="px-6 py-3 rounded bg-[#23A6F0] !text-white font-bold">
                     Alışverişe Devam
                 </Link>
-                <Link to="/orders" className="px-6 py-3 rounded border border-gray-200 font-bold">
+                <Link to="/orders" className="px-6 py-3 rounded border border-gray-200 font-bold !text-black">
                     Siparişlerim
                 </Link>
             </div>

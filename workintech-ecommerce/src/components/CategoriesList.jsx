@@ -49,7 +49,7 @@ export default function CategoriesList() {
                     return (
                         <Link
                             key={id}
-                            to={`/shop/${dept}/${slugify(displayName)}/${id}`}
+                            to={`/shop/${id}`}
                             className="border border-[#ECECEC] rounded p-4 hover:border-[#23A6F0]"
                         >
                             {displayName}

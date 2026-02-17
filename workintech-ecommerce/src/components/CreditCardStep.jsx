@@ -130,7 +130,7 @@ export default function CreditCardStep() {
                         <Input label="Kart Üzerindeki İsim" value={form.name_on_card} onChange={set("name_on_card")} />
                         <Input label="Ay" value={form.expire_month} onChange={set("expire_month")} />
                         <Input label="Yıl" value={form.expire_year} onChange={set("expire_year")} />
-                        <Input label="Yıl" value={form.card_ccv} onChange={set("card_ccv")} />
+                        <Input label="CCV" value={form.card_ccv} onChange={set("card_ccv")} />
                     </div>
 
                     <div className="mt-4 flex gap-2 justify-end">
@@ -141,7 +141,7 @@ export default function CreditCardStep() {
                             Cancel
                         </button>
                         <button
-                            className="px-4 py-2 bg-[#F57C00] text-white font-bold rounded disabled:opacity-50"
+                            className="px-4 py-2 bg-[#F57C00] text-white font-bold rounded disabled:opacity-50 !text-black"
                             disabled={loading}
                             onClick={save}>
                             Save
@@ -151,7 +151,7 @@ export default function CreditCardStep() {
             )}
 
             <div className="mt-6 flex justify-end">
-                <button className="bg-gray-800 text-white font-bold px-6 py-3 rounded disabled:opacity-50"
+                <button className="bg-gray-800 text-white font-bold px-6 py-3 rounded disabled:opacity-50 !text-black"
                     onClick={async () => {
                         try {
                             dispatch(

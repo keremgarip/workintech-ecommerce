@@ -1,9 +1,5 @@
 import api from "../api/axios";
 import { setAuthToken } from "../api/auth";
-import {setRoles, setUser} from "./clientActions";
-
-import api from "../api/axios";
-import { setAuthToken } from "../api/auth";
 import { setRoles, setUser } from "./clientActions";
 
 export const fetchRolesIfNeeded = () => async (dispatch, getState) => {

@@ -26,7 +26,7 @@ export default function Carousel() {
 
                         <Link
                             to={active.ctaLink}
-                            className="inline-flex items-center justify-center font-bold text-xl bg-[#23A6F0] rounded-[5px] px-10 py-[15px] mt-2"
+                            className="inline-flex items-center justify-center font-bold text-xl bg-[#23A6F0] rounded-[5px] px-10 py-[15px] mt-2 !text-white"
                         >
                             {active.cta}
                         </Link>

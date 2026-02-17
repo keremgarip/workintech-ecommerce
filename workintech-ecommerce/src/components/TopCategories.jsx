@@ -57,7 +57,7 @@ export default function TopCategories() {
           return (
             <Link
               key={id}
-              to={`/shop/${dept}/${slugify(displayName)}/${id}`}
+              to={`/shop/${id}`}
               className="border border-[#ECECEC] rounded overflow-hidden hover:border-[#23A6F0]"
             >
               <div className="h-28 bg-gray-100">

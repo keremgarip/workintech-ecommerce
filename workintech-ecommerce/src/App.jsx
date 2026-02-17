@@ -1,4 +1,4 @@
-import {Switch, Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import PageContent from "./components/PageContent"
@@ -14,18 +14,19 @@ import CategoriesList from "./components/CategoriesList";
 import TopCategories from "./components/TopCategories";
 import CartPage from "./components/CartPage";
 import OrderSuccess from "./components/OrderSuccess";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { verifyTokenOnLoad } from "./actions/authThunks";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateOrderPage from "./components/CreateOrder";
 import OrdersPage from "./components/OrdersPage";
+import { verifyTokenThunk } from "./actions/clientThunks";
 
 function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(verifyTokenOnLoad());
+    dispatch(verifyTokenThunk());
   }, [dispatch]);
 
   return (
@@ -35,19 +36,19 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Carousel />
-          <TopCategories />
-          <CategoriesList />
           <PageContent />
         </Route>
 
-        <Route path="/shop/:gender/:categoryNane/:categoryId" />
-        <Route path="/shop">
+        
+        <Route exact path="/shop">
           <Shop />
         </Route>
 
-        <Route path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId">
-          <ProductDetails />
-        </Route>
+        <Route
+          path="/product/:productId"
+          component={ProductDetails}
+        />
+
 
         <Route path="/contact">
           <Contact />
@@ -70,13 +71,13 @@ function App() {
         <Route path="/cart">
           <CartPage />
         </Route>
-        
+
         <ProtectedRoute path="/create-order" component={CreateOrderPage} />
 
         <Route path="/order-success">
-          <OrderSuccess/>
+          <OrderSuccess />
         </Route>
-        
+
         <ProtectedRoute path="/orders" component={OrdersPage} />
 
       </Switch>

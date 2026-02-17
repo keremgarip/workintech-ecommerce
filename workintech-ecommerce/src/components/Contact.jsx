@@ -1,4 +1,4 @@
-import {locations} from "../data/home.data.js"
+import {locations} from "../data/home.data"
 
 export default function Contact() {
     return (

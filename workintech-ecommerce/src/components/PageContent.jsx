@@ -36,7 +36,7 @@ export default function PageContent() {
                 <h2 className="font-bold text-2xl">{card.title}</h2>
 
                 {/* CTA -> Shop */}
-                <Link to="/shop" className="font-normal text-xs text-[#23A6F0]">
+                <Link to={card.link || "/shop"} className="font-normal text-xs text-[#23A6F0]">
                   {card.cta}
                 </Link>
               </div>
@@ -121,7 +121,7 @@ export default function PageContent() {
             <div className="mt-8 text-center">
               <Link
                 to="/shop"
-                className="inline-block bg-[#23A6F0] text-white font-bold px-6 py-3 rounded"
+                className="inline-block bg-[#23A6F0] text-white font-bold px-6 py-3 rounded !text-white"
               >
                 Browse All Products
               </Link>
@@ -133,37 +133,6 @@ export default function PageContent() {
       {/* Popular */}
       <Container>
         <div className="px-2 py-12">
-          <section className="flex flex-col lg:flex-row justify-center gap-5">
-            <div className="popular-left">
-              <img
-                src="src/assets/meat-fire.jpg"
-                className="w-full max-w-[674px]"
-                alt="Delivery"
-              />
-            </div>
-
-            <div className="text-center flex flex-col gap-3 justify-center items-center">
-              <h5 className="font-bold text-2xl">MOST POPULAR</h5>
-              <p className="text-sm">
-                Discover the benefits of choosing our products for your needs.
-              </p>
-
-              <img
-                src="src/assets/raw-meat.png"
-                className="h-80"
-                alt="Stew Meat"
-              />
-
-              <Link to="/shop" className="text-sm text-[#23A6F0]">
-                Meat Products
-              </Link>
-
-              <div className="flex gap-[5px] justify-center">
-                <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-                <h5 className="text-[#23856D] font-bold">$6.48</h5>
-              </div>
-            </div>
-          </section>
 
           {/* Popular Benefits */}
           <section className="mt-2.5 flex flex-col md:flex-row">
@@ -182,45 +151,6 @@ export default function PageContent() {
         </div>
       </Container>
 
-      {/* Most Popular (second visual section) */}
-      <Container>
-        <div className="flex flex-col lg:flex-row py-12 justify-center gap-5">
-          <div className="text-center flex flex-col gap-3 justify-center items-center">
-            <h5 className="font-bold text-2xl">MOST POPULAR</h5>
-            <p className="text-[#737373]">
-              Enjoy our most popular products with exclusive deals and discounts.
-            </p>
-
-            <img
-              src="src/assets/cashew.png"
-              className="h-80"
-              alt="Caramel Cashew"
-            />
-
-            <Link to="/shop" className="text-[#23A6F0]">
-              Snack Products
-            </Link>
-
-            <div className="flex gap-[10px] items-center">
-              <Download />
-              <h6 className="font-bold text-sm">120 Sales</h6>
-            </div>
-
-            <div className="flex gap-[5px]">
-              <h5 className="text-[#BDBDBD] font-bold">$16.48</h5>
-              <h5 className="text-[#23856D] font-bold">$6.48</h5>
-            </div>
-          </div>
-
-          <div className="popular-right">
-            <img
-              src="src/assets/dinner.jpg"
-              className="w-full max-h-[800px]"
-              alt="Delivery"
-            />
-          </div>
-        </div>
-      </Container>
 
       {/* All Products (tek satır, hafif) */}
       <Container>

@@ -1,18 +1,24 @@
 import {setCart} from "./shoppingCartActions";
 
 export const addToCart = (product) => (dispatch, getState) => {
-    const cart = getState().shoppingCart.cart || [];
-    const idx = cart.findIndex((i) => String(i.product.id) === String(product.id));
+  const cart = getState().shoppingCart.cart || [];
+  const pid = product?.id;
 
-    let next;
-    if (idx >= 0) {
-        next = cart.map((i,n) => (n === idx ? {...i, count: i.count + i} : i));
-    } else {
-        next = [...cart, {count:1, checked: true, product}];
-    }
+  const existing = cart.find((i) => i.product?.id === pid);
 
-    dispatch(setCart(next));
-}
+  let nextCart;
+  if (existing) {
+    nextCart = cart.map((i) =>
+      i.product?.id === pid
+        ? { ...i, count: (i.count || 0) + 1, checked: i.checked ?? true }
+        : i
+    );
+  } else {
+    nextCart = [...cart, { product, count: 1, checked: true }];
+  }
+
+  dispatch(setCart(nextCart));
+};
 
 export const removeFromCart = (productId) => (dispatch, getState) => {
   const cart = getState().shoppingCart.cart || [];
