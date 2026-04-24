@@ -4,7 +4,6 @@ export const headerMenus = [
   { label: "About", path: "/about" },
   { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },
-  { label: "Pages", path: "/pages" },
 ];
 
 export const heroSlides = [
