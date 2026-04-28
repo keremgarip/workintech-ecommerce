@@ -15,23 +15,29 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> getAllActiveProducts() {
-        return productRepository.findByIsActiveTrue();
+    public List<ProductResponse> getAllActiveProducts() {
+        return productRepository.findByIsActiveTrue()
+        .stream()
+        .map(this::toResponse)
+        .toList();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
-        .filter(Product::getIsActive)
-        .orElseThrow(() -> new RuntimeException("Product not found"));
+    public ProductResponse getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .filter(Product::getIsActive)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        return toResponse(product);
     }
 
     private ProductResponse toResponse(Product product) {
-    return ProductResponse.builder()
-            .id(product.getId())
-            .name(product.getName())
-            .description(product.getDescription())
-            .price(product.getPrice())
-            .imageUrl(product.getImageUrl())
-            .build();
-}
+        return ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .imageUrl(product.getImageUrl())
+                .build();
+    }
 }

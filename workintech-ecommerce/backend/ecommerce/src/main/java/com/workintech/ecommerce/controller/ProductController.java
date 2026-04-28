@@ -3,7 +3,7 @@ package com.workintech.ecommerce.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.workintech.ecommerce.entity.Product;
+import com.workintech.ecommerce.dto.ProductResponse;
 import com.workintech.ecommerce.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,12 @@ public class ProductController {
     private final ProductService productService;
     
     @GetMapping
-    public List<Product> getProducts() {
+    public List<ProductResponse> getProducts() {
         return productService.getAllActiveProducts();
     }
     
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public ProductResponse getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 }
