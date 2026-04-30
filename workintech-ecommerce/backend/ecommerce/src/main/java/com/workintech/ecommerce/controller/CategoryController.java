@@ -7,7 +7,6 @@ import com.workintech.ecommerce.service.CategoryService;
 import com.workintech.ecommerce.dto.CategoryResponse;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 
 @RestController
