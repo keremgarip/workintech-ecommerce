@@ -23,6 +23,7 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final ActivityLogService activityLogService;
 
     @Transactional
     public OrderResponse createOrder(Long userId) {
@@ -79,6 +80,12 @@ public class OrderService {
         order.setTotalAmount(totalAmount);
 
         Order savedOrder = orderRepository.save(order);
+
+        activityLogService.log(
+            userId,
+            "ORDER_CREATED",
+            "Order created: " + savedOrder.getOrderNumber()
+        );
 
         cartItemRepository.deleteByUserId(userId);
 

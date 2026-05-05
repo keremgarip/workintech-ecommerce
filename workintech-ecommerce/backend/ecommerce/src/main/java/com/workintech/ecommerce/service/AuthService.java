@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
+    private final ActivityLogService activityLogService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -32,7 +34,13 @@ public class AuthService {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+activityLogService.log(
+        savedUser.getId(),
+        "USER_REGISTER",
+        "User registered with email: " + savedUser.getEmail()
+);
 
         return AuthResponse.builder()
         .email(user.getEmail())
@@ -47,6 +55,12 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
             throw new RuntimeException("Wrong password");
         }
+
+        activityLogService.log(
+        user.getId(),
+        "USER_LOGIN",
+        "User logged in with email: " + user.getEmail()
+);
 
         return AuthResponse.builder()
                 .email(user.getEmail())
