@@ -6,6 +6,7 @@ import com.workintech.ecommerce.entity.CartItem;
 import com.workintech.ecommerce.entity.Order;
 import com.workintech.ecommerce.entity.OrderItem;
 import com.workintech.ecommerce.entity.Product;
+import com.workintech.ecommerce.exception.BadRequestException;
 import com.workintech.ecommerce.repository.CartItemRepository;
 import com.workintech.ecommerce.repository.OrderRepository;
 import com.workintech.ecommerce.repository.ProductRepository;
@@ -30,7 +31,7 @@ public class OrderService {
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
 
         if (cartItems.isEmpty()) {
-            throw new RuntimeException("Cart is empty");
+            throw new BadRequestException("Cart is empty");
         }
 
         for (CartItem cartItem : cartItems) {
@@ -41,7 +42,7 @@ public class OrderService {
             }
 
             if (cartItem.getQuantity() > product.getStock()) {
-                throw new RuntimeException("Not enough stock for product: " + product.getName());
+                throw new BadRequestException("Not enough stock for product: " + product.getName());
             }
         }
 

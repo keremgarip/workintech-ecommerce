@@ -2,6 +2,8 @@ package com.workintech.ecommerce.controller;
 
 import com.workintech.ecommerce.dto.*;
 import com.workintech.ecommerce.service.CartService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,7 @@ public class CartController {
     @PostMapping("/items")
     public CartResponse addItem(
             @RequestParam Long userId,
-            @RequestBody AddCartItemRequest request
+            @Valid @RequestBody AddCartItemRequest request
     ) {
         return cartService.addItem(userId, request);
     }
@@ -29,7 +31,7 @@ public class CartController {
     public CartResponse updateItem(
             @RequestParam Long userId,
             @PathVariable Long productId,
-            @RequestBody UpdateCartItemRequest request
+            @Valid @RequestBody UpdateCartItemRequest request
     ) {
         return cartService.updateItem(userId, productId, request);
     }

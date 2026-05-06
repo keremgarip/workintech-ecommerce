@@ -10,6 +10,7 @@ import com.workintech.ecommerce.dto.LoginRequest;
 import com.workintech.ecommerce.dto.RegisterRequest;
 import com.workintech.ecommerce.service.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,12 +20,12 @@ public class AuthConroller {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody RegisterRequest request) {
+    public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
         return authService.register(request);
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody LoginRequest request) {
+    public AuthResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
     }
 }

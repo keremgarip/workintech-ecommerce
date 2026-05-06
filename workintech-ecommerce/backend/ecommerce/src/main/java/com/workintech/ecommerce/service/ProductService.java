@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.workintech.ecommerce.dto.ProductResponse;
 import com.workintech.ecommerce.entity.Product;
+import com.workintech.ecommerce.exception.ResourceNotFoundException;
 import com.workintech.ecommerce.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ProductService {
     public ProductResponse getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .filter(Product::getIsActive)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
 
         return toResponse(product);
     }

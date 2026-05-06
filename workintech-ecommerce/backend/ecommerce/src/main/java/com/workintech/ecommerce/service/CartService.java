@@ -11,6 +11,8 @@ import com.workintech.ecommerce.dto.CartResponse;
 import com.workintech.ecommerce.dto.UpdateCartItemRequest;
 import com.workintech.ecommerce.entity.CartItem;
 import com.workintech.ecommerce.entity.Product;
+import com.workintech.ecommerce.exception.BadRequestException;
+import com.workintech.ecommerce.exception.ResourceNotFoundException;
 import com.workintech.ecommerce.repository.CartItemRepository;
 import com.workintech.ecommerce.repository.ProductRepository;
 
@@ -47,7 +49,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         if (request.getQuantity() == null || request.getQuantity() <= 0) {
-            throw new RuntimeException("Quantity must be greater than 0");
+            throw new BadRequestException("Quantity must be greater than 0");
         }
 
         CartItem cartItem = cartItemRepository
@@ -61,7 +63,7 @@ public class CartService {
         }
 
         if (newQuantity > product.getStock()) {
-            throw new RuntimeException("Not enough stock");
+            throw new BadRequestException("Not enough stock");
         }
 
         if (cartItem == null) {
@@ -82,7 +84,7 @@ public class CartService {
 
     public CartResponse updateItem(Long userId, Long productId, UpdateCartItemRequest request) {
         CartItem cartItem = cartItemRepository.findByUserIdAndProductId(userId, productId)
-                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cart item not found"));
 
         if (request.getQuantity() == null || request.getQuantity() < 0) {
             throw new RuntimeException("Quantity cannot be negative");
