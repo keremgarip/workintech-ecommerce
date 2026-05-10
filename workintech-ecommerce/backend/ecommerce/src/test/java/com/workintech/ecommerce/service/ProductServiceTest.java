@@ -8,6 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.workintech.ecommerce.entity.Product;
 import com.workintech.ecommerce.exception.ResourceNotFoundException;
@@ -37,13 +40,17 @@ public class ProductServiceTest {
         .isActive(true)
         .build();
 
-        when(productRepository.findByIsActiveTrue()).thenReturn(List.of(product));
+        Pageable pageable = PageRequest.of(0, 10);
 
-        var result = productService.getAllActiveProducts();
+        when(productRepository.findByIsActiveTrue(pageable)).thenReturn(new PageImpl<>(List.of(product), pageable, 1));
 
-        assertEquals(1, result.size());
-        assertEquals("Laptop", result.get(0).getName());
-        verify(productRepository).findByIsActiveTrue();
+        var result = productService.getAllActiveProducts(pageable);
+
+        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.getContent().size());
+        assertEquals("Laptop", result.getContent().get(0).getName());
+
+        verify(productRepository).findByIsActiveTrue(pageable);
     }
 
     @Test

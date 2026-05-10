@@ -1,7 +1,7 @@
 package com.workintech.ecommerce.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,7 @@ public class AdminOrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public List<OrderResponse> getAllOrders() {
-        return orderService.getAllOrdersForAdmin();
+    public Page<OrderResponse> getAllOrders(Pageable pageable) {
+        return orderService.getAllOrdersForAdmin(pageable);
     }
 }

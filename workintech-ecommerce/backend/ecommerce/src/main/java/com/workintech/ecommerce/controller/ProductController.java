@@ -8,8 +8,8 @@ import com.workintech.ecommerce.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -21,8 +21,8 @@ public class ProductController {
     private final ProductService productService;
     
     @GetMapping
-    public List<ProductResponse> getProducts() {
-        return productService.getAllActiveProducts();
+    public Page<ProductResponse> getProducts(Pageable pageable) {
+        return productService.getAllActiveProducts(pageable);
     }
     
     @GetMapping("/{id}")

@@ -11,6 +11,9 @@ import com.workintech.ecommerce.repository.CartItemRepository;
 import com.workintech.ecommerce.repository.OrderRepository;
 import com.workintech.ecommerce.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -119,17 +122,13 @@ public class OrderService {
                 .build();
     }
 
-    public List<OrderResponse> getOrderHistory(Long userId) {
-        return orderRepository.findByUserIdOrderByCreatedAtDesc(userId)
-        .stream()
-        .map(this::toResponse)
-        .toList();
+    public Page<OrderResponse> getOrderHistory(Long userId, Pageable pageable) {
+        return orderRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable)
+        .map(this::toResponse);
     }
 
-    public List<OrderResponse> getAllOrdersForAdmin() {
-        return orderRepository.findAllByOrderByCreatedAtDesc()
-        .stream()
-        .map(this::toResponse)
-        .toList();
+    public Page<OrderResponse> getAllOrdersForAdmin(Pageable pageable) {
+        return orderRepository.findAllByOrderByCreatedAtDesc(pageable)
+        .map(this::toResponse);
     }
 }

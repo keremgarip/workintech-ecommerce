@@ -10,8 +10,9 @@ import com.workintech.ecommerce.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -27,8 +28,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderResponse> getOrderHistory(@RequestParam Long userId) {
-        return orderService.getOrderHistory(userId);
+    public Page<OrderResponse> getOrderHistory(@RequestParam Long userId, Pageable pageable) {
+        return orderService.getOrderHistory(userId, pageable);
     }
     
 }
