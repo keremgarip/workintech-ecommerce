@@ -5,7 +5,7 @@ import { FETCHED, FAILED, FETCHING } from "../reducers/productReducer";
 export const fetchCategoriesIfNeeded = (force = false) => async (dispatch, getState) => {
   const { categories } = getState().product;
 
-  if (!force && Array.isArray(categories) & categories.length > 0) return;
+  if (!force && Array.isArray(categories) && categories.length > 0) return;
 
   try {
     dispatch(setFetchState(FETCHING));
@@ -25,22 +25,24 @@ export const fetchProductsByQuery = (query = {}) => async (dispatch, getState) =
   dispatch(setFetchState(FETCHING));
 
   try {
-    const res = await api.get("/products", { params: { limit, offset, ...query } });
+    const page = Math.floor(offset / limit);
 
-    const products = res.data?.products ?? res.data ?? [];
-    const total =
-      res.data?.total ??
-      res.data?.count ??
-      res.data?.totalCount ??
-      (Array.isArray(products) ? products.length : 0);
+    const res = await api.get("/products", {
+      params: {
+        page,
+        size: limit,
+        ...query,
+      },
+    });
+
+    const products = res.data?.content ?? [];
+    const total = res.data?.totalElements ?? 0;
 
     dispatch(setProductList(products));
     dispatch(setTotal(total));
     dispatch(setFetchState(FETCHED));
   } catch (e) {
     console.error("fetchProductsByQuery failed:", e?.response?.status, e?.response?.data || e.message);
-    console.log("STATUS:", e?.response?.status);
-    console.log("DATA:", e?.response?.data);
     dispatch(setFetchState(FAILED));
   }
 };
