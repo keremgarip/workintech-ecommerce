@@ -1,6 +1,6 @@
-import axiosInstance from "./axiosInstance";
+import api from "./axios";
 
 export const getUserSummary = async (userId) => {
-  const response = await axiosInstance.get(`/users/${userId}/summary`);
+  const response = await axios.get(`/users/${userId}/summary`);
   return response.data;
 };

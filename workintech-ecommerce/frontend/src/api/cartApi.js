@@ -1,7 +1,7 @@
-import axiosInstance from "./axiosInstance";
+import api from "./axios";
 
 export const getCart = async (userId) => {
-  const response = await axiosInstance.get(`/cart?userId=${userId}`);
+  const response = await axios.get(`/cart?userId=${userId}`);
   return response.data;
 };
 

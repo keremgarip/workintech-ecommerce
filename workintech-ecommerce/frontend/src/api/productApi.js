@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import api from "./axios";
 
 export const getProducts = async ({ page = 0, size = 12, filter, sort, category } = {}) => {
   const params = new URLSearchParams();
@@ -10,11 +10,11 @@ export const getProducts = async ({ page = 0, size = 12, filter, sort, category 
   if (sort) params.append("sort", sort);
   if (category) params.append("category", category);
 
-  const response = await axiosInstance.get(`/products?${params.toString()}`);
+  const response = await axios.get(`/products?${params.toString()}`);
   return response.data;
 };
 
 export const getProductById = async (id) => {
-  const response = await axiosInstance.get(`/products/${id}`);
+  const response = await axios.get(`/products/${id}`);
   return response.data;
 };
