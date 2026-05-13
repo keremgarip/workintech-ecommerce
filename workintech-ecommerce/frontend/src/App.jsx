@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateOrderPage from "./components/CreateOrder";
 import OrdersPage from "./components/OrdersPage";
 import { verifyTokenThunk } from "./actions/clientThunks";
+import UserDataServicePanel from "./components/UserDataServicePanel";
 
 function App() {
 
@@ -82,6 +83,8 @@ function App() {
 
       </Switch>
       <Footer />
+
+      <UserDataServicePanel />
     </>
   )
 }
