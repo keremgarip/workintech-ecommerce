@@ -25,18 +25,21 @@ export const fetchProductsByQuery = (query = {}) => async (dispatch, getState) =
   dispatch(setFetchState(FETCHING));
 
   try {
-    const page = Math.floor(offset / limit);
-
     const res = await api.get("/products", {
       params: {
-        page,
-        size: limit,
+        limit,
+        offset,
         ...query,
       },
     });
 
-    const products = res.data?.content ?? [];
-    const total = res.data?.totalElements ?? 0;
+    const products = res.data?.content ?? res.data?.products ?? res.data ?? [];
+    const total =
+      res.data?.totalElements ??
+      res.data?.total ??
+      res.data?.count ??
+      res.data?.totalCount ??
+      (Array.isArray(products) ? products.length : 0);
 
     dispatch(setProductList(products));
     dispatch(setTotal(total));

@@ -22,6 +22,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                     .requestMatchers("/api/orders/**").permitAll()
                     .requestMatchers("/api/admin/**").permitAll()
                     .requestMatchers("/api/users/**").permitAll()
+                    .requestMatchers("/api/import/**").permitAll()
                     .anyRequest().authenticated()
             );
 

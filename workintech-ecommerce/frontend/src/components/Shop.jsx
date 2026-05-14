@@ -26,17 +26,14 @@ export default function Shop(props) {
     const [searchText, setSearchText] = useState(filter || "");
 
     const query = useMemo(() => {
-    const q = {
-        page: Math.floor(offset / limit),
-        size: limit,
-    };
+    const q = {};
 
     if (categoryId) q.category = categoryId;
     if (filter) q.filter = filter;
     if (sort) q.sort = sort;
 
     return q;
-}, [categoryId, filter, sort, offset, limit]);
+}, [categoryId, filter, sort]);
 
     useEffect(() => {
     dispatch(fetchProductsByQuery(query));
