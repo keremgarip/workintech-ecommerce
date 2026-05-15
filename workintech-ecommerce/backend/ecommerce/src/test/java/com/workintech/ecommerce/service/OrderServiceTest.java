@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.workintech.ecommerce.dto.CreateOrderRequest;
 import com.workintech.ecommerce.entity.CartItem;
 import com.workintech.ecommerce.entity.Order;
 import com.workintech.ecommerce.entity.Product;
@@ -24,7 +25,7 @@ import com.workintech.ecommerce.repository.ProductRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
-    
+
     @Mock
     private CartItemRepository cartItemRepository;
 
@@ -40,8 +41,20 @@ public class OrderServiceTest {
     @InjectMocks
     private OrderService orderService;
 
+    private CreateOrderRequest createRequest() {
+        CreateOrderRequest request = new CreateOrderRequest();
+        request.setUserId(1L);
+        request.setShippingAddress("Bristol City Centre, UK");
+        request.setPaymentMethod("Credit Card");
+        request.setCustomerName("Kerem");
+        request.setCustomerPhone("5551234567");
+        return request;
+    }
+
     @Test
     void createOrder_ShouldCreateOrder_WhenCartIsValid() {
+        CreateOrderRequest request = createRequest();
+
         Product product = Product.builder()
                 .id(1L)
                 .name("Laptop")
@@ -65,7 +78,7 @@ public class OrderServiceTest {
             return order;
         });
 
-        var response = orderService.createOrder(1L);
+        var response = orderService.createOrder(request);
 
         assertEquals(1L, response.getId());
         assertEquals(1L, response.getUserId());
@@ -83,15 +96,19 @@ public class OrderServiceTest {
 
     @Test
     void createOrder_ShouldThrowException_WhenCartIsEmpty() {
+        CreateOrderRequest request = createRequest();
+
         when(cartItemRepository.findByUserId(1L)).thenReturn(List.of());
 
-        assertThrows(BadRequestException.class, () -> orderService.createOrder(1L));
+        assertThrows(BadRequestException.class, () -> orderService.createOrder(request));
 
         verify(orderRepository, never()).save(any(Order.class));
     }
 
     @Test
     void createOrder_ShouldThrowException_WhenStockIsNotEnough() {
+        CreateOrderRequest request = createRequest();
+
         Product product = Product.builder()
                 .id(1L)
                 .name("Laptop")
@@ -109,7 +126,7 @@ public class OrderServiceTest {
 
         when(cartItemRepository.findByUserId(1L)).thenReturn(List.of(cartItem));
 
-        assertThrows(BadRequestException.class, () -> orderService.createOrder(1L));
+        assertThrows(BadRequestException.class, () -> orderService.createOrder(request));
 
         verify(orderRepository, never()).save(any(Order.class));
     }

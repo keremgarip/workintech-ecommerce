@@ -1,10 +1,12 @@
 package com.workintech.ecommerce.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.workintech.ecommerce.dto.CreateOrderRequest;
 import com.workintech.ecommerce.dto.OrderResponse;
 import com.workintech.ecommerce.service.OrderService;
 
@@ -23,8 +25,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public OrderResponse createOrder(@RequestParam Long userId) {
-        return orderService.createOrder(userId);
+    public OrderResponse createOrder(@RequestBody CreateOrderRequest request) {
+        return orderService.createOrder(request);
     }
 
     @GetMapping

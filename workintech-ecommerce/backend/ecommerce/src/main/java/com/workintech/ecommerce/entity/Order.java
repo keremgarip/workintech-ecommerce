@@ -31,5 +31,14 @@ public class Order {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> items; 
+    private List<OrderItem> items;
+    
+    @Column(length = 500)
+    private String shippingAddress;
+
+    private String paymentMethod;
+
+    private String customerName;
+
+    private String customerPhone;
 }

@@ -16,8 +16,10 @@ export default function OrdersPage() {
         const run = async () => {
             setLoading(true);
             try {
-                const res = await api.get("/order");
-                setOrders(res.data || []);
+                const userId = 1;
+
+                const res = await api.get(`/orders?userId=${userId}`);
+                setOrders(res.data.content || []);
             } finally {
                 setLoading(false);
             }
@@ -26,13 +28,12 @@ export default function OrdersPage() {
         run();
     }, []);
 
-    const getProducts = (data) =>
-        data?.products || data?.items || data?.order_products || [];
+    const getProducts = (data) => data?.items || [];
 
     const getItemCount = (data) =>
-        getProducts(data).reduce((sum, p) => sum + (Number(p.count) || 0), 0);
+        getProducts(data).reduce((sum, p) => sum + (Number(p.quantity) || 0), 0);
 
-    const toggleDetails = async (id) => {
+    /* const toggleDetails = async (id) => {
         const willOpen = openId !== id;
         setOpenId(willOpen ? id : null);
 
@@ -59,7 +60,7 @@ export default function OrdersPage() {
 
             alert("Order detail could not be fetched.");
         }
-    };
+    }; */
 
 
     return (
@@ -91,9 +92,9 @@ export default function OrdersPage() {
                                 <Fragment key={o.id}>
                                     <tr className="border-t">
                                         <td className="p-3 font-semibold">{o.id}</td>
-                                        <td className="p-3">{formatDate(o.order_date)}</td>
+                                        <td className="p-3">{formatDate(o.createdAt)}</td>
                                         <td className="p-3 font-bold">
-                                            ₺ {Number(o.price || 0).toFixed(2)}
+                                            ₺ {Number(o.totalAmount || 0).toFixed(2)}
                                         </td>
                                         <td className="p-3 font-semibold">{itemsText}</td>
                                         <td className="p-3 text-right">
@@ -137,25 +138,10 @@ function OrderDetails({ order, getProducts }) {
             <div className="border border-gray-200 rounded p-3 bg-white">
                 <div className="font-bold mb-2">Address</div>
 
-                {addressObj ? (
-                    <div className="text-sm text-gray-700 space-y-1">
-                        <div className="font-semibold">{addressObj.title}</div>
-                        <div>
-                            {addressObj.name} {addressObj.surname}
-                        </div>
-                        <div>
-                            {addressObj.district} / {addressObj.neighborhood}
-                        </div>
-                        <div>{addressObj.city}</div>
-                        <div>{addressObj.address}</div>
-                        <div className="text-gray-600">{addressObj.phone}</div>
-                    </div>
-                ) : (
-                    <div className="text-sm text-gray-600">
-                        Address not available{" "}
-                        {order?.address_id ? `(address_id: ${order.address_id})` : ""}
-                    </div>
-                )}
+                <div className="text-sm text-gray-700 space-y-1">
+                    <div>{order.shippingAddress}</div>
+                    <div>{order.paymentMethod}</div>
+                </div>
             </div>
 
             <div className="border border-gray-200 rounded p-3 bg-white">
@@ -171,9 +157,9 @@ function OrderDetails({ order, getProducts }) {
                                 className="flex justify-between text-sm border-b pb-2"
                             >
                                 <span>
-                                    #{p.product_id ?? p.id} • {p.detail || "-"}
+                                    #{p.productId} • {p.productName}
                                 </span>
-                                <b>x{p.count}</b>
+                                <b>x{p.quantity}</b>
                             </div>
                         ))}
                     </div>

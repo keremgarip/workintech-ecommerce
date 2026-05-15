@@ -1,5 +1,6 @@
 package com.workintech.ecommerce.service;
 
+import com.workintech.ecommerce.dto.CreateOrderRequest;
 import com.workintech.ecommerce.dto.OrderItemResponse;
 import com.workintech.ecommerce.dto.OrderResponse;
 import com.workintech.ecommerce.entity.CartItem;
@@ -30,7 +31,13 @@ public class OrderService {
     private final ActivityLogService activityLogService;
 
     @Transactional
-    public OrderResponse createOrder(Long userId) {
+    public OrderResponse createOrder(CreateOrderRequest request) {
+        Long userId = request.getUserId();
+
+        if (userId == null) {
+            throw new BadRequestException("User ID is required");
+        }
+
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
 
         if (cartItems.isEmpty()) {
@@ -53,6 +60,10 @@ public class OrderService {
                 .userId(userId)
                 .orderNumber(generateOrderNumber())
                 .status("ONAYLANDI")
+                .shippingAddress(request.getShippingAddress())
+                .paymentMethod(request.getPaymentMethod())
+                .customerName(request.getCustomerName())
+                .customerPhone(request.getCustomerPhone())
                 .createdAt(LocalDateTime.now())
                 .build();
 
