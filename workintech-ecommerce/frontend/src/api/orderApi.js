@@ -1,4 +1,4 @@
-import api from "./axios";
+import backendApi from "./backendAxios";
 
 export const createOrder = async (orderData) => {
   const response = await api.post("/orders", orderData);

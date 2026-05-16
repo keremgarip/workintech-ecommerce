@@ -1,102 +1,113 @@
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, setCartItemCount, toggleCartItemChecked } from "../actions/shoppingCartHelpers";
-import OrderSummaryBox from "./OrderSummaryBox";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  getCart,
+  updateCartItem,
+  removeCartItem,
+  clearCart,
+} from "../api/cartApi";
 
 export default function CartPage() {
-  const dispatch = useDispatch();
-  const cart = useSelector((s) => s.shoppingCart.cart) || [];
+  const userId = 1;
+  const [cart, setCart] = useState(null);
 
-  const total = useMemo(() => {
-    return cart
-      .filter((i) => i.checked)
-      .reduce((sum, i) => sum + (Number(i.product.price) || 0) * i.count, 0);
-  }, [cart]);
+  const loadCart = async () => {
+  const data = await getCart(userId);
+  console.log("Cart page data:", data);
+  setCart(data);
+};
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  const increase = async (item) => {
+    await updateCartItem(userId, item.productId, item.quantity + 1);
+    loadCart();
+  };
+
+  const decrease = async (item) => {
+    await updateCartItem(userId, item.productId, item.quantity - 1);
+    loadCart();
+  };
+
+  const remove = async (productId) => {
+    await removeCartItem(userId, productId);
+    loadCart();
+  };
+
+  const clear = async () => {
+    await clearCart(userId);
+    loadCart();
+  };
+
+  if (!cart) return <p className="p-6">Loading cart...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
+    <main className="max-w-5xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold mb-6">Sepetim</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-8 items-start">
-
-        {/* SOL TARAF – ÜRÜNLER */}
-        <div className="space-y-6">
-          {cart.map((item) => (
-            <div
-              key={item.product.id}
-              className="border border-[#ECECEC] rounded p-4 flex items-center gap-4"
-            >
-              <input
-                type="checkbox"
-                checked={!!item.checked}
-                onChange={() =>
-                  dispatch(toggleCartItemChecked(item.product.id))
-                }
-              />
-
-              <img
-                src={item.product.images?.[0]?.url}
-                alt={item.product.name}
-                className="w-20 h-20 object-cover rounded bg-gray-100"
-              />
-
-              <div className="flex-1">
-                <div className="font-semibold">{item.product.name}</div>
-                <div className="text-sm text-gray-600">
-                  ₺ {item.product.price}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  className="w-9 h-9 border border-[#ECECEC] rounded"
-                  onClick={() =>
-                    dispatch(
-                      setCartItemCount(item.product.id, item.count - 1)
-                    )
-                  }
-                >
-                  -
-                </button>
-
-                <div className="w-10 text-center font-semibold">
-                  {item.count}
-                </div>
-
-                <button
-                  className="w-9 h-9 border border-[#ECECEC] rounded"
-                  onClick={() =>
-                    dispatch(
-                      setCartItemCount(item.product.id, item.count + 1)
-                    )
-                  }
-                >
-                  +
-                </button>
-              </div>
-
-              <div className="w-28 text-right font-bold">
-                ₺ {(Number(item.product.price) || 0) * item.count}
-              </div>
-
-              <button
-                className="text-red-600 font-semibold"
-                onClick={() =>
-                  dispatch(removeFromCart(item.product.id))
-                }
+      {cart.items.length === 0 ? (
+        <p>Sepet boş.</p>
+      ) : (
+        <>
+          <div className="space-y-4">
+            {cart.items.map((item) => (
+              <div
+                key={item.productId}
+                className="border rounded p-4 flex justify-between items-center"
               >
-                Remove
-              </button>
+                <div>
+                  <h2 className="font-bold">{item.productName}</h2>
+                  <p>₺ {Number(item.price).toFixed(2)}</p>
+                  <p>Toplam: ₺ {Number(item.lineTotal).toFixed(2)}</p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button onClick={() => decrease(item)} className="px-3 py-1 border">
+                    -
+                  </button>
+
+                  <span>{item.quantity}</span>
+
+                  <button onClick={() => increase(item)} className="px-3 py-1 border">
+                    +
+                  </button>
+
+                  <button
+                    onClick={() => remove(item.productId)}
+                    className="px-3 py-1 bg-red-500 text-white rounded"
+                  >
+                    Sil
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex justify-between items-center">
+            <button
+              onClick={clear}
+              className="px-4 py-2 border rounded"
+            >
+              Sepeti Temizle
+            </button>
+
+            <div className="text-right">
+              <p className="text-xl font-bold">
+                Genel Toplam: ₺ {Number(cart.totalPrice).toFixed(2)}
+              </p>
+
+              <Link
+                to="/checkout"
+                className="inline-block mt-3 px-6 py-3 bg-[#23A6F0] text-white rounded font-bold"
+              >
+                Siparişi Tamamla
+              </Link>
             </div>
-          ))}
-        </div>
-
-        {/* SAĞ TARAF – ORDER SUMMARY */}
-        <div className="md:sticky md:top-6">
-          <OrderSummaryBox cart={cart} />
-        </div>
-
-      </div>
-    </div>
+          </div>
+        </>
+      )}
+    </main>
   );
 }

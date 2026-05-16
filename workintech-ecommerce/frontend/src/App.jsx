@@ -73,7 +73,7 @@ function App() {
           <CartPage />
         </Route>
 
-        <ProtectedRoute path="/create-order" component={CreateOrderPage} />
+        <ProtectedRoute path="/checkout" component={CreateOrderPage} />
 
         <Route path="/order-success">
           <OrderSuccess />

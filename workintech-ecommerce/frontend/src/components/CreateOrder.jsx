@@ -5,6 +5,8 @@ import OrderSummaryBox from "./OrderSummaryBox";
 import { setAddressList } from "../actions/clientActions";
 import { setAddress } from "../actions/shoppingCartActions";
 import CreditCardStep from "./CreditCardStep";
+import { useHistory } from "react-router-dom";
+import { createOrder } from "../api/orderApi";
 
 export default function CreateOrderPage() {
     const dispatch = useDispatch();
@@ -16,6 +18,15 @@ export default function CreateOrderPage() {
     const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [editItem, setEditItem] = useState(null);
+
+    const history = useHistory();
+
+    const [form, setForm] = useState({
+        customerName: "",
+        customerPhone: "",
+        shippingAddress: "",
+        paymentMethod: "Credit Card",
+    });
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -70,6 +81,25 @@ export default function CreateOrderPage() {
             setLoading(false);
         }
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const order = await createOrder({
+                userId: 1,
+                ...form,
+            });
+
+            history.push("/order-success", {
+                orderNumber: order.orderNumber,
+                totalAmount: order.totalAmount,
+            });
+        } catch (e) {
+            console.error(e);
+            alert("Order could not be created");
+        }
+    };
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">

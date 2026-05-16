@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import backendApi from "./backendAxios";
 
 export const register = async (userData) => {
   const response = await axiosInstance.post("/auth/register", userData);

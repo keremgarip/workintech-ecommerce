@@ -1,4 +1,4 @@
-import api from "./axios";
+import backendApi from "./backendAxios";
 
 export const getProducts = async ({ page = 0, size = 12, filter, sort, category } = {}) => {
   const params = new URLSearchParams();

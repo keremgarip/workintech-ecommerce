@@ -52,6 +52,11 @@ export default function ProductDetails(props) {
 
   const desc = product.description || "No description provided.";
 
+  const handleAddToCart = async () => {
+    await addToCart(1, product.id, 1);
+    alert("Ürün sepete eklendi");
+  };
+
   return (
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-10">

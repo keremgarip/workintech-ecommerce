@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import {getCart} from "../api/cartApi";
 
 export default function OrderSummaryBox({ cart = [], showActions = true }) {
   const [discount, setDiscount] = useState("");
+  const [cartData, setCartData] = useState(null);
   const shipping = 29.99;
 
   const productsTotal = useMemo(() => {
@@ -27,6 +29,10 @@ export default function OrderSummaryBox({ cart = [], showActions = true }) {
 
   const shippingTotal = hasSelected ? shipping : 0;
   const grandTotal = Math.max(0, productsTotal + shippingTotal - discountValue);
+
+  useEffect(() => {
+    getCart(1).then(setCartData);
+  }, []);
 
   return (
     <div className="w-full md:w-[360px] border border-gray-200 rounded bg-white">

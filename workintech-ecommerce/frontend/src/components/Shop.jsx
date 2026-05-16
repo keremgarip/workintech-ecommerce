@@ -5,6 +5,7 @@ import { FETCHING } from "../reducers/productReducer";
 import { Link } from "react-router-dom";
 import { LayoutGrid, ListChecks } from "lucide-react";
 import { setOffset, setFilter, setSort } from "../actions/productActions";
+import { addToCart } from "../api/cartApi";
 
 function Spinner() {
     return (
@@ -26,18 +27,18 @@ export default function Shop(props) {
     const [searchText, setSearchText] = useState(filter || "");
 
     const query = useMemo(() => {
-    const q = {};
+        const q = {};
 
-    if (categoryId) q.category = categoryId;
-    if (filter) q.filter = filter;
-    if (sort) q.sort = sort;
+        if (categoryId) q.category = categoryId;
+        if (filter) q.filter = filter;
+        if (sort) q.sort = sort;
 
-    return q;
-}, [categoryId, filter, sort]);
+        return q;
+    }, [categoryId, filter, sort]);
 
     useEffect(() => {
-    dispatch(fetchProductsByQuery(query));
-}, [dispatch, query]);
+        dispatch(fetchProductsByQuery(query));
+    }, [dispatch, query]);
 
     useEffect(() => {
         dispatch(setOffset(0));
@@ -72,6 +73,18 @@ export default function Shop(props) {
 
         return () => clearTimeout(timeout);
     }, [searchText, dispatch]);
+
+    const userId = 1;
+
+    const handleAddToCart = async (e, productId) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const result = await addToCart(1, productId, 1);
+        console.log("Cart result:", result);
+
+        alert("Ürün sepete eklendi");
+    }
 
     if (fetchState === FETCHING) return <Spinner />;
 
@@ -164,6 +177,11 @@ export default function Shop(props) {
                                             ${Number(p.price || 0).toFixed(2)}
                                         </h5>
                                     </div>
+                                    <button
+                                        onClick={(e) => handleAddToCart(e, p.id)}
+                                        className="mt-3 bg-[#23A6F0] text-black px-4 py-2 rounded font-bold">
+                                        Sepete Ekle
+                                    </button>
                                 </div>
                             </div>
                         </Link>

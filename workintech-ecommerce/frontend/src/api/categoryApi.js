@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import backendApi from "./backendAxios";
 
 export const getCategories = async () => {
   const response = await axios.get("/categories");
