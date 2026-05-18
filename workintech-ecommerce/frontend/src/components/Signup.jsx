@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import api from "../api/axios";
+import backendApi from "../api/backendAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRolesIfNeeded } from "../actions/clientThunks";
 import { useHistory } from "react-router-dom";
@@ -77,7 +77,6 @@ export default function Signup() {
         name: data.name,
         email: data.email,
         password: data.password,
-        role_id: Number(data.role_id),
       };
 
       if (isStore) {
@@ -89,10 +88,24 @@ export default function Signup() {
         };
       }
 
-      await api.post("/signup", payload);
+      const nameParts = data.name.trim().split(" ");
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "-";
 
-      alert('You need to click link in email to activate your account!');
-      history.goBack();
+      const response = await backendApi.post("/auth/register", {
+        firstName,
+        lastName,
+        email: data.email,
+        password: data.password,
+      });
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
+      localStorage.setItem("email", response.data.email);
+      localStorage.setItem("role", response.data.role);
+
+      history.push("/shop");
+
     } catch (e) {
       const msg =
         e?.response?.data?.message ||
@@ -172,16 +185,10 @@ export default function Signup() {
               {...register("role_id", { required: "Role is required" })}
               defaultValue=""
             >
-              {/* Customer default seçimi için roles gelince JS ile setValue kullanabilirsin;
-                  burada basit bıraktım: kullanıcı seçer. */}
               <option value="" disabled>
                 Select role
               </option>
-              {roles.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.name || r.code || `role-${r.id}`}
-                </option>
-              ))}
+              <option value="USER">Customer</option>
             </select>
           </Field>
 

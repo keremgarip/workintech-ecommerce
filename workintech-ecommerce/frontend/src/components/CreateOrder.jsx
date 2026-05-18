@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../api/axios";
+import {
+    getAddresses,
+    createAddress,
+    updateAddress,
+    deleteAddress,
+} from "../api/helperUserDataApi";
 import OrderSummaryBox from "./OrderSummaryBox";
 import { setAddressList } from "../actions/clientActions";
 import { setAddress } from "../actions/shoppingCartActions";
@@ -19,6 +24,8 @@ export default function CreateOrderPage() {
     const [showForm, setShowForm] = useState(false);
     const [editItem, setEditItem] = useState(null);
 
+    const userId = Number(localStorage.getItem("userId"));
+
     const history = useHistory();
 
     const [form, setForm] = useState({
@@ -29,16 +36,17 @@ export default function CreateOrderPage() {
     });
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) api.defaults.headers.Authorization = token;
-    }, []);
-
-    useEffect(() => {
         const fetchAddresses = async () => {
             try {
                 setLoading(true);
-                const res = await api.get("/user/address");
-                dispatch(setAddressList(res.data || []));
+                if (!userId) {
+                    alert("Lütfen önce giriş yapınız.");
+                    history.push("/login");
+                    return;
+                }
+
+                const data = await getAddresses(userId);
+                dispatch(setAddressList(data || []));
             } finally {
                 setLoading(false);
             }
@@ -52,14 +60,13 @@ export default function CreateOrderPage() {
         setLoading(true);
         try {
             if (editItem?.id) {
-                await api.put("/user/address", { ...payload, id: editItem.id });
+                await updateAddress(userId, editItem.id, payload);
             } else {
-                await api.post("/user/address", payload);
+                await createAddress(userId, payload);
             }
 
-            const res = await api.get("/user/address");
-
-            dispatch(setAddressList(res.data || []));
+            const data = await getAddresses(userId);
+            dispatch(setAddressList(data || []));
 
             setShowForm(false);
             setEditItem(null);
@@ -74,9 +81,9 @@ export default function CreateOrderPage() {
     const onDelete = async (id) => {
         setLoading(true);
         try {
-            await api.delete(`/user/address/${id}`);
-            const res = await api.get("/user/address");
-            dispatch(setAddressList(res.data || []));
+            await deleteAddress(userId, id);
+            const data = await getAddresses(userId);
+            dispatch(setAddressList(data || []));
         } finally {
             setLoading(false);
         }
@@ -86,9 +93,17 @@ export default function CreateOrderPage() {
         e.preventDefault();
 
         try {
+            const fullAddress = selectedAddress
+                ? `${selectedAddress.title} - ${selectedAddress.name} ${selectedAddress.surname}, ${selectedAddress.phone}, ${selectedAddress.city}, ${selectedAddress.district}, ${selectedAddress.neighborhood}, ${selectedAddress.address}`
+                : form.shippingAddress;
             const order = await createOrder({
-                userId: 1,
-                ...form,
+                userId,
+                customerName: selectedAddress
+                    ? `${selectedAddress.name} ${selectedAddress.surname}`
+                    : form.customerName,
+                customerPhone: selectedAddress?.phone || form.customerPhone,
+                shippingAddress: fullAddress,
+                paymentMethod: form.paymentMethod,
             });
 
             history.push("/order-success", {

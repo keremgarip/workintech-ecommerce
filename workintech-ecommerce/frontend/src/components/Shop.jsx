@@ -74,14 +74,20 @@ export default function Shop(props) {
         return () => clearTimeout(timeout);
     }, [searchText, dispatch]);
 
-    const userId = 1;
-
     const handleAddToCart = async (e, productId) => {
         e.preventDefault();
         e.stopPropagation();
 
-        const result = await addToCart(1, productId, 1);
-        console.log("Cart result:", result);
+        const userId = Number(localStorage.getItem("userId"));
+
+        if (!userId) {
+            alert("Lütfen önce giriş yapınız.");
+            return;
+        }
+
+        await addToCart(userId, productId, 1);
+
+        window.dispatchEvent(new Event("cartUpdated"));
 
         alert("Ürün sepete eklendi");
     }
@@ -166,7 +172,7 @@ export default function Shop(props) {
                         >
                             <div className="flex flex-col items-center">
                                 <img
-                                    src={p.images?.[0]?.url || p.image || "src/assets/ice-cream.png"}
+                                    src={p.imageUrl || p.images?.[0]?.url || p.image || "/src/assets/ice-cream.png"}
                                     alt={p.name || p.title}
                                     className="w-52"
                                 />

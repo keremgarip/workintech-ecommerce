@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../actions/productThunks";
 import { FETCHING } from "../reducers/productReducer";
-import { addToCart } from "../actions/shoppingCartHelpers";
+import { addToCart } from "../api/cartApi";
 
 import { relatedProducts } from "../data/home.data"
 
@@ -53,7 +53,17 @@ export default function ProductDetails(props) {
   const desc = product.description || "No description provided.";
 
   const handleAddToCart = async () => {
-    await addToCart(1, product.id, 1);
+    const userId = Number(localStorage.getItem("userId"));
+
+    if (!userId) {
+      alert("Lütfen önce giriş yapınız.");
+      return;
+    }
+
+    await addToCart(userId, product.id, 1);
+
+    window.dispatchEvent(new Event("cartUpdated"));
+
     alert("Ürün sepete eklendi");
   };
 

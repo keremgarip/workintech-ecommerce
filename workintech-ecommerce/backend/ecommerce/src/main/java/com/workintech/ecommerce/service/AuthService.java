@@ -20,6 +20,7 @@ public class AuthService {
     private final ActivityLogService activityLogService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserDataIntegrationService userDataIntegrationService;
 
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -43,9 +44,12 @@ activityLogService.log(
         "USER_REGISTER",
         "User registered with email: " + savedUser.getEmail()
 );
+        userDataIntegrationService.createInitialProfile(savedUser.getId(), savedUser.getAddress());
 
         return AuthResponse.builder()
-        .email(user.getEmail())
+        .userId(savedUser.getId())
+        .email(savedUser.getEmail())
+        .role(savedUser.getRole())
         .token("dummy-token")
         .build();
     }
@@ -65,7 +69,9 @@ activityLogService.log(
 );
 
         return AuthResponse.builder()
+                .userId(user.getId())
                 .email(user.getEmail())
+                .role(user.getRole())
                 .token("dummy-token")
                 .build();
     }

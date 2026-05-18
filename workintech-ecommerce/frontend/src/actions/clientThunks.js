@@ -1,4 +1,4 @@
-import api from "../api/axios";
+import backendApi from "../api/backendAxios";
 import { setAuthToken } from "../api/auth";
 import { setRoles, setUser } from "./clientActions";
 
@@ -11,21 +11,20 @@ export const fetchRolesIfNeeded = () => async (dispatch, getState) => {
   return res.data || [];
 };
 
-export const loginThunk = ({ email, password, rememberMe }) => async (dispatch) => {
-  const res = await api.post("/login", { email, password });
+export const loginThunk = (payload) => async (dispatch) => {
+  const res = await backendApi.post("/auth/login", {
+    email: payload.email,
+    password: payload.password,
+  });
 
-  const token = res.data?.token || res.data?.access_token || res.data?.jwt;
-  const user = res.data?.user || res.data;
+  const data = res.data;
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("userId", data.userId);
+  localStorage.setItem("email", data.email);
+  localStorage.setItem("role", data.role);
 
-  if (token) {
-    setAuthToken(token);
-    if (rememberMe) localStorage.setItem("token", token);
-  }
-
-  if (user) dispatch(setUser(user));
-
-  return { token, user };
-};
+  return data;
+}
 
 export const verifyTokenThunk = () => async (dispatch) => {
   const token = localStorage.getItem("token");

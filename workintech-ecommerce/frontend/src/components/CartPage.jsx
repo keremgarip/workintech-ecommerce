@@ -8,13 +8,18 @@ import {
 } from "../api/cartApi";
 
 export default function CartPage() {
-  const userId = 1;
+  const userId = Number(localStorage.getItem("userId"));
   const [cart, setCart] = useState(null);
 
   const loadCart = async () => {
-  const data = await getCart(userId);
-  console.log("Cart page data:", data);
-  setCart(data);
+    if(!userId) {
+      console.warn("User not logged in");
+      setCart({ items: [], totalPrice: 0});
+      return;
+    }
+    const data = await getCart(userId)
+    console.log("Cart page data:", data);
+    setCart(data);
 };
 
   useEffect(() => {

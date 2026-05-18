@@ -15,6 +15,50 @@ export default function Header() {
     const history = useHistory();
     const [open, setOpen] = useState(false);
     const categories = useSelector((s) => s.product.categories);
+    const userId = Number(localStorage.getItem("userId"));
+    const [cartCount, setCartCount] = useState(0);
+    const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
+
+    useEffect(() => {
+        const syncUser = () => {
+            setUserEmail(localStorage.getItem("email"));
+        };
+
+        window.addEventListener("storage", syncUser);
+        window.addEventListener("userLoggedIn", syncUser);
+
+        return () => {
+            window.removeEventListener("storage", syncUser);
+            window.removeEventListener("userLoggedIn", syncUser);
+        };
+    }, []);
+
+    const loadCartCount = async () => {
+        try {
+            const cart = await getCart(userId);
+
+            const count =
+                cart?.items?.reduce((sum, item) => sum + Number(item.quantity || 0), 0) || 0;
+
+            setCartCount(count);
+        } catch (error) {
+            console.error("Cart count error:", error);
+        }
+    };
+
+    useEffect(() => {
+        loadCartCount();
+
+        const handleCartUpdated = () => {
+            loadCartCount();
+        };
+
+        window.addEventListener("cartUpdated", handleCartUpdated);
+
+        return () => {
+            window.removeEventListener("cartUpdated", handleCartUpdated);
+        };
+    }, []);
 
     const [shopOpen, setShopOpen] = useState(false);
     useEffect(() => {
@@ -65,18 +109,14 @@ export default function Header() {
                         >
                             <UserRound className="w-5 h-5" />
 
-                            {user ? (
-                                <span className="text-sm font-semibold">
-                                    {user.name || user.email}
-                                </span>
+                            {userEmail ? (
+                                <span className="font-bold">{userEmail}</span>
                             ) : (
-                                <Link to="/login" className="text-sm font-semibold">
-                                    Login / Register
-                                </Link>
+                                <Link to="/login">Login / Register</Link>
                             )}
                         </div>
 
-                        {user && open && (
+                        {userEmail && open && (
                             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md z-50">
                                 <Link
                                     to="/previous-orders"
@@ -86,12 +126,18 @@ export default function Header() {
                                     Previous Orders
                                 </Link>
 
-                                <button
-                                    onClick={logout}
-                                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                                >
-                                    Logout
-                                </button>
+                                {userEmail && (
+                                    <button
+                                        onClick={() => {
+                                            localStorage.clear();
+                                            setUserEmail(null);
+                                            window.dispatchEvent(new Event("cartUpdated"));
+                                        }}
+                                        className="ml-3 text-red-500"
+                                    >
+                                        Logout
+                                    </button>
+                                )}
                             </div>
                         )}
                     </li>
@@ -99,7 +145,7 @@ export default function Header() {
                         <Link to="/cart" className="flex gap-1 items-center">
                             <ShoppingCart className="w-5 h-5" />
                             <span className="text-sm font-semibold">
-                                {cart.reduce((sum, item) => sum + item.count, 0)}
+                                {cartCount}
                             </span>
                         </Link>
                     </li>
