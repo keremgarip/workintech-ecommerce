@@ -1,21 +1,19 @@
 import { Link, useHistory } from "react-router-dom";
 import { headerMenus } from "../data/home.data";
-import { ShoppingCart, Search, UserRound, Heart, ChevronDown } from "lucide-react";
+import { ShoppingCart, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { setUser } from "../actions/clientActions";
 import { setAuthToken } from "../api/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriesIfNeeded } from "../actions/productThunks";
-import CategoriesDropdown from "./CategoriesDropdown";
+import { getCart } from "../api/cartApi";
 
 export default function Header() {
-    const user = useSelector((s) => s.client.user);
-    const cart = useSelector((s) => s.shoppingCart.cart || []);
     const dispatch = useDispatch();
     const history = useHistory();
+
     const [open, setOpen] = useState(false);
-    const categories = useSelector((s) => s.product.categories);
-    const userId = Number(localStorage.getItem("userId"));
+    const [shopOpen, setShopOpen] = useState(false);
     const [cartCount, setCartCount] = useState(0);
     const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
 
@@ -24,25 +22,36 @@ export default function Header() {
             setUserEmail(localStorage.getItem("email"));
         };
 
-        window.addEventListener("storage", syncUser);
+        syncUser();
+
         window.addEventListener("userLoggedIn", syncUser);
+        window.addEventListener("storage", syncUser);
 
         return () => {
-            window.removeEventListener("storage", syncUser);
             window.removeEventListener("userLoggedIn", syncUser);
+            window.removeEventListener("storage", syncUser);
         };
     }, []);
 
     const loadCartCount = async () => {
         try {
-            const cart = await getCart(userId);
+            const userId = Number(localStorage.getItem("userId"));
 
-            const count =
-                cart?.items?.reduce((sum, item) => sum + Number(item.quantity || 0), 0) || 0;
+            if (!userId) {
+                setCartCount(0);
+                return;
+            }
+
+            const cart = await getCart(userId);
+            const count = cart?.items?.reduce(
+                (sum, item) => sum + Number(item.quantity || 0),
+                0
+            ) || 0;
 
             setCartCount(count);
         } catch (error) {
             console.error("Cart count error:", error);
+            setCartCount(0);
         }
     };
 
@@ -54,21 +63,27 @@ export default function Header() {
         };
 
         window.addEventListener("cartUpdated", handleCartUpdated);
+        window.addEventListener("userLoggedIn", handleCartUpdated);
 
         return () => {
             window.removeEventListener("cartUpdated", handleCartUpdated);
+            window.removeEventListener("userLoggedIn", handleCartUpdated);
         };
     }, []);
 
-    const [shopOpen, setShopOpen] = useState(false);
     useEffect(() => {
         dispatch(fetchCategoriesIfNeeded());
     }, [dispatch]);
 
     const logout = () => {
-        localStorage.removeItem("token");
+        localStorage.clear();
         setAuthToken(null);
         dispatch(setUser(null));
+        setUserEmail(null);
+        setCartCount(0);
+        setOpen(false);
+        window.dispatchEvent(new Event("userLoggedIn"));
+        window.dispatchEvent(new Event("cartUpdated"));
         history.push("/");
     };
 
@@ -76,6 +91,7 @@ export default function Header() {
         <div className="w-full">
             <nav className="flex justify-evenly px-2 py-4 items-center">
                 <h3 className="font-bold text-2xl">Bandage</h3>
+
                 <ul className="list-none flex gap-4">
                     {headerMenus.map((menu) => {
                         if (menu.label !== "Shop") {
@@ -85,6 +101,7 @@ export default function Header() {
                                 </li>
                             );
                         }
+
                         return (
                             <li
                                 key={menu.path}
@@ -95,17 +112,16 @@ export default function Header() {
                                 <Link to={menu.path} className="inline-flex items-center gap-1">
                                     {menu.label}
                                 </Link>
-
                             </li>
                         );
                     })}
                 </ul>
-                <ul className="flex gap-4 items-center relative">
 
+                <ul className="flex gap-4 items-center relative">
                     <li className="relative">
                         <div
                             className="flex gap-1 items-center cursor-pointer"
-                            onClick={() => setOpen((p) => !p)}
+                            onClick={() => setOpen((prev) => !prev)}
                         >
                             <UserRound className="w-5 h-5" />
 
@@ -126,32 +142,24 @@ export default function Header() {
                                     Previous Orders
                                 </Link>
 
-                                {userEmail && (
-                                    <button
-                                        onClick={() => {
-                                            localStorage.clear();
-                                            setUserEmail(null);
-                                            window.dispatchEvent(new Event("cartUpdated"));
-                                        }}
-                                        className="ml-3 text-red-500"
-                                    >
-                                        Logout
-                                    </button>
-                                )}
+                                <button
+                                    onClick={logout}
+                                    className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+                                >
+                                    Logout
+                                </button>
                             </div>
                         )}
                     </li>
+
                     <li className="flex gap-1 items-center">
                         <Link to="/cart" className="flex gap-1 items-center">
                             <ShoppingCart className="w-5 h-5" />
-                            <span className="text-sm font-semibold">
-                                {cartCount}
-                            </span>
+                            <span className="text-sm font-semibold">{cartCount}</span>
                         </Link>
                     </li>
-
                 </ul>
             </nav>
         </div>
-    )
+    );
 }

@@ -26,25 +26,30 @@ export default function CartPage() {
     loadCart();
   }, []);
 
-  const increase = async (item) => {
-    await updateCartItem(userId, item.productId, item.quantity + 1);
-    loadCart();
-  };
+  const refreshCart = async () => {
+  await loadCart();
+  window.dispatchEvent(new Event("cartUpdated"));
+};
 
-  const decrease = async (item) => {
-    await updateCartItem(userId, item.productId, item.quantity - 1);
-    loadCart();
-  };
+const increase = async (item) => {
+  await updateCartItem(userId, item.productId, item.quantity + 1);
+  refreshCart();
+};
 
-  const remove = async (productId) => {
-    await removeCartItem(userId, productId);
-    loadCart();
-  };
+const decrease = async (item) => {
+  await updateCartItem(userId, item.productId, item.quantity - 1);
+  refreshCart();
+};
 
-  const clear = async () => {
-    await clearCart(userId);
-    loadCart();
-  };
+const remove = async (productId) => {
+  await removeCartItem(userId, productId);
+  refreshCart();
+};
+
+const clear = async () => {
+  await clearCart(userId);
+  refreshCart();
+};
 
   if (!cart) return <p className="p-6">Loading cart...</p>;
 

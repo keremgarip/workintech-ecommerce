@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createOrder } from "../api/orderApi"
 import { setPayment } from "../actions/shoppingCartActions";
-import { createOrder } from "../actions/orderThunks";
-import api from "../api/axios";
+import {
+    getCards,
+    createCard,
+    updateCard,
+    deleteCard,
+} from "../api/helperUserDataApi";
 
 export default function CreditCardStep() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const userId = Number(localStorage.getItem("userId"));
 
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -27,8 +33,11 @@ export default function CreditCardStep() {
     const refresh = async () => {
         setLoading(true);
         try {
-            const res = await api.get("/user/card");
-            setCards(res.data || []);
+            const userId = Number(localStorage.getItem("userId"));
+
+            const data = await getCards(userId);
+
+            setCards(data || []);
         } finally {
             setLoading(false);
         }
@@ -47,10 +56,11 @@ export default function CreditCardStep() {
     const openEdit = (c) => {
         setEditItem(c);
         setForm({
-            card_no: c.card_no || "",
-            expire_month: c.expire_month || "",
-            expire_year: c.expire_year || "",
-            name_on_card: c.name_on_card || "",
+            card_no: c.cardNumber || "",
+            expire_month: c.expireMonth || "",
+            expire_year: c.expireYear || "",
+            name_on_card: c.cardHolderName || "",
+            card_ccv: "",
         });
         setShowForm(true);
     };
@@ -59,16 +69,17 @@ export default function CreditCardStep() {
         setLoading(true);
         try {
             const payload = {
-                card_no: String(form.card_no),
-                expire_month: Number(form.expire_month),
-                expire_year: Number(form.expire_year),
-                name_on_card: String(form.name_on_card),
+                cardHolderName: String(form.name_on_card),
+                cardNumber: String(form.card_no).replace(/\s+/g, ""),
+                expireMonth: String(form.expire_month),
+                expireYear: String(form.expire_year),
+                cvv: String(form.card_ccv),
             };
 
             if (editItem?.id) {
-                await api.put("/user/card", { ...payload, id: editItem.id });
+                await updateCard(userId, editItem.id, payload);
             } else {
-                await api.post("/user/card", payload);
+                await createCard(userId, payload);
             }
 
             setShowForm(false);
@@ -82,7 +93,7 @@ export default function CreditCardStep() {
     const del = async (id) => {
         setLoading(true);
         try {
-            await api.delete(`/user/card/${id}`);
+            await deleteCard(userId, id);
             await refresh();
         } finally {
             setLoading(false);
@@ -103,11 +114,11 @@ export default function CreditCardStep() {
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {cards.map((c) => (
                     <div key={c.id} className="border border-gray-200 rounded p-4">
-                        <div className="font-bold">{maskCard(c.card_no)}</div>
+                        <div className="font-bold">{c.cardNumber}</div>
                         <div className="text-sm text-gray-600 mt-1">
-                            {c.expire_month}/{c.expire_year}
+                            {c.expireMonth}/{c.expireYear}
                         </div>
-                        <div className="text-sm mt-1">{c.name_on_card}</div>
+                        <div className="text-sm mt-1">{c.cardHolderName}</div>
 
                         <div className="flex gap-3 mt-3">
                             <button className="text-[#23A6F0] font-semibold" onClick={() => openEdit(c)}>
@@ -164,9 +175,23 @@ export default function CreditCardStep() {
                                 })
                             );
 
-                            await dispatch(createOrder());
-                            history.push("/order-success");
+                            const order = await createOrder({
+                                userId,
+                                customerName: String(form.name_on_card),
+                                customerPhone: "5555555555",
+                                shippingAddress: "Selected Address",
+                                paymentMethod: "Credit Card",
+                            });
+
+                            window.dispatchEvent(new Event("cartUpdated"));
+
+                            history.push("/order-success", {
+                                orderNumber: order.orderNumber,
+                                totalAmount: order.totalAmount,
+                            });
+
                         } catch (e) {
+                            console.error(e);
                             alert("Order failed. Please check your address/payment info.");
                         }
                     }}

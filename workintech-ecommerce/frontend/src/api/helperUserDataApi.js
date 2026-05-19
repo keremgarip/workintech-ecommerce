@@ -80,3 +80,37 @@ export const saveExternalProfile = async (userId, profile) => {
 
   return response.data;
 };
+
+export const getCards = async (userId) => {
+  const response = await helperApi.get(
+    `/external-users/${userId}/cards`
+  );
+
+  return response.data;
+};
+
+export const createCard = async (userId, card) => {
+  const response = await helperApi.post(
+    `/external-users/${userId}/cards`,
+    card
+  );
+
+  return response.data;
+};
+
+export const updateCard = async (userId, cardId, card) => {
+  const response = await helperApi.put(
+    `/external-users/${userId}/cards/${cardId}`,
+    card
+  );
+
+  return response.data;
+};
+
+export const deleteCard = async (userId, cardId) => {
+  const response = await helperApi.delete(
+    `/external-users/${userId}/cards/${cardId}`
+  );
+
+  return response.data;
+};
