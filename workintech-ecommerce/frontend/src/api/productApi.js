@@ -22,8 +22,3 @@ export const getProducts = async ({
 
   return response.data;
 };
-
-export const getProductById = async (id) => {
-  const response = await backendApi.get(`/products/${id}`);
-  return response.data;
-};

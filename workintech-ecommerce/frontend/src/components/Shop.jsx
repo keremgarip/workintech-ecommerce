@@ -27,39 +27,44 @@ export default function Shop(props) {
     const [searchText, setSearchText] = useState(filter || "");
 
     const query = useMemo(() => {
-        const q = {};
+    const queryParams = {};
 
-        if (categoryId) q.category = categoryId;
-        if (filter) q.filter = filter;
-        if (sort) q.sort = sort;
+    if (categoryId) queryParams.category = categoryId;
+    if (filter) queryParams.filter = filter;
+    if (sort) queryParams.sort = sort;
 
-        return q;
-    }, [categoryId, filter, sort]);
+    return queryParams;
+}, [categoryId, filter, sort]);
 
-    useEffect(() => {
-        dispatch(fetchProductsByQuery(query));
-    }, [dispatch, query]);
+useEffect(() => {
+    dispatch(fetchProductsByQuery(query));
+}, [dispatch, query, offset, limit]);
 
-    useEffect(() => {
-        dispatch(setOffset(0));
-    }, [dispatch, categoryId]);
+useEffect(() => {
+    dispatch(setOffset(0));
+}, [dispatch, categoryId]);
 
-    const page = Math.floor(offset / limit) + 1;
-    const pageCount = Math.max(1, Math.ceil(total / limit));
+const page = Math.floor(offset / limit) + 1;
+const pageCount = Math.max(1, Math.ceil(total / limit));
 
-    const goToPage = (p) => {
-        const newOffset = (p - 1) * limit;
-        dispatch(setOffset(newOffset));
-    };
+const goToPage = (targetPage) => {
+    const safePage = Math.min(
+        Math.max(targetPage, 1),
+        pageCount
+    );
 
-    const onFirst = () => goToPage(1);
-    const onPrev = () => goToPage(page - 1);
-    const onNext = () => goToPage(page + 1);
-    const onLast = () => goToPage(pageCount);
+    const newOffset = (safePage - 1) * limit;
+    dispatch(setOffset(newOffset));
+};
 
-    const totalNum = Number(total) || 0;
-    const start = totalNum === 0 ? 0 : offset + 1;
-    const end = Math.min(offset + limit, totalNum);
+const onFirst = () => goToPage(1);
+const onPrev = () => goToPage(page - 1);
+const onNext = () => goToPage(page + 1);
+const onLast = () => goToPage(pageCount);
+
+const totalNum = Number(total) || 0;
+const start = totalNum === 0 ? 0 : offset + 1;
+const end = Math.min(offset + limit, totalNum);
 
     useEffect(() => {
         setSearchText(filter || "");
@@ -195,53 +200,88 @@ export default function Shop(props) {
                 </div>
             </div>
             <div className="flex justify-center mt-8">
-                <div className="inline-flex overflow-hidden rounded-lg border border-gray-300 bg-white !text-black">
-                    <button
-                        onClick={onFirst}
-                        disabled={page === 1}
-                        className={`px-6 py-3 ${page === 1 ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-[#23A6F0]"}`}
-                    >
-                        First
-                    </button>
+    <div className="inline-flex overflow-hidden rounded-lg border border-gray-300 bg-white !text-black">
+        <button
+            type="button"
+            onClick={onFirst}
+            disabled={page === 1}
+            className={`px-6 py-3 ${
+                page === 1
+                    ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                    : "text-[#23A6F0]"
+            }`}
+        >
+            First
+        </button>
 
-                    <button
-                        onClick={onPrev}
-                        disabled={page === 1}
-                        className={`px-6 py-3 ${page === 1 ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-[#23A6F0]"}`}
-                    >
-                        Prev
-                    </button>
+        <button
+            type="button"
+            onClick={onPrev}
+            disabled={page === 1}
+            className={`px-6 py-3 ${
+                page === 1
+                    ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                    : "text-[#23A6F0]"
+            }`}
+        >
+            Prev
+        </button>
 
-                    {Array.from({ length: pageCount }, (_, i) => i + 1)
-                        .slice(Math.max(0, page - 3), Math.max(0, page - 3) + 5) // 5 sayfa göster
-                        .map((p) => (
-                            <button
-                                key={p}
-                                onClick={() => goToPage(p)}
-                                className={`px-4 py-3 font-bold ${p === page ? "bg-[#23A6F0] text-black" : "text-[#23A6F0]"
-                                    }`}
-                            >
-                                {p}
-                            </button>
-                        ))}
+        {Array.from(
+            {
+                length: Math.min(5, pageCount),
+            },
+            (_, index) => {
+                const startPage = Math.min(
+                    Math.max(page - 2, 1),
+                    Math.max(pageCount - 4, 1)
+                );
 
-                    <button
-                        onClick={onNext}
-                        disabled={page === pageCount}
-                        className={`px-6 py-3 ${page === pageCount ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-[#23A6F0]"}`}
-                    >
-                        Next
-                    </button>
+                return startPage + index;
+            }
+        ).map((pageNumber) => (
+            <button
+                key={pageNumber}
+                type="button"
+                onClick={() => goToPage(pageNumber)}
+                aria-current={pageNumber === page ? "page" : undefined}
+                className={`px-4 py-3 font-bold ${
+                    pageNumber === page
+                        ? "bg-[#23A6F0] text-black"
+                        : "text-[#23A6F0]"
+                }`}
+            >
+                {pageNumber}
+            </button>
+        ))}
 
-                    <button
-                        onClick={onLast}
-                        disabled={page === pageCount}
-                        className={`px-6 py-3 ${page === pageCount ? "text-gray-400 bg-gray-100 cursor-not-allowed" : "text-[#23A6F0]"}`}
-                    >
-                        Last
-                    </button>
-                </div>
-            </div>
+        <button
+            type="button"
+            onClick={onNext}
+            disabled={page === pageCount}
+            className={`px-6 py-3 ${
+                page === pageCount
+                    ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                    : "text-[#23A6F0]"
+            }`}
+        >
+            Next
+        </button>
+
+        <button
+            type="button"
+            onClick={onLast}
+            disabled={page === pageCount}
+            className={`px-6 py-3 ${
+                page === pageCount
+                    ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                    : "text-[#23A6F0]"
+            }`}
+        >
+            Last
+        </button>
+    </div>
+</div>
             <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">
                 <div className="clients-item">
                     <img src="src\assets\hooli.png" alt="Hooli" className="max-w-40" />
