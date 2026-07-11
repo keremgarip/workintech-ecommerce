@@ -5,12 +5,17 @@ export const createOrder = () => async (dispatch, getState) => {
     const {shoppingCart} = getState();
     const {cart, address, payment} = shoppingCart;
 
-    const selected = (cart || []).filter((i) => i.checked);
+    const selected = (cart || []).filter(
+    (item) => item.checked !== false
+);
 
     const price = selected.reduce(
-        (sum, i) => sum + (Number(i.product.price) || 0) * i.count,
-        0
-    );
+  (sum, item) =>
+    sum +
+    (Number(item.product?.price ?? item.price) || 0) *
+    (Number(item.count ?? item.quantity) || 0),
+  0
+);
 
     const payload = {
         address_id: address?.id,
@@ -21,10 +26,17 @@ export const createOrder = () => async (dispatch, getState) => {
         card_expire_year: Number(payment?.expire_year),
         card_ccv: Number(payment?.card_ccv),
         price,
-        products: selected.map((i) => ({
-            product_id: i.product_id,
-            count: i.count,
-            detail: i.detail || "",
+        products: selected.map((item) => ({
+  product_id:
+    item.product_id ??
+    item.productId ??
+    item.product?.id,
+
+  count: Number(
+    item.count ?? item.quantity ?? 0
+  ),
+
+  detail: item.detail || "",
         })),
     };
 

@@ -1,48 +1,78 @@
 import { Link } from "react-router-dom";
-import { useMemo, useState, useEffect } from "react";
-import {getCart} from "../api/cartApi";
+import { useMemo, useState } from "react";
 
-export default function OrderSummaryBox({ cart = [], showActions = true }) {
+export default function OrderSummaryBox({
+  cart = [],
+  showActions = true,
+}) {
   const [discount, setDiscount] = useState("");
-  const [cartData, setCartData] = useState(null);
   const shipping = 29.99;
 
-  const productsTotal = useMemo(() => {
-    const toNum = (v) => {
-      const s = String(v ?? "").replace(",", ".");
-      const n = parseFloat(s);
-      return Number.isFinite(n) ? n : 0;
-    };
-
-    return cart
-      .filter((i) => i.checked)
-      .reduce((sum, i) => sum + toNum(i.product.price) * (Number(i.count) || 0), 0);
+  const selectedItems = useMemo(() => {
+    return (cart || []).filter(
+      (item) => item.checked !== false
+    );
   }, [cart]);
 
-  const hasSelected = useMemo(() => cart.some((i) => i.checked), [cart]);
+  const productsTotal = useMemo(() => {
+    const toNum = (value) => {
+      const normalized = String(value ?? "").replace(",", ".");
+      const number = parseFloat(normalized);
+
+      return Number.isFinite(number) ? number : 0;
+    };
+
+    return selectedItems.reduce((sum, item) => {
+      const price = toNum(
+        item.product?.price ?? item.price
+      );
+
+      const count = Number(
+        item.count ?? item.quantity ?? 0
+      );
+
+      return sum + price * count;
+    }, 0);
+  }, [selectedItems]);
+
+  const hasSelected = selectedItems.length > 0;
 
   const discountValue = useMemo(() => {
-    const s = String(discount ?? "").replace(",", ".");
-    const n = parseFloat(s);
-    return Number.isFinite(n) ? n : 0;
+    const normalized = String(discount ?? "").replace(",", ".");
+    const number = parseFloat(normalized);
+
+    return Number.isFinite(number) ? number : 0;
   }, [discount]);
 
   const shippingTotal = hasSelected ? shipping : 0;
-  const grandTotal = Math.max(0, productsTotal + shippingTotal - discountValue);
 
-  useEffect(() => {
-    getCart(1).then(setCartData);
-  }, []);
+  const grandTotal = Math.max(
+    0,
+    productsTotal + shippingTotal - discountValue
+  );
 
   return (
     <div className="w-full md:w-[360px] border border-gray-200 rounded bg-white">
       <div className="p-5">
-        <h3 className="font-bold mb-4">Sipariş Özeti</h3>
+        <h3 className="font-bold mb-4">
+          Sipariş Özeti
+        </h3>
 
         <div className="space-y-3 text-sm">
-          <Row label="Ürünler Toplamı" value={`₺ ${productsTotal.toFixed(2)}`} />
-          <Row label="Kargo Toplamı" value={`₺ ${shippingTotal.toFixed(2)}`} />
-          <Row label="İndirim" value={`- ₺ ${discountValue.toFixed(2)}`} />
+          <Row
+            label="Ürünler Toplamı"
+            value={`₺ ${productsTotal.toFixed(2)}`}
+          />
+
+          <Row
+            label="Kargo Toplamı"
+            value={`₺ ${shippingTotal.toFixed(2)}`}
+          />
+
+          <Row
+            label="İndirim"
+            value={`- ₺ ${discountValue.toFixed(2)}`}
+          />
 
           <div className="border-t pt-3 mt-3 flex justify-between font-bold">
             <span>Toplam</span>
@@ -53,7 +83,9 @@ export default function OrderSummaryBox({ cart = [], showActions = true }) {
         <div className="mt-4">
           <input
             value={discount}
-            onChange={(e) => setDiscount(e.target.value)}
+            onChange={(event) =>
+              setDiscount(event.target.value)
+            }
             className="w-full border border-gray-200 rounded px-3 py-2"
             placeholder="İndirim kodu / tutar"
           />
@@ -77,8 +109,13 @@ export default function OrderSummaryBox({ cart = [], showActions = true }) {
 function Row({ label, value }) {
   return (
     <div className="flex justify-between">
-      <span className="text-gray-600">{label}</span>
-      <span className="font-semibold">{value}</span>
+      <span className="text-gray-600">
+        {label}
+      </span>
+
+      <span className="font-semibold">
+        {value}
+      </span>
     </div>
   );
 }

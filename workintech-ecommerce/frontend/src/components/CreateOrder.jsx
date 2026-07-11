@@ -36,23 +36,43 @@ export default function CreateOrderPage() {
     });
 
     useEffect(() => {
-        const fetchAddresses = async () => {
-            try {
-                setLoading(true);
-                if (!userId) {
-                    alert("Lütfen önce giriş yapınız.");
-                    history.push("/login");
-                    return;
-                }
+    const fetchAddresses = async () => {
+        try {
+            setLoading(true);
 
-                const data = await getAddresses(userId);
-                dispatch(setAddressList(data || []));
-            } finally {
-                setLoading(false);
+            if (!userId) {
+                alert("Lütfen önce giriş yapınız.");
+                history.push("/login");
+                return;
             }
-        };
-        fetchAddresses();
-    }, [dispatch]);
+
+            console.log("Fetching addresses for user:", userId);
+
+            const data = await getAddresses(userId);
+
+            console.log("Address response:", data);
+
+            dispatch(setAddressList(
+                Array.isArray(data)
+                    ? data
+                    : data?.addresses ?? []
+            ));
+        } catch (error) {
+            console.error(
+                "Address request failed:",
+                error?.response?.status,
+                error?.response?.data,
+                error?.message
+            );
+
+            dispatch(setAddressList([]));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchAddresses();
+}, [dispatch, history, userId]);
 
     const onSelect = (addr) => dispatch(setAddress(addr));
 
