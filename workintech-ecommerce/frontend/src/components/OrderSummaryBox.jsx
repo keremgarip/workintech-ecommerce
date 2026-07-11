@@ -9,26 +9,44 @@ export default function OrderSummaryBox({
   const shipping = 29.99;
 
   const selectedItems = useMemo(() => {
-    return (cart || []).filter(
-      (item) => item.checked !== false
-    );
-  }, [cart]);
+    if (!Array.isArray(cart)) {
+      return [];
+    }
+
+    if (!showActions) {
+      return cart;
+    }
+
+    return cart.filter((item) => item.checked === true);
+  }, [cart, showActions]);
+
+  console.log("OrderSummary cart:", cart);
+console.log("OrderSummary selectedItems:", selectedItems);
 
   const productsTotal = useMemo(() => {
-    const toNum = (value) => {
-      const normalized = String(value ?? "").replace(",", ".");
+    const toNumber = (value) => {
+      const normalized = String(value ?? "")
+        .replace("₺", "")
+        .replace(/\s/g, "")
+        .replace(",", ".");
+
       const number = parseFloat(normalized);
 
       return Number.isFinite(number) ? number : 0;
     };
 
     return selectedItems.reduce((sum, item) => {
-      const price = toNum(
-        item.product?.price ?? item.price
+      const price = toNumber(
+        item.product?.price ??
+        item.price ??
+        item.unitPrice
       );
 
-      const count = Number(
-        item.count ?? item.quantity ?? 0
+      const count = toNumber(
+        item.count ??
+        item.quantity ??
+        item.amount ??
+        1
       );
 
       return sum + price * count;
@@ -38,7 +56,11 @@ export default function OrderSummaryBox({
   const hasSelected = selectedItems.length > 0;
 
   const discountValue = useMemo(() => {
-    const normalized = String(discount ?? "").replace(",", ".");
+    const normalized = String(discount ?? "")
+      .replace("₺", "")
+      .replace(/\s/g, "")
+      .replace(",", ".");
+
     const number = parseFloat(normalized);
 
     return Number.isFinite(number) ? number : 0;
