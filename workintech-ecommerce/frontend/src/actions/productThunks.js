@@ -19,33 +19,36 @@ export const fetchCategoriesIfNeeded = (force = false) => async (dispatch, getSt
   }
 };
 
-export const fetchProductsByQuery = (query = {}) => async (dispatch, getState) => {
-  const { limit, offset } = getState().product;
+export const fetchProductsByQuery =
+  ({ page = 0, size = 12, ...query } = {}) =>
+  async (dispatch) => {
+    dispatch(setFetchState(FETCHING));
 
-  dispatch(setFetchState(FETCHING));
+    try {
+      const res = await api.get("/products", {
+        params: {
+          page,
+          size,
+          ...query,
+        },
+      });
 
-  try {
-    const page = Math.floor(offset / limit);
+      const products = res.data?.content ?? [];
+      const total = res.data?.totalElements ?? 0;
 
-    const res = await api.get("/products", {
-      params: {
-        page,
-        size: limit,
-        ...query,
-      },
-    });
+      dispatch(setProductList(products));
+      dispatch(setTotal(total));
+      dispatch(setFetchState(FETCHED));
+    } catch (error) {
+      console.error(
+        "fetchProductsByQuery failed:",
+        error?.response?.status,
+        error?.response?.data || error.message
+      );
 
-    const products = res.data?.content ?? [];
-    const total = res.data?.totalElements ?? 0;
-
-    dispatch(setProductList(products));
-    dispatch(setTotal(total));
-    dispatch(setFetchState(FETCHED));
-  } catch (e) {
-    console.error("fetchProductsByQuery failed:", e?.response?.status, e?.response?.data || e.message);
-    dispatch(setFetchState(FAILED));
-  }
-};
+      dispatch(setFetchState(FAILED));
+    }
+  };
 
 export const fetchProductById = (productId) => async (dispatch) => {
   try {

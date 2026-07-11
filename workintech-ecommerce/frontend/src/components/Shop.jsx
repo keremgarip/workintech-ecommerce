@@ -37,14 +37,21 @@ export default function Shop(props) {
 }, [categoryId, filter, sort]);
 
 useEffect(() => {
-    dispatch(fetchProductsByQuery(query));
-}, [dispatch, query, offset, limit]);
+    dispatch(
+        fetchProductsByQuery({
+            ...query,
+            page: apiPage,
+            size: limit,
+        })
+    );
+}, [dispatch, query, apiPage, limit]);
 
 useEffect(() => {
     dispatch(setOffset(0));
 }, [dispatch, categoryId]);
 
-const page = Math.floor(offset / limit) + 1;
+const apiPage = Math.floor(offset / limit);
+const page = apiPage + 1;
 const pageCount = Math.max(1, Math.ceil(total / limit));
 
 const goToPage = (targetPage) => {
@@ -53,8 +60,7 @@ const goToPage = (targetPage) => {
         pageCount
     );
 
-    const newOffset = (safePage - 1) * limit;
-    dispatch(setOffset(newOffset));
+    dispatch(setOffset((safePage - 1) * limit));
 };
 
 const onFirst = () => goToPage(1);
