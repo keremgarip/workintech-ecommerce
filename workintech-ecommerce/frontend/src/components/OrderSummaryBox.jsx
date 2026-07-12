@@ -24,34 +24,35 @@ export default function OrderSummaryBox({
 console.log("OrderSummary selectedItems:", selectedItems);
 
   const productsTotal = useMemo(() => {
-    const toNumber = (value) => {
-      const normalized = String(value ?? "")
-        .replace("₺", "")
-        .replace(/\s/g, "")
-        .replace(",", ".");
+  const toNumber = (value) => {
+    const normalized = String(value ?? "")
+      .replace("₺", "")
+      .replace(/\s/g, "")
+      .replace(",", ".");
 
-      const number = parseFloat(normalized);
+    const number = Number.parseFloat(normalized);
 
-      return Number.isFinite(number) ? number : 0;
-    };
+    return Number.isFinite(number) ? number : 0;
+  };
 
-    return selectedItems.reduce((sum, item) => {
-      const price = toNumber(
-        item.product?.price ??
-        item.price ??
-        item.unitPrice
-      );
+  return selectedItems.reduce((sum, item) => {
+    const price = toNumber(
+      item.product?.price ??
+      item.unitPrice ??
+      item.price
+    );
 
-      const count = toNumber(
-        item.count ??
-        item.quantity ??
-        item.amount ??
-        1
-      );
+    const quantity = toNumber(
+      item.count ??
+      item.quantity ??
+      0
+    );
 
-      return sum + price * count;
-    }, 0);
-  }, [selectedItems]);
+    return sum + price * quantity;
+  }, 0);
+}, [selectedItems]);
+
+console.log("Checkout cart from backend:", checkoutCart);
 
   const hasSelected = selectedItems.length > 0;
 

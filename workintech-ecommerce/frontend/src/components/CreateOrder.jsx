@@ -12,10 +12,14 @@ import { setAddress } from "../actions/shoppingCartActions";
 import CreditCardStep from "./CreditCardStep";
 import { useHistory } from "react-router-dom";
 import { createOrder } from "../api/orderApi";
+import { getCart } from "../api/cartApi";
 
 export default function CreateOrderPage() {
     const dispatch = useDispatch();
     const cart = useSelector((s) => s.shoppingCart.cart) || [];
+
+    console.log("CREATE ORDER REDUX CART:", cart);
+
     const addressList = useSelector((s) => s.client.addressList) || [];
     const selectedAddress = useSelector((s) => s.shoppingCart.address);
 
@@ -23,6 +27,7 @@ export default function CreateOrderPage() {
     const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [editItem, setEditItem] = useState(null);
+    const [checkoutCart, setCheckoutCart] = useState([]);
 
     const userId = Number(localStorage.getItem("userId"));
 
@@ -73,6 +78,32 @@ export default function CreateOrderPage() {
 
     fetchAddresses();
 }, [dispatch, history, userId]);
+
+useEffect(() => {
+    const fetchCheckoutCart = async () => {
+        if (!userId) return;
+
+        try {
+            const data = await getCart(userId);
+
+            const items = Array.isArray(data)
+                ? data
+                : data?.items ?? [];
+
+            setCheckoutCart(items);
+        } catch (error) {
+            console.error(
+                "Checkout cart could not be loaded:",
+                error?.response?.status,
+                error?.response?.data || error.message
+            );
+
+            setCheckoutCart([]);
+        }
+    };
+
+    fetchCheckoutCart();
+}, [userId]);
 
     const onSelect = (addr) => dispatch(setAddress(addr));
 
@@ -242,7 +273,7 @@ export default function CreateOrderPage() {
                     )}
                 </div>
 
-                <OrderSummaryBox cart={cart} showActions={false} />
+                <OrderSummaryBox cart={checkoutCart} showActions={false} />
             </div>
         </div>
     );
