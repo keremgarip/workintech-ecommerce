@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import com.workintech.ecommerce.dto.ProductResponse;
 import com.workintech.ecommerce.entity.Product;
 import com.workintech.ecommerce.exception.ResourceNotFoundException;
@@ -18,9 +21,18 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Page<ProductResponse> getAllActiveProducts(Pageable pageable) {
-        return productRepository.findByIsActiveTrue(pageable)
-        .map(this::toResponse);
-    }
+    Pageable sortedPageable = pageable.getSort().isSorted()
+            ? pageable
+            : PageRequest.of(
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    Sort.by(Sort.Direction.ASC, "id")
+            );
+
+    return productRepository
+            .findByIsActiveTrue(sortedPageable)
+            .map(this::toResponse);
+}
 
     @Cacheable(value = "products", key = "#id")
     public ProductResponse getProductById(Long id) {
