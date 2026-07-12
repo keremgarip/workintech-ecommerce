@@ -119,37 +119,63 @@ export default function Header() {
 
                 <ul className="flex gap-4 items-center relative">
                     <li className="relative">
-                        <div
-                            className="flex gap-1 items-center cursor-pointer"
-                            onClick={() => setOpen((prev) => !prev)}
-                        >
-                            <UserRound className="w-5 h-5" />
+                        {userEmail ? (
+        <>
+            <button
+                type="button"
+                className="flex gap-2 items-center cursor-pointer"
+                onClick={() => setOpen((prev) => !prev)}
+                aria-expanded={open}
+                aria-haspopup="menu"
+            >
+                <UserRound className="w-5 h-5" />
+                <span className="font-bold">{userEmail}</span>
+            </button>
 
-                            {userEmail ? (
-                                <span className="font-bold">{userEmail}</span>
-                            ) : (
-                                <Link to="/login">Login / Register</Link>
-                            )}
-                        </div>
+            {open && (
+                <div
+                    className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md z-50"
+                    role="menu"
+                >
+                    <Link
+                        to="/previous-orders"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100"
+                        onClick={() => setOpen(false)}
+                    >
+                        Previous Orders
+                    </Link>
 
-                        {userEmail && open && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md z-50">
-                                <Link
-                                    to="/previous-orders"
-                                    className="block px-4 py-2 text-sm hover:bg-gray-100"
-                                    onClick={() => setOpen(false)}
-                                >
-                                    Previous Orders
-                                </Link>
+                    <button
+                        type="button"
+                        onClick={logout}
+                        className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+                    >
+                        Logout
+                    </button>
+                </div>
+            )}
+        </>
+    ) : (
+        <div className="flex gap-2 items-center">
+            <UserRound className="w-5 h-5" />
 
-                                <button
-                                    onClick={logout}
-                                    className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
-                                >
-                                    Logout
-                                </button>
-                            </div>
-                        )}
+            <Link
+                to="/login"
+                className="hover:text-[#23A6F0]"
+            >
+                Login
+            </Link>
+
+            <span className="text-gray-400">/</span>
+
+            <Link
+                to="/signup"
+                className="hover:text-[#23A6F0]"
+            >
+                Register
+            </Link>
+        </div>
+    )}
                     </li>
 
                     <li className="flex gap-1 items-center">
