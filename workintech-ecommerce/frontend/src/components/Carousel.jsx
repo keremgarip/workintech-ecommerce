@@ -2,6 +2,15 @@ import {useState, useEffect} from "react";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import {Link} from "react-router-dom";
 import { heroSlides } from "../data/home.data";
+import {images} from "../utils/assets";
+
+const resolveImage = (imagePath) => {
+    if (!imagePath) return "";
+
+    const fileName = imagePath.split("/").pop();
+
+    return images[fileName] || imagePath;
+};
 
 export default function Carousel() {
     const [index, setIndex] = useState(0);
@@ -17,7 +26,9 @@ export default function Carousel() {
     const active = heroSlides[index];
 
     return (
-        <section className="relative w-full h-[640px] bg-cover bg-center overflow-hidden" style={{ backgroundImage: `url('${active.bg}')`, backgroundSize: 'cover', backgroundPosition: 'center', height: '640px' }}>
+        <section className="relative w-full h-[640px] bg-cover bg-center overflow-hidden" style={{
+    backgroundImage: `url(${resolveImage(active.bg)})`,
+}}>
                 <div className="absolute inset-0 bg-black/35" />
                 <div className="relative h-full py-10 flex flex-col gap-6 justify-center items-center text-white text-center px-4">
                     <div key={active.id} className="animate-[fadeIn_.5s_ease-out]">
