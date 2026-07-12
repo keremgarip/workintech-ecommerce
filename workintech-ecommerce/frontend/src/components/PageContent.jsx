@@ -16,6 +16,16 @@ import {
   Download,
 } from "lucide-react";
 
+import { images } from "../utils/assets";
+
+const resolveImage = (imagePath) => {
+  if (!imagePath) return "";
+
+  const fileName = imagePath.split("/").pop();
+
+  return images[fileName] || imagePath;
+};
+
 function Container({ children, className = "" }) {
   return <div className={`max-w-7xl mx-auto px-4 ${className}`}>{children}</div>;
 }
@@ -41,7 +51,11 @@ export default function PageContent() {
                 </Link>
               </div>
 
-              <img src={card.img} className="max-w-[200px]" alt={card.title} />
+              <img
+  src={resolveImage(card.img)}
+  className="max-w-[200px]"
+  alt={card.title}
+/>
             </div>
           ))}
         </div>
@@ -52,7 +66,9 @@ export default function PageContent() {
         <div className="px-2 py-12 flex flex-col lg:flex-row justify-center gap-7.5 items-stretch">
           <div
             className="border border-[#8EC2F2] w-full lg:w-[400px] bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]"
-            style={{ backgroundImage: "url('src/assets/barista-drink.jpg')" }}
+            style={{
+  backgroundImage: `url(${images["barista-drink.jpg"]})`,
+}}
           >
             <h6 className="text-sm font-bold">ALL PRODUCTS</h6>
             <h6 className="text-sm font-bold">200 items</h6>
@@ -89,7 +105,7 @@ export default function PageContent() {
                 >
                   <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
                     <img
-                      src={product.img}
+                      src={resolveImage(product.img)}
                       className="max-h-full object-contain"
                       alt={product.name}
                     />
@@ -170,8 +186,8 @@ export default function PageContent() {
               >
                 <div className="h-64 w-full flex items-center justify-center bg-white rounded-xl overflow-hidden border border-[#ECECEC]">
                   <img
-                    src={product.img}
-                    alt={product.name}
+                     src={resolveImage(product.img)}
+                     alt={product.name}
                     className="max-h-full object-contain"
                   />
                 </div>
@@ -212,7 +228,7 @@ export default function PageContent() {
           ].map((logo) => (
             <div key={logo} className="clients-item">
               <img
-                src={`src/assets/${logo}.png`}
+                src={images[`${logo}.png`]}
                 alt={logo}
                 className="max-w-40"
               />
@@ -233,7 +249,7 @@ export default function PageContent() {
             {blogPosts.map((p) => (
               <div key={p.id} className="border border-[#ECECEC] bg-white flex-1">
                 <img
-                  src={p.img}
+                  src={resolveImage(p.img)}
                   alt={p.title}
                   className="w-full h-64 object-cover"
                 />
