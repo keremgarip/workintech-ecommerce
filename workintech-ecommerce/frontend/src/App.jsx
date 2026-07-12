@@ -79,7 +79,7 @@ function App() {
           <OrderSuccess />
         </Route>
 
-        <ProtectedRoute path="/orders" component={OrdersPage} />
+        <ProtectedRoute path="/previous-orders" component={OrdersPage} />
 
       </Switch>
       <Footer />
