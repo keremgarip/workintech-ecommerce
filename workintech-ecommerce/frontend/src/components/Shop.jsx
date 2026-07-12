@@ -36,6 +36,10 @@ export default function Shop(props) {
     return queryParams;
 }, [categoryId, filter, sort]);
 
+const apiPage = Math.floor(offset / limit);
+const page = apiPage + 1;
+const pageCount = Math.max(1, Math.ceil(total / limit));
+
 useEffect(() => {
     dispatch(
         fetchProductsByQuery({
@@ -49,10 +53,6 @@ useEffect(() => {
 useEffect(() => {
     dispatch(setOffset(0));
 }, [dispatch, categoryId]);
-
-const apiPage = Math.floor(offset / limit);
-const page = apiPage + 1;
-const pageCount = Math.max(1, Math.ceil(total / limit));
 
 const goToPage = (targetPage) => {
     const safePage = Math.min(
