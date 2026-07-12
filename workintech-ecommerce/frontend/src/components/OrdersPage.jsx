@@ -1,165 +1,241 @@
-import { useEffect, useState, Fragment, useMemo } from "react";
-import api from "../api/axios";
+import { Fragment, useEffect, useState } from "react";
+import { getOrderHistory } from "../api/orderApi";
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
     const [openId, setOpenId] = useState(null);
-    const [detailsById, setDetailsById] = useState({});
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) api.defaults.headers.Authorization = token.startsWith("Bearer ")
-            ? token
-            : `Bearer ${token}`;
+    const run = async () => {
+        const userId = Number(localStorage.getItem("userId"));
 
-        const run = async () => {
-            setLoading(true);
-            try {
-                const userId = 1;
+        if (!userId) {
+            setOrders([]);
+            return;
+        }
 
-                const res = await api.get(`/orders?userId=${userId}`);
-                setOrders(res.data.content || []);
-            } finally {
-                setLoading(false);
-            }
-        };
+        setLoading(true);
 
-        run();
-    }, []);
+        try {
+            const data = await getOrderHistory(userId, 0, 20);
+            setOrders(data?.content || []);
+        } catch (error) {
+            console.error(
+                "Order history could not be fetched:",
+                error?.response?.status,
+                error?.response?.data || error.message
+            );
+            setOrders([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    run();
+}, []);
 
     const getProducts = (data) => data?.items || [];
 
-    const getItemCount = (data) =>
-        getProducts(data).reduce((sum, p) => sum + (Number(p.quantity) || 0), 0);
+    const getItemCount = (order) => {
+        return (order?.items || []).reduce(
+            (sum, item) =>
+                sum + (Number(item.quantity) || 0),
+            0
+        );
+    };
 
-    /* const toggleDetails = async (id) => {
-        const willOpen = openId !== id;
-        setOpenId(willOpen ? id : null);
-
-        if (!willOpen || detailsById[id]) return;
-
-        try {
-            const res = await api.get(`/order/${id}`);
-            let detail = res.data;
-
-            if (detail?.address_id && !detail?.address) {
-                const addrRes = await api.get("/user/address");
-                const list = addrRes.data || [];
-                detail.address = list.find((a) => String(a.id) === String(detail.address_id)) || null;
-            }
-
-            setDetailsById((p) => ({ ...p, [id]: detail }));
-        } catch (e) {
-            const status = e?.response?.status;
-
-            if (status === 404) {
-                setDetailsById((p) => ({ ...p, [id]: { __noDetailEndpoint: true } }));
-                return;
-            }
-
-            alert("Order detail could not be fetched.");
-        }
-    }; */
-
+    const toggleDetails = (id) => {
+        setOpenId((currentId) =>
+            currentId === id ? null : id
+        );
+    };
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
-            <h1 className="text-2xl font-bold">Previous Orders</h1>
-            {loading && <p className="text-gray-500 mt-3">Loading...</p>}
+            <h1 className="text-2xl font-bold">
+                Previous Orders
+            </h1>
 
-            <div className="mt-6 border border-gray-200 rounded overflow-hidden">
-                <table className="w-full text-left">
-                    <thead className="bg-gray-50 text-sm">
-                        <tr>
-                            <th className="p-3">Order ID</th>
-                            <th className="p-3">Date</th>
-                            <th className="p-3">Total</th>
-                            <th className="p-3">Items</th>
-                            <th className="p-3"></th>
-                        </tr>
-                    </thead>
+            {loading && (
+                <p className="text-gray-500 mt-3">
+                    Loading...
+                </p>
+            )}
 
-                    <tbody>
-                        {orders.map((o) => {
-                            const isOpen = openId === o.id;
-                            const detail = detailsById[o.id];
+            {error && (
+                <p className="text-red-600 mt-3">
+                    {error}
+                </p>
+            )}
 
-                            // Items sadece detail yüklendiyse gösterelim.
-                            const itemsText = detail ? String(getItemCount(detail)) : "-";
+            {!loading && !error && orders.length === 0 && (
+                <div className="mt-6 border border-gray-200 rounded p-6 text-center text-gray-600">
+                    Henüz bir siparişiniz bulunmuyor.
+                </div>
+            )}
 
-                            return (
-                                <Fragment key={o.id}>
-                                    <tr className="border-t">
-                                        <td className="p-3 font-semibold">{o.id}</td>
-                                        <td className="p-3">{formatDate(o.createdAt)}</td>
-                                        <td className="p-3 font-bold">
-                                            ₺ {Number(o.totalAmount || 0).toFixed(2)}
-                                        </td>
-                                        <td className="p-3 font-semibold">{itemsText}</td>
-                                        <td className="p-3 text-right">
-                                            <button
-                                                className="text-[#23A6F0] font-semibold"
-                                                onClick={() => toggleDetails(o.id)}
-                                            >
-                                                {isOpen ? "Hide" : "Details"}
-                                            </button>
-                                        </td>
-                                    </tr>
+            {orders.length > 0 && (
+                <div className="mt-6 border border-gray-200 rounded overflow-hidden">
+                    <table className="w-full text-left">
+                        <thead className="bg-gray-50 text-sm">
+                            <tr>
+                                <th className="p-3">
+                                    Order No
+                                </th>
 
-                                    {isOpen && (
-                                        <tr className="border-t bg-gray-50">
-                                            <td colSpan={5} className="p-4">
-                                                <OrderDetails
-                                                    order={detail || o}
-                                                    getProducts={getProducts}
-                                                />
-                                            </td>
-                                        </tr>
-                                    )}
-                                </Fragment>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
+                                <th className="p-3">
+                                    Date
+                                </th>
+
+                                <th className="p-3">
+                                    Status
+                                </th>
+
+                                <th className="p-3">
+                                    Total
+                                </th>
+
+                                <th className="p-3">
+                                    Items
+                                </th>
+
+                                <th className="p-3"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {orders.map((o) => {
+    const isOpen = openId === o.id;
+    const itemsText = String(getItemCount(o));
+
+    return (
+        <Fragment key={o.id}>
+            <tr className="border-t">
+                <td className="p-3 font-semibold">
+                    {o.orderNumber}
+                </td>
+
+                <td className="p-3">
+                    {formatDate(o.createdAt)}
+                </td>
+
+                <td className="p-3 font-bold">
+                    ₺ {Number(o.totalAmount || 0).toFixed(2)}
+                </td>
+
+                <td className="p-3 font-semibold">
+                    {itemsText}
+                </td>
+
+                <td className="p-3 text-right">
+                    <button
+                        type="button"
+                        className="text-[#23A6F0] font-semibold"
+                        onClick={() => toggleDetails(o.id)}
+                    >
+                        {isOpen ? "Hide" : "Details"}
+                    </button>
+                </td>
+            </tr>
+
+            {isOpen && (
+                <tr className="border-t bg-gray-50">
+                    <td colSpan={5} className="p-4">
+                        <OrderDetails
+                            order={o}
+                            getProducts={getProducts}
+                        />
+                    </td>
+                </tr>
+            )}
+        </Fragment>
+    );
+})}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 }
 
-function OrderDetails({ order, getProducts }) {
-    const products = useMemo(() => getProducts(order), [order, getProducts]);
-
-    const addressObj =
-        (order && typeof order.address === "object" && order.address) || null;
+function OrderDetails({ order }) {
+    const products = Array.isArray(order?.items)
+        ? order.items
+        : [];
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="border border-gray-200 rounded p-3 bg-white">
-                <div className="font-bold mb-2">Address</div>
+                <div className="font-bold mb-2">
+                    Order Information
+                </div>
 
                 <div className="text-sm text-gray-700 space-y-1">
-                    <div>{order.shippingAddress}</div>
-                    <div>{order.paymentMethod}</div>
+                    <div>
+                        Order No: {order.orderNumber}
+                    </div>
+
+                    <div>
+                        Status: {order.status || "-"}
+                    </div>
+
+                    <div>
+                        Date: {formatDate(order.createdAt)}
+                    </div>
+
+                    <div>
+                        Total: ₺{" "}
+                        {Number(
+                            order.totalAmount || 0
+                        ).toFixed(2)}
+                    </div>
                 </div>
             </div>
 
             <div className="border border-gray-200 rounded p-3 bg-white">
-                <div className="font-bold mb-2">Products</div>
+                <div className="font-bold mb-2">
+                    Products
+                </div>
 
                 {products.length === 0 ? (
-                    <div className="text-sm text-gray-600">No products found.</div>
+                    <div className="text-sm text-gray-600">
+                        No products found.
+                    </div>
                 ) : (
                     <div className="space-y-2">
-                        {products.map((p, idx) => (
+                        {products.map((product, index) => (
                             <div
-                                key={`${p.product_id ?? p.id ?? "p"}-${idx}`}
-                                className="flex justify-between text-sm border-b pb-2"
+                                key={`${product.productId}-${index}`}
+                                className="flex justify-between gap-4 text-sm border-b pb-2"
                             >
-                                <span>
-                                    #{p.productId} • {p.productName}
-                                </span>
-                                <b>x{p.quantity}</b>
+                                <div>
+                                    <div className="font-semibold">
+                                        {product.productName}
+                                    </div>
+
+                                    <div className="text-gray-500">
+                                        ₺{" "}
+                                        {Number(
+                                            product.unitPrice || 0
+                                        ).toFixed(2)}
+                                    </div>
+                                </div>
+
+                                <div className="text-right">
+                                    <div className="font-bold">
+                                        x{product.quantity}
+                                    </div>
+
+                                    <div>
+                                        ₺{" "}
+                                        {Number(
+                                            product.lineTotal || 0
+                                        ).toFixed(2)}
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -171,6 +247,10 @@ function OrderDetails({ order, getProducts }) {
 
 function formatDate(iso) {
     if (!iso) return "-";
-    const d = new Date(iso);
-    return isNaN(d.getTime()) ? iso : d.toLocaleString();
+
+    const date = new Date(iso);
+
+    return Number.isNaN(date.getTime())
+        ? iso
+        : date.toLocaleString("tr-TR");
 }

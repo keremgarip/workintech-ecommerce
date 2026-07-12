@@ -130,6 +130,10 @@ public class OrderService {
                 .status(order.getStatus())
                 .createdAt(order.getCreatedAt())
                 .items(itemResponses)
+                .shippingAddress(order.getShippingAddress())
+                .paymentMethod(order.getPaymentMethod())
+                .customerName(order.getCustomerName())
+                .customerPhone(order.getCustomerPhone())
                 .build();
     }
 
