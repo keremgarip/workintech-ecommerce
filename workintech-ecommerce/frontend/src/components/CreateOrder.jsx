@@ -16,9 +16,6 @@ import { getCart } from "../api/cartApi";
 
 export default function CreateOrderPage() {
     const dispatch = useDispatch();
-    const cart = useSelector((s) => s.shoppingCart.cart) || [];
-
-    console.log("CREATE ORDER REDUX CART:", cart);
 
     const addressList = useSelector((s) => s.client.addressList) || [];
     const selectedAddress = useSelector((s) => s.shoppingCart.address);
@@ -81,16 +78,22 @@ export default function CreateOrderPage() {
 
 useEffect(() => {
     const fetchCheckoutCart = async () => {
-        if (!userId) return;
+        if (!userId) {
+            setCheckoutCart([]);
+            return;
+        }
 
         try {
             const data = await getCart(userId);
 
-            const items = Array.isArray(data)
-                ? data
-                : data?.items ?? [];
+            console.log("GET CART RESPONSE:", data);
+            console.log("GET CART ITEMS:", data?.items);
 
-            setCheckoutCart(items);
+            setCheckoutCart(
+                Array.isArray(data?.items)
+                    ? data.items
+                    : []
+            );
         } catch (error) {
             console.error(
                 "Checkout cart could not be loaded:",

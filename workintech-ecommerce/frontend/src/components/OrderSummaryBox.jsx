@@ -52,8 +52,6 @@ console.log("OrderSummary selectedItems:", selectedItems);
   }, 0);
 }, [selectedItems]);
 
-console.log("Checkout cart from backend:", checkoutCart);
-
   const hasSelected = selectedItems.length > 0;
 
   const discountValue = useMemo(() => {
