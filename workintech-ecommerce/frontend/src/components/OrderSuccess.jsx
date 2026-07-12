@@ -34,7 +34,7 @@ export default function OrderSuccess() {
         </Link>
 
         <Link
-          to="/orders"
+          to="/previous-orders"
           className="px-6 py-3 rounded border border-gray-200 font-bold !text-black"
         >
           Siparişlerim
