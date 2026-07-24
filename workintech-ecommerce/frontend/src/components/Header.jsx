@@ -88,8 +88,8 @@ export default function Header() {
     };
 
     return (
-        <div className="w-full">
-            <nav className="flex justify-evenly px-2 py-4 items-center">
+        <header className="w-full bg-white">
+            <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                 <h3 className="font-bold text-2xl">Bandage</h3>
 
                 <ul className="list-none flex gap-4">
@@ -186,6 +186,6 @@ export default function Header() {
                     </li>
                 </ul>
             </nav>
-        </div>
+        </header>
     );
 }

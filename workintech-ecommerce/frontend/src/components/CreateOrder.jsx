@@ -86,9 +86,6 @@ useEffect(() => {
         try {
             const data = await getCart(userId);
 
-            console.log("GET CART RESPONSE:", data);
-            console.log("GET CART ITEMS:", data?.items);
-
             setCheckoutCart(
                 Array.isArray(data?.items)
                     ? data.items

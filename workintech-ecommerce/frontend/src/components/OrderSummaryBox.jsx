@@ -20,9 +20,6 @@ export default function OrderSummaryBox({
     return cart.filter((item) => item.checked === true);
   }, [cart, showActions]);
 
-  console.log("OrderSummary cart:", cart);
-console.log("OrderSummary selectedItems:", selectedItems);
-
   const productsTotal = useMemo(() => {
   const toNumber = (value) => {
     const normalized = String(value ?? "")
