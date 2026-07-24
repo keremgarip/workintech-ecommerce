@@ -236,10 +236,39 @@ export default function PageContent() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
               {bestSellerProducts.slice(0, 6).map((product) => (
-                <ProductCard
+                <div
                   key={product.id}
-                  product={product}
-                />
+                  className="flex flex-col items-center text-center gap-2"
+                >
+                  <div className="w-full h-44 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={resolveImage(product.img)}
+                      alt={product.name}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+
+                  <h5 className="font-bold text-sm">
+                    {product.name}
+                  </h5>
+
+                  <Link
+                    to="/shop"
+                    className="text-xs text-gray-500 hover:underline"
+                  >
+                    {product.category}
+                  </Link>
+
+                  <div className="flex justify-center gap-2 text-sm">
+                    <span className="text-[#BDBDBD] font-bold">
+                      ${Number(product.oldPrice || 0).toFixed(2)}
+                    </span>
+
+                    <span className="text-[#23856D] font-bold">
+                      ${Number(product.price || 0).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
