@@ -26,7 +26,7 @@ export default function Carousel() {
     const active = heroSlides[index];
 
     return (
-        <section className="relative w-full h-[640px] bg-cover bg-center overflow-hidden" style={{
+        <section className="relative left-1/2 w-screen -translate-x-1/2 h-[640px] bg-cover bg-center overflow-hidden" style={{
     backgroundImage: `url(${resolveImage(active.bg)})`,
 }}>
                 <div className="absolute inset-0 bg-black/35" />

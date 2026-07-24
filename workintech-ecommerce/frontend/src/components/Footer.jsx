@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 export default function Footer() {
     return (
-        <div className="bg-[#252b42] w-full text-white">
+        <footer className="relative left-1/2 w-screen -translate-x-1/2 bg-[#252b42] text-white">
 
             <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-white/10">
                 <div className="space-y-2">
@@ -49,7 +49,7 @@ export default function Footer() {
                     <ul className="flex flex-col gap-2.5 text-sm text-white/80">
                         <li><Link className="hover:text-white" to="/login">Login</Link></li>
                         <li><Link className="hover:text-white" to="/signup">Register</Link></li>
-                        <li><Link className="hover:text-white" to="/orders">My Orders</Link></li>
+                        <li><Link className="hover:text-white" to="/previous-orders">My Orders</Link></li>
                         <li><Link className="hover:text-white" to="/cart">Shopping Cart</Link></li>
                     </ul>
                 </div>
@@ -102,6 +102,6 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     )
 }
