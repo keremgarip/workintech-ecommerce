@@ -35,25 +35,32 @@ export default function PageContent() {
     <div className="w-full">
       {/* ShopCards */}
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-16">
           {shopCards.map((card) => (
             <div
               key={card.id}
-              className="flex border border-[#ECECEC] p-4 justify-between w-full min-h-[190px] overflow-hidden"
+              className="flex items-center justify-between w-full min-h-[220px] border border-[#ECECEC] bg-white p-6 overflow-hidden"
             >
               <div className="flex flex-col gap-2 justify-center">
-                <h6 className="font-normal text-sm">{card.tag}</h6>
-                <h2 className="font-bold text-2xl">{card.title}</h2>
+                <h6 className="font-normal text-sm text-gray-600">
+                  {card.tag}
+                </h6>
 
-                {/* CTA -> Shop */}
-                <Link to={card.link || "/shop"} className="font-normal text-xs text-[#23A6F0]">
+                <h2 className="font-bold text-2xl">
+                  {card.title}
+                </h2>
+
+                <Link
+                  to={card.link || "/shop"}
+                  className="font-medium text-sm text-[#23A6F0]"
+                >
                   {card.cta}
                 </Link>
               </div>
 
               <img
                 src={resolveImage(card.img)}
-                className="w-[45%] max-h-[170px] object-contain self-end"
+                className="w-[46%] h-[180px] object-contain"
                 alt={card.title}
               />
             </div>
@@ -63,94 +70,81 @@ export default function PageContent() {
 
       {/* Bestseller (tek kez) */}
       <Container>
-        <div className="py-16 grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-10 py-16 items-stretch">
           <div
-            className="border border-[#8EC2F2] w-full lg:w-[400px] bg-cover bg-center py-6 pr-6 pl-12 flex flex-col gap-[5px]"
+            className="relative min-h-[620px] bg-cover bg-center overflow-hidden"
             style={{
               backgroundImage: `url(${images["barista-drink.jpg"]})`,
             }}
           >
-            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute inset-0 bg-black/5" />
 
             <div className="relative z-10 p-8">
-              <h6 className="text-xs font-bold uppercase">
+              <h6 className="font-bold text-sm uppercase">
                 Furniture
               </h6>
 
-              <p className="text-sm mt-1">
+              <p className="mt-2 text-sm">
                 5 Items
               </p>
 
               <Link
                 to="/shop"
-                className="inline-block mt-3 text-sm font-bold"
+                className="inline-block mt-4 font-semibold text-[#23A6F0]"
               >
                 Explore Items →
               </Link>
             </div>
           </div>
 
-          <div className="flex-1">
-            <div className="flex flex-wrap gap-2.5 items-center border-b-2 border-[#ECECEC]">
-              <h3 className="font-bold text-base mr-2">Bestseller Products</h3>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-5 border-b border-gray-200 pb-4">
+              <h3 className="font-bold text-xl">
+                Bestseller Products
+              </h3>
 
-              {bestSellerTabs.map((tab) => (
-                <h6 key={tab} className="text-sm text-gray-600">
-                  {tab}
-                </h6>
-              ))}
+              <div className="flex flex-wrap gap-5 text-gray-600">
+                {bestSellerTabs.map((tab) => (
+                  <button
+                    type="button"
+                    key={tab}
+                    className="hover:text-[#23A6F0]"
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
 
-              <div className="flex py-3.5 px-5 ml-auto">
-                <div className="border rounded-[34px] border-[#BDBDBD]">
+              <div className="ml-auto flex gap-2">
+                <button
+                  type="button"
+                  className="border border-gray-300 rounded-full p-1"
+                >
                   <ChevronLeft className="w-5 h-5" />
-                </div>
-                <div className="border rounded-[34px] border-[#BDBDBD] ml-2">
+                </button>
+
+                <button
+                  type="button"
+                  className="border border-gray-300 rounded-full p-1"
+                >
                   <ChevronRight className="w-5 h-5" />
-                </div>
+                </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 mt-8">
               {bestSellerProducts.slice(0, 6).map((product) => (
-                <div
+                <ProductCard
                   key={product.id}
-                  className="flex flex-col items-center text-center gap-2 py-2"
-                >
-                  <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
-                    <img
-                      src={resolveImage(product.img)}
-                      className="max-h-full object-contain"
-                      alt={product.name}
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <h5 className="font-bold">{product.name}</h5>
-
-                    <Link
-                      to="/shop"
-                      className="text-sm text-gray-500 hover:underline"
-                    >
-                      {product.category}
-                    </Link>
-
-                    <div className="flex justify-center gap-2">
-                      <span className="text-[#BDBDBD] font-bold">
-                        ${product.oldPrice.toFixed(2)}
-                      </span>
-                      <span className="text-[#23856D] font-bold">
-                        ${product.price.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                  product={product}
+                />
               ))}
             </div>
 
-            <div className="mt-8 text-center">
+            <div className="mt-12 text-center">
               <Link
                 to="/shop"
-                className="inline-block bg-[#23A6F0] text-white font-bold px-6 py-3 rounded !text-white"
+                className="inline-flex bg-[#23A6F0] px-8 py-3 rounded font-bold !text-white"
               >
                 Browse All Products
               </Link>
@@ -377,7 +371,7 @@ export default function PageContent() {
 
       {/* Clients */}
       <Container>
-        <div className="py-16 flex flex-wrap gap-14 items-center justify-center">
+        <div className="py-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-10 items-center">
           {[
             "hooli",
             "lyft",
@@ -386,11 +380,14 @@ export default function PageContent() {
             "aws",
             "reddit",
           ].map((logo) => (
-            <div key={logo} className="clients-item">
+            <div
+              key={logo}
+              className="h-14 flex items-center justify-center"
+            >
               <img
                 src={images[`${logo}.png`]}
                 alt={logo}
-                className="max-w-32 max-h-14 object-contain grayscale opacity-70"
+                className="max-w-[130px] max-h-12 w-auto h-auto object-contain grayscale opacity-65"
               />
             </div>
           ))}
@@ -448,6 +445,41 @@ export default function PageContent() {
           </div>
         </div>
       </Container>
+    </div>
+  );
+}
+
+function ProductCard({ product }) {
+  return (
+    <div className="flex flex-col items-center text-center gap-2 min-w-0">
+      <div className="w-full h-[200px] flex items-center justify-center bg-[#FAFAFA] overflow-hidden">
+        <img
+          src={resolveImage(product.img)}
+          alt={product.name}
+          className="w-full h-full object-contain"
+        />
+      </div>
+
+      <h5 className="font-bold text-base mt-1">
+        {product.name}
+      </h5>
+
+      <Link
+        to="/shop"
+        className="text-sm text-[#737373]"
+      >
+        {product.category}
+      </Link>
+
+      <div className="flex justify-center gap-2">
+        <span className="text-[#BDBDBD] font-bold">
+          ${Number(product.oldPrice || 0).toFixed(2)}
+        </span>
+
+        <span className="text-[#23856D] font-bold">
+          ${Number(product.price || 0).toFixed(2)}
+        </span>
+      </div>
     </div>
   );
 }
