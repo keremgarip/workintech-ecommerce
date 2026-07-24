@@ -382,12 +382,18 @@ export default function PageContent() {
           ].map((logo) => (
             <div
               key={logo}
-              className="h-14 flex items-center justify-center"
+              className="h-16 flex items-center justify-center"
             >
               <img
                 src={images[`${logo}.png`]}
                 alt={logo}
-                className="max-w-[130px] max-h-12 w-auto h-auto object-contain grayscale opacity-65"
+                className={`
+        w-auto h-auto object-contain grayscale opacity-65
+        ${logo === "hooli"
+                    ? "max-w-[170px] max-h-14 scale-125"
+                    : "max-w-[130px] max-h-12"
+                  }
+      `}
               />
             </div>
           ))}
