@@ -144,37 +144,48 @@ export default function ProductDetails(props) {
   return (
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex gap-[15px] py-2.5">
-            <a href="/">Home</a>
-            <ChevronRight />
-            <a href="/shop">Shop</a>
-          </div>
+        <div className="flex gap-3 items-center py-4">
+          <a href="/">Home</a>
+          <ChevronRight className="w-4 h-4" />
+          <a href="/shop">Shop</a>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full aspect-square max-h-[520px] bg-[#FAFAFA] flex items-center justify-center overflow-hidden">
-            <img
-              src={productImage}
-              alt={product?.name || "Product"}
-              className="w-full h-full object-contain"
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-10 items-start">
+          <div className="pb-12 flex flex-col gap-4 min-w-0">
+            <div className="w-full bg-[#FAFAFA] flex items-center justify-center overflow-hidden">
+              <img
+                src={productImage}
+                alt={product?.name || "Product"}
+                className="w-full max-h-[560px] object-contain"
+              />
+            </div>
 
-            <div className="flex gap-5">
-              <img
-                src={productImage}
-                alt={product?.name || "Product"}
-                className="h-[100px] w-[100px] object-contain bg-white border border-[#ECECEC] rounded"
-              />
-              <img
-                src={productImage}
-                alt={product?.name || "Product"}
-                className="h-[100px] w-[100px] object-contain bg-white border border-[#ECECEC] rounded"
-              />
+            <div className="flex gap-4 flex-wrap">
+              <button
+                type="button"
+                className="w-20 h-20 border border-[#ECECEC] rounded overflow-hidden bg-white"
+              >
+                <img
+                  src={productImage}
+                  alt={`${product?.name || "Product"} thumbnail 1`}
+                  className="w-full h-full object-contain"
+                />
+              </button>
+
+              <button
+                type="button"
+                className="w-20 h-20 border border-[#ECECEC] rounded overflow-hidden bg-white"
+              >
+                <img
+                  src={productImage}
+                  alt={`${product?.name || "Product"} thumbnail 2`}
+                  className="w-full h-full object-contain"
+                />
+              </button>
             </div>
           </div>
 
-          <div className="py-4 flex flex-col gap-3">
+          <div className="py-4 flex flex-col gap-4 min-w-0">
             <h4 className="text-xl font-semibold">{title}</h4>
 
             <div className="flex gap-3 items-center">
