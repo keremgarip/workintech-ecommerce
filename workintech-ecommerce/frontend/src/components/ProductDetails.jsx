@@ -153,11 +153,11 @@ export default function ProductDetails(props) {
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="pb-12 flex flex-col gap-6">
+          <div className="w-full aspect-square max-h-[520px] bg-[#FAFAFA] flex items-center justify-center overflow-hidden">
             <img
               src={productImage}
               alt={product?.name || "Product"}
-              className="w-full aspect-square max-h-[520px]"
+              className="w-full h-full object-contain"
             />
 
             <div className="flex gap-5">
@@ -275,11 +275,20 @@ export default function ProductDetails(props) {
         </div>
 
         <div className="">
-          <div className="flex justify-center gap-20 font-semibold border-b border-[#ECECEC] py-5">
-            <h6>Description</h6>
-            <h6>Additional Infotmation</h6>
-            <h6>Reviews (0)</h6>
-          </div>
+          <section
+            id="product-description"
+            className="scroll-mt-24 mt-10"
+          >
+            <div className="flex flex-wrap justify-center gap-6 md:gap-20 font-semibold border-b border-[#ECECEC] py-5">
+              <h6>Description</h6>
+              <h6>Additional Information</h6>
+              <h6>Reviews (0)</h6>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+              Sample Description
+            </div>
+          </section>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
             <div>
