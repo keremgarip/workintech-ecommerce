@@ -8,14 +8,17 @@ body {
 }
 
 :root {
-  font-family: "Montserrat", system-ui, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: Montserrat, system-ui, sans-serif;
+  color-scheme: light;
+  background: #ffffff;
+  color: #252b42;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
 }
 
 a {
@@ -29,10 +32,10 @@ a:hover {
 
 body {
   margin: 0;
-  display: block;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: #ffffff;
+  color: #252b42;
 }
 
 h1 {
@@ -57,17 +60,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

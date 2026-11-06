@@ -26,14 +26,14 @@ export default function Carousel() {
     const active = heroSlides[index];
 
     return (
-        <section className="relative left-1/2 w-screen -translate-x-1/2 h-[640px] bg-cover bg-center overflow-hidden" style={{
+        <section className="relative left-1/2 w-screen -translate-x-1/2 h-[420px] md:h-[640px] bg-cover bg-center overflow-hidden" style={{
     backgroundImage: `url(${resolveImage(active.bg)})`,
 }}>
                 <div className="absolute inset-0 bg-black/35" />
                 <div className="relative h-full py-10 flex flex-col gap-6 justify-center items-center text-white text-center px-4">
                     <div key={active.id} className="animate-[fadeIn_.5s_ease-out]">
-                        <h1 className="font-bold text-[42px] md:text-[58px]">{active.title}</h1>
-                        <h4 className="text-xl">{active.subtitle}</h4>
+                        <h1 className="font-bold text-[32px] sm:text-[42px] md:text-[58px]">{active.title}</h1>
+                        <h4 className="text-base md:text-xl">{active.subtitle}</h4>
 
                         <Link
                             to={active.ctaLink}
@@ -45,7 +45,7 @@ export default function Carousel() {
                 </div>
                 <button
                     onClick={prev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3"
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3"
                     aria-label="Previous slide"
                 >
                     <ChevronLeft className="w-6 h-6" />

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../actions/productThunks";
 import { FETCHING } from "../reducers/productReducer";
 import { addToCart } from "../api/cartApi";
+import { useState } from "react";
 
 import { relatedProducts } from "../data/home.data"
 
@@ -38,9 +39,13 @@ export default function ProductDetails(props) {
   }, [dispatch, productId]);
 
   const images = useMemo(() => product?.images || [], [product]);
-  const mainImg = images?.[0]?.url;
-  const thumb1 = images?.[1]?.url;
-  const thumb2 = images?.[2]?.url;
+
+  const [favorite, setFavorite] = useState(false);
+  const [adding, setAdding] = useState(false);
+
+
+
+  const productImage = product?.imageUrl || product?.image || product?.img || "";
 
   if (fetchState === FETCHING || !product) return <Spinner />;
 
@@ -56,21 +61,77 @@ export default function ProductDetails(props) {
     const userId = Number(localStorage.getItem("userId"));
 
     if (!userId) {
-      alert("Lütfen önce giriş yapınız.");
+      history.push("/login");
       return;
     }
 
-    await addToCart(userId, product.id, 1);
+    try {
+      setAdding(true);
 
-    window.dispatchEvent(new Event("cartUpdated"));
+      await addToCart(
+        userId,
+        product.id,
+        1
+      );
 
-    alert("Ürün sepete eklendi");
+      window.dispatchEvent(
+        new Event("cartUpdated")
+      );
+    } catch (error) {
+      console.error(
+        "Add to cart failed:",
+        error?.response?.data || error.message
+      );
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const toggleFavorite = () => {
+    const stored = JSON.parse(
+      localStorage.getItem("wishlist") || "[]"
+    );
+
+    let next;
+
+    if (stored.includes(product.id)) {
+      next = stored.filter(
+        (id) => id !== product.id
+      );
+      setFavorite(false);
+    } else {
+      next = [...stored, product.id];
+      setFavorite(true);
+    }
+
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify(next)
+    );
+  };
+
+  useEffect(() => {
+    if (!product?.id) return;
+
+    const stored = JSON.parse(
+      localStorage.getItem("wishlist") || "[]"
+    );
+
+    setFavorite(stored.includes(product.id));
+  }, [product?.id]);
+
+  const scrollToDescription = () => {
+    document
+      .getElementById("product-description")
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   return (
     <div className="w-full">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="py-6 px-5 bg-[#FAFAFA]">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex gap-[15px] py-2.5">
             <a href="/">Home</a>
             <ChevronRight />
@@ -81,20 +142,20 @@ export default function ProductDetails(props) {
         <div className="flex gap-7.5">
           <div className="pb-12 flex flex-col gap-6">
             <img
-              src={mainImg || "src/assets/pillow.jpg"}
-              alt={title}
-              className="h-[450px] object-contain bg-white border border-[#ECECEC] rounded"
+              src={productImage}
+              alt={product?.name || "Product"}
+              className="w-full aspect-square max-h-[520px]"
             />
 
             <div className="flex gap-5">
               <img
-                src={thumb1 || mainImg || "src/assets/sofa.jpg"}
-                alt={`${title} thumb 1`}
+                src={productImage}
+                alt={product?.name || "Product"}
                 className="h-[100px] w-[100px] object-contain bg-white border border-[#ECECEC] rounded"
               />
               <img
-                src={thumb2 || mainImg || "src/assets/sofa.jpg"}
-                alt={`${title} thumb 2`}
+                src={productImage}
+                alt={product?.name || "Product"}
                 className="h-[100px] w-[100px] object-contain bg-white border border-[#ECECEC] rounded"
               />
             </div>
@@ -121,26 +182,81 @@ export default function ProductDetails(props) {
 
             <p className="text-[#737373] leading-relaxed">{desc}</p>
 
-            <div className="flex gap-2.5 items-center">
-              <button className="px-4 py-2 border border-[#ECECEC] rounded font-semibold">
-                Select Options
+            <div className="flex flex-wrap items-center gap-3 mt-6">
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                disabled={adding || product.stock <= 0}
+                className="
+            bg-[#23A6F0]
+            !text-white
+            font-bold
+            px-6
+            py-3
+            rounded
+            disabled:opacity-50
+            disabled:cursor-not-allowed
+        "
+              >
+                {product.stock <= 0
+                  ? "Out of Stock"
+                  : adding
+                    ? "Adding..."
+                    : "Add to Cart"}
               </button>
 
-              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
-                <Heart className="w-5 h-5 text-gray-700" />
-              </div>
-
-              <div
-                className="p-2 border border-[#ECECEC] rounded-full cursor-pointer"
-                onClick={() => dispatch(addToCart(product))}
-                title="Add to cart"
+              <button
+                type="button"
+                onClick={toggleFavorite}
+                className="
+            w-11 h-11
+            rounded-full
+            border border-gray-300
+            bg-white
+            !text-[#252B42]
+            flex items-center justify-center
+        "
+                aria-label="Add to wishlist"
               >
-                <ShoppingBasket className="w-5 h-5 text-gray-700" />
-              </div>
+                <Heart
+                  className={`w-5 h-5 ${favorite
+                      ? "fill-red-500 text-red-500"
+                      : ""
+                    }`}
+                />
+              </button>
 
-              <div className="p-2 border border-[#ECECEC] rounded-full cursor-pointer">
-                <Eye className="w-5 h-5 text-gray-700" />
-              </div>
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="
+            w-11 h-11
+            rounded-full
+            border border-gray-300
+            bg-white
+            !text-[#252B42]
+            flex items-center justify-center
+        "
+                aria-label="Add to cart"
+              >
+                <ShoppingCart className="w-5 h-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={scrollToDescription}
+                className="
+            w-11 h-11
+            rounded-full
+            border border-gray-300
+            bg-white
+            !text-[#252B42]
+            flex items-center justify-center
+        "
+                aria-label="View description"
+              >
+                <Eye className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
