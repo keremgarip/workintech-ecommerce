@@ -1,10 +1,12 @@
-import { ChevronRight, Star, Heart, ShoppingBasket, Eye, ChevronDown } from "lucide-react"
+import { ChevronRight, Star, Heart, ShoppingCart, Eye, ChevronDown } from "lucide-react"
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../actions/productThunks";
 import { FETCHING } from "../reducers/productReducer";
 import { addToCart } from "../api/cartApi";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { images } from "../utils/assets";
 
 import { relatedProducts } from "../data/home.data"
 
@@ -29,6 +31,8 @@ function Stars({ value = 0 }) {
 
 export default function ProductDetails(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const { productId } = props.match.params;
 
   const product = useSelector((s) => s.product.selectedProduct);
@@ -51,7 +55,7 @@ export default function ProductDetails(props) {
 
     setFavorite(stored.includes(product.id));
   }, [product?.id]);
-  
+
   const [adding, setAdding] = useState(false);
 
 
@@ -129,6 +133,14 @@ export default function ProductDetails(props) {
       });
   };
 
+  const resolveImage = (imagePath) => {
+    if (!imagePath) return "";
+
+    const fileName = imagePath.split("/").pop();
+
+    return images[fileName] || imagePath;
+  };
+
   return (
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -140,7 +152,7 @@ export default function ProductDetails(props) {
           </div>
         </div>
 
-        <div className="flex gap-7.5">
+        <div className="flex flex-col md:flex-row gap-8">
           <div className="pb-12 flex flex-col gap-6">
             <img
               src={productImage}
@@ -221,8 +233,8 @@ export default function ProductDetails(props) {
               >
                 <Heart
                   className={`w-5 h-5 ${favorite
-                      ? "fill-red-500 text-red-500"
-                      : ""
+                    ? "fill-red-500 text-red-500"
+                    : ""
                     }`}
                 />
               </button>
@@ -269,9 +281,13 @@ export default function ProductDetails(props) {
             <h6>Reviews (0)</h6>
           </div>
 
-          <div className="flex gap-70 justify-between mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
             <div>
-              <img src="src/assets/salad.jpg" alt="" className="w-[316px] h-[372px] object-cover rounded" />
+              <img
+                src={images["salad.jpg"]}
+                alt="Product detail"
+                className="w-[316px] h-[372px] object-cover rounded"
+              />
             </div>
 
             <div className="pb-[25px] flex flex-col gap-7.5">
@@ -303,10 +319,14 @@ export default function ProductDetails(props) {
 
         <div className="bg-[#FAFAFA] py-12">
           <h3 className="font-bold text-2xl border-b-2 border-[#ECECEC]">BESTSELLER PRODUCTS</h3>
-          <div className="grid grid-cols-4 text-center mt-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center mt-5">
             {relatedProducts.map((rp) => (
               <div key={rp.id}>
-                <img src={rp.img} alt={rp.name} className="w-[280px]" />
+                <img
+                  src={resolveImage(rp.img)}
+                  alt={rp.name}
+                  className="w-[280px]"
+                />
                 <div className="px-[25px] pt-[25px] pb-[35px] text-center">
                   <h5 className="font-bold">{rp.name}</h5>
                   <a href="#" className="text-sm text-gray-500">{rp.category}</a>
@@ -320,13 +340,37 @@ export default function ProductDetails(props) {
           </div>
         </div>
 
-        <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">
-          <div className="clients-item"><img src="src/assets/hooli.png" alt="Hooli" className="max-w-40" /></div>
-          <div className="clients-item"><img src="src/assets/lyft.png" alt="Lyft" className="max-w-40 max-h-15" /></div>
-          <div className="clients-item"><img src="src/assets/meta.png" alt="Meta" className="max-w-40 max-h-18" /></div>
-          <div className="clients-item"><img src="src/assets/stripe.png" alt="Stripe" className="max-w-40 max-h-13" /></div>
-          <div className="clients-item"><img src="src/assets/aws.png" alt="Amazon Web Services" className="max-w-40 max-h-15" /></div>
-          <div className="clients-item"><img src="src/assets/reddit.png" alt="Reddit" className="max-w-40 max-h-18" /></div>
+        <div className="px-2 py-[50px] flex flex-wrap gap-10 items-center justify-center">
+          <div className="clients-item"><img
+            src={images["hooli.png"]}
+            alt="Hooli"
+            className="max-w-40"
+          /></div>
+          <div className="clients-item"><img
+            src={images["lyft.png"]}
+            alt="Lyft"
+            className="max-w-40"
+          /></div>
+          <div className="clients-item"><img
+            src={images["meta.png"]}
+            alt="Meta"
+            className="max-w-40"
+          /></div>
+          <div className="clients-item"><img
+            src={images["stripe.png"]}
+            alt="Stripe"
+            className="max-w-40"
+          /></div>
+          <div className="clients-item"><img
+            src={images["aws.png"]}
+            alt="AWS"
+            className="max-w-40"
+          /></div>
+          <div className="clients-item"><img
+            src={images["reddit.png"]}
+            alt="Reddit"
+            className="max-w-40"
+          /></div>
         </div>
       </div>
     </div>
