@@ -41,6 +41,17 @@ export default function ProductDetails(props) {
   const images = useMemo(() => product?.images || [], [product]);
 
   const [favorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    if (!product?.id) return;
+
+    const stored = JSON.parse(
+      localStorage.getItem("wishlist") || "[]"
+    );
+
+    setFavorite(stored.includes(product.id));
+  }, [product?.id]);
+  
   const [adding, setAdding] = useState(false);
 
 
@@ -109,16 +120,6 @@ export default function ProductDetails(props) {
       JSON.stringify(next)
     );
   };
-
-  useEffect(() => {
-    if (!product?.id) return;
-
-    const stored = JSON.parse(
-      localStorage.getItem("wishlist") || "[]"
-    );
-
-    setFavorite(stored.includes(product.id));
-  }, [product?.id]);
 
   const scrollToDescription = () => {
     document
