@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 
 import { images } from "../utils/assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import backendApi from "../api/backendAxios.js";
 
 const resolveImage = (imagePath) => {
   if (!imagePath) return "";
@@ -35,6 +36,70 @@ export default function PageContent() {
   const [activeBestSellerTab, setActiveBestSellerTab] = useState(
     bestSellerTabs[0]
   );
+  const [homeProducts, setHomeProducts] = useState([]);
+
+  const mostPopularOne = homeProducts[6];
+  const mostPopularTwo = homeProducts[7]
+
+  const productPicks = homeProducts.slice(4, 10);
+
+  useEffect(() => {
+    const loadHomeProducts = async () => {
+      try {
+        const response = await backendApi.get("/products", {
+          params: {
+            page: 0,
+            size: 50,
+          },
+        });
+
+        const products =
+          response.data?.content ||
+          response.data?.products ||
+          response.data ||
+          [];
+
+        if (!Array.isArray(products) || products.length === 0) {
+          return;
+        }
+
+        const storageKey = "homeFeaturedProductIds";
+
+        let savedIds;
+
+        try {
+          savedIds = JSON.parse(localStorage.getItem(storageKey));
+        } catch {
+          savedIds = null;
+        }
+
+        let selected;
+
+        if (Array.isArray(savedIds) && savedIds.length >= 10) {
+          selected = savedIds
+            .map((id) => products.find((product) => product.id === id))
+            .filter(Boolean);
+        }
+
+        if (!selected || selected.length < 10) {
+          selected = [...products]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 10);
+
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(selected.map((product) => product.id))
+          );
+        }
+
+        setHomeProducts(selected);
+      } catch (error) {
+        console.error("Home products could not be loaded:", error);
+      }
+    };
+
+    loadHomeProducts();
+  }, []);
 
   const filteredBestSellerProducts = bestSellerProducts.filter(
     (product) =>
@@ -114,23 +179,30 @@ export default function PageContent() {
               </h3>
 
               <div className="flex flex-wrap gap-5 text-gray-600">
-                {bestSellerTabs.map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setActiveBestSellerTab(tab)}
-                    className={`
-      text-sm font-semibold px-2 py-3
-      border-b-2
-      transition-colors
-      ${activeBestSellerTab === tab
-                        ? "text-[#23A6F0] border-[#23A6F0]"
-                        : "text-gray-500 border-transparent"
-                      }
-    `}
+                {bestsellerProducts.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                    className="flex flex-col items-center text-center gap-2 py-2 !text-[#252B42]"
                   >
-                    {tab}
-                  </button>
+                    <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                      <img
+                        src={product.imageUrl}
+                        className="w-full h-full object-contain"
+                        alt={product.name}
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <h5 className="font-bold line-clamp-2">
+                        {product.name}
+                      </h5>
+
+                      <span className="text-[#23856D] font-bold">
+                        ${Number(product.price || 0).toFixed(2)}
+                      </span>
+                    </div>
+                  </Link>
                 ))}
               </div>
 
@@ -192,20 +264,28 @@ export default function PageContent() {
               Discover our most popular products and seasonal selections.
             </p>
 
-            <img
-              src={images["product-dress.jpg"]}
-              alt="Popular product"
-              className="w-44 h-44 object-contain mt-8"
-            />
+            {mostPopularOne && (
+              <Link
+                to={`/product/${mostPopularOne.id}`}
+                className="flex flex-col items-center !text-[#252B42]"
+              >
+                <img
+                  src={mostPopularOne.imageUrl}
+                  alt={mostPopularOne.name}
+                  className="w-44 h-44 object-contain mt-8"
+                />
 
-            <h5 className="font-bold mt-5">
-              Dress
-            </h5>
+                <h5 className="font-bold mt-5 text-center line-clamp-2">
+                  {mostPopularOne.name}
+                </h5>
 
-            <div className="flex gap-2 mt-3">
-              <span className="text-gray-400">$16.48</span>
-              <span className="text-[#23856D] font-bold">$6.48</span>
-            </div>
+                <div className="mt-3">
+                  <span className="text-[#23856D] font-bold">
+                    ${Number(mostPopularOne.price || 0).toFixed(2)}
+                  </span>
+                </div>
+              </Link>
+            )}
           </div>
         </section>
       </Container>
@@ -329,20 +409,28 @@ export default function PageContent() {
               Explore standout pieces selected by our customers.
             </p>
 
-            <img
-              src={images["product-sweater.jpg"]}
-              alt="Popular product"
-              className="w-44 h-44 object-contain mt-8"
-            />
+            {mostPopularTwo && (
+              <Link
+                to={`/product/${mostPopularTwo.id}`}
+                className="flex flex-col items-center !text-[#252B42]"
+              >
+                <img
+                  src={mostPopularTwo.imageUrl}
+                  alt={mostPopularTwo.name}
+                  className="w-44 h-44 object-contain mt-8"
+                />
 
-            <h5 className="font-bold mt-5">
-              Men's
-            </h5>
+                <h5 className="font-bold mt-5 text-center line-clamp-2">
+                  {mostPopularTwo.name}
+                </h5>
 
-            <div className="flex gap-2 mt-3">
-              <span className="text-gray-400">$16.48</span>
-              <span className="text-[#23856D] font-bold">$6.48</span>
-            </div>
+                <div className="mt-3">
+                  <span className="text-[#23856D] font-bold">
+                    ${Number(mostPopularTwo.price || 0).toFixed(2)}
+                  </span>
+                </div>
+              </Link>
+            )}
           </div>
 
           <div>
@@ -367,37 +455,28 @@ export default function PageContent() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
-            {allProducts.slice(0, 4).map((product) => (
-              <div
+            {productPicks.map((product) => (
+              <Link
                 key={product.id}
-                className="flex flex-col items-center text-center gap-2"
+                to={`/product/${product.id}`}
+                className="flex flex-col items-center text-center gap-2 w-[240px] !text-[#252B42]"
               >
                 <div className="h-64 w-full flex items-center justify-center bg-white rounded-xl overflow-hidden border border-[#ECECEC]">
                   <img
-                    src={resolveImage(product.img)}
+                    src={product.imageUrl}
                     alt={product.name}
-                    className="max-h-full object-contain"
+                    className="w-full h-full object-contain"
                   />
                 </div>
 
-                <h5 className="font-bold text-base">{product.name}</h5>
+                <h5 className="font-bold text-base line-clamp-2">
+                  {product.name}
+                </h5>
 
-                <Link
-                  to="/shop"
-                  className="text-sm text-gray-500 hover:underline"
-                >
-                  {product.category}
-                </Link>
-
-                <div className="flex gap-2">
-                  <span className="text-[#BDBDBD] font-bold">
-                    ${product.oldPrice.toFixed(2)}
-                  </span>
-                  <span className="text-[#23856D] font-bold">
-                    ${product.price.toFixed(2)}
-                  </span>
-                </div>
-              </div>
+                <span className="text-[#23856D] font-bold">
+                  ${Number(product.price || 0).toFixed(2)}
+                </span>
+              </Link>
             ))}
           </div>
         </div>

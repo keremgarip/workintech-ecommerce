@@ -25,75 +25,79 @@ export default function Contact() {
                                     CONTACT US
                                 </button>
                                 {showForm && (
-                                    <section className="mt-10 max-w-2xl mx-auto border border-[#ECECEC] rounded-lg p-6">
-                                        <div className="flex items-center justify-between mb-6">
-                                            <h2 className="text-2xl font-bold">
-                                                Get in Touch
-                                            </h2>
-
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowForm(false)}
-                                                className="text-gray-500 font-bold"
-                                            >
-                                                ✕
-                                            </button>
-                                        </div>
-
-                                        <form
-                                            onSubmit={(e) => {
-                                                e.preventDefault();
-                                                setShowForm(false);
-                                            }}
-                                            className="space-y-4"
+                                    <div
+                                        className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+                                        onClick={() => setShowForm(false)}
+                                    >
+                                        <div
+                                            className="bg-white w-full max-w-xl rounded-lg shadow-xl p-6 max-h-[90vh] overflow-y-auto"
+                                            onClick={(e) => e.stopPropagation()}
                                         >
-                                            <div>
-                                                <label className="block font-semibold mb-1">
-                                                    Name
-                                                </label>
+                                            <div className="flex items-center justify-between mb-6">
+                                                <h2 className="text-2xl font-bold">
+                                                    Get in Touch
+                                                </h2>
 
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    className="w-full border border-[#DDDDDD] rounded px-4 py-3"
-                                                    placeholder="Your name"
-                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowForm(false)}
+                                                    className="text-gray-500 text-xl"
+                                                >
+                                                    ✕
+                                                </button>
                                             </div>
 
-                                            <div>
-                                                <label className="block font-semibold mb-1">
-                                                    Email
-                                                </label>
-
-                                                <input
-                                                    type="email"
-                                                    required
-                                                    className="w-full border border-[#DDDDDD] rounded px-4 py-3"
-                                                    placeholder="name@example.com"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <label className="block font-semibold mb-1">
-                                                    Message
-                                                </label>
-
-                                                <textarea
-                                                    required
-                                                    rows={5}
-                                                    className="w-full border border-[#DDDDDD] rounded px-4 py-3"
-                                                    placeholder="How can we help?"
-                                                />
-                                            </div>
-
-                                            <button
-                                                type="submit"
-                                                className="bg-[#23A6F0] !text-white font-bold px-6 py-3 rounded"
+                                            <form
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    setShowForm(false);
+                                                }}
+                                                className="space-y-4"
                                             >
-                                                Send Message
-                                            </button>
-                                        </form>
-                                    </section>
+                                                <div>
+                                                    <label className="block font-semibold mb-1">
+                                                        Name
+                                                    </label>
+                                                    <input
+                                                        required
+                                                        className="w-full border border-[#DDDDDD] rounded px-4 py-3"
+                                                        placeholder="Your name"
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="block font-semibold mb-1">
+                                                        Email
+                                                    </label>
+                                                    <input
+                                                        type="email"
+                                                        required
+                                                        className="w-full border border-[#DDDDDD] rounded px-4 py-3"
+                                                        placeholder="name@example.com"
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="block font-semibold mb-1">
+                                                        Message
+                                                    </label>
+                                                    <textarea
+                                                        required
+                                                        rows={5}
+                                                        className="w-full border border-[#DDDDDD] rounded px-4 py-3"
+                                                        placeholder="How can we help?"
+                                                    />
+                                                </div>
+
+                                                <button
+                                                    type="submit"
+                                                    className="bg-[#23A6F0] !text-white font-bold px-6 py-3 rounded"
+                                                >
+                                                    Send Message
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                             <div className="grid grid-cols-2 gap-x-16 gap-y-14">

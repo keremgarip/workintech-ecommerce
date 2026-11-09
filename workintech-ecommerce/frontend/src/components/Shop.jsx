@@ -244,111 +244,99 @@ export default function Shop(props) {
                         </div>
                     )}
                 </div>
-                <div className="grid grid-cols-4 text-center gap-6">
-                    {view === "grid" ? (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-center gap-6">
-                            {filteredProducts.map((p) => (
-                                <Link
-                                    key={p.id}
-                                    to={`/product/${p.id}`}
-                                    className="block border border-[#ECECEC] rounded p-3 hover:border-[#23A6F0]"
-                                >
-                                    <div className="flex flex-col items-center">
-                                        <div className="w-full h-64 flex items-center justify-center overflow-hidden bg-white">
-                                            <img
-                                                src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
-                                                alt={p.name || p.title}
-                                                className="w-full h-full object-contain"
-                                            />
-                                        </div>
+                {view === "grid" ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {filteredProducts.map((p) => (
+                            <Link
+                                key={p.id}
+                                to={`/product/${p.id}`}
+                                className="border border-[#ECECEC] rounded-lg p-4 hover:border-[#23A6F0] flex flex-col"
+                            >
+                                <div className="w-full h-[280px] flex items-center justify-center overflow-hidden bg-white">
+                                    <img
+                                        src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
+                                        alt={p.name || p.title}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
 
-                                        <div className="mt-3">
-                                            <h5 className="font-semibold !text-[#252B42]">
-                                                {p.name || p.title}
-                                            </h5>
+                                <div className="mt-4 text-center">
+                                    <h5 className="font-semibold !text-[#252B42] line-clamp-2 min-h-[48px]">
+                                        {p.name || p.title}
+                                    </h5>
 
-                                            <div className="flex gap-[5px] justify-center mt-2">
-                                                <h5 className="text-[#23856D] font-bold">
-                                                    ${Number(p.price || 0).toFixed(2)}
-                                                </h5>
-                                            </div>
-                                        </div>
+                                    <h5 className="text-[#23856D] font-bold mt-2">
+                                        ${Number(p.price || 0).toFixed(2)}
+                                    </h5>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col gap-5 w-full">
+                        {filteredProducts.map((p) => (
+                            <Link
+                                key={p.id}
+                                to={`/product/${p.id}`}
+                                className="
+        w-full
+        flex flex-col md:flex-row
+        gap-6
+        border border-[#ECECEC]
+        rounded-lg
+        p-5
+        hover:border-[#23A6F0]
+        !text-[#252B42]
+    "
+                            >
+                                <div className="w-full md:w-[240px] h-[240px] flex-shrink-0 flex items-center justify-center bg-white overflow-hidden">
+                                    <img
+                                        src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
+                                        alt={p.name || p.title}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col justify-center flex-1">
+                                    <h3 className="text-xl font-bold">
+                                        {p.name || p.title}
+                                    </h3>
+
+                                    {p.description && (
+                                        <p className="text-[#737373] mt-3 max-w-2xl line-clamp-3">
+                                            {p.description}
+                                        </p>
+                                    )}
+
+                                    <div className="mt-5 flex items-center gap-8">
+                                        <span className="text-[#23856D] text-lg font-bold">
+                                            ${Number(p.price || 0).toFixed(2)}
+                                        </span>
+
+                                        <span className={Number(p.stock) > 0 ? "text-[#23A6F0] font-semibold" : "text-red-500 font-semibold"}>
+                                            {Number(p.stock) > 0
+                                                ? `${p.stock} in stock`
+                                                : "Out of stock"}
+                                        </span>
                                     </div>
-                                </Link>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="flex flex-col gap-5">
-                            {filteredProducts.map((p) => (
-                                <Link
-                                    key={p.id}
-                                    to={`/product/${p.id}`}
-                                    className="
-          flex flex-col sm:flex-row
-          gap-6
-          border border-[#ECECEC]
-          rounded-lg
-          p-4
-          hover:border-[#23A6F0]
-          !text-[#252B42]
-        "
-                                >
-                                    <div className="w-full sm:w-[220px] h-[220px] flex-shrink-0 bg-white flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
-                                            alt={p.name || p.title}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    </div>
-
-                                    <div className="flex flex-col justify-center flex-1">
-                                        <h3 className="text-xl font-bold">
-                                            {p.name || p.title}
-                                        </h3>
-
-                                        {p.description && (
-                                            <p className="text-[#737373] mt-3 line-clamp-3">
-                                                {p.description}
-                                            </p>
-                                        )}
-
-                                        <div className="mt-4 flex flex-wrap items-center gap-6">
-                                            <span className="text-[#23856D] text-lg font-bold">
-                                                ${Number(p.price || 0).toFixed(2)}
-                                            </span>
-
-                                            {p.stock !== undefined && (
-                                                <span
-                                                    className={`font-semibold ${Number(p.stock) > 0
-                                                        ? "text-[#23A6F0]"
-                                                        : "text-red-500"
-                                                        }`}
-                                                >
-                                                    {Number(p.stock) > 0
-                                                        ? `${p.stock} in stock`
-                                                        : "Out of stock"}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="grid grid-cols-4 text-center gap-6">
-                    {filteredProducts.length === 0 && (
-                        <div className="py-16 text-center">
-                            <h3 className="text-xl font-bold">
-                                No products found
-                            </h3>
+                {filteredProducts.length === 0 && (
+                    <div className="py-16 text-center">
+                        <h3 className="text-xl font-bold">
+                            No products found
+                        </h3>
 
-                            <p className="text-[#737373] mt-2">
-                                Try changing your filter options.
-                            </p>
-                        </div>
-                    )}
+                        <p className="text-[#737373] mt-2">
+                            Try changing your filter options.
+                        </p>
+                    </div>
+                )}
             </div>
             <div className="flex justify-center mt-8">
                 <div className="inline-flex overflow-hidden rounded-lg border border-gray-300 bg-white !text-black">
