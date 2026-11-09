@@ -36,7 +36,7 @@ export default function Shop(props) {
         if (sort) queryParams.sort = sort;
 
         return queryParams;
-    }, [categoryId, filter, sort]);
+    }, [categoryId, sort]);
 
     const apiPage = Math.floor(offset / limit);
     const page = apiPage + 1;
@@ -90,8 +90,6 @@ export default function Shop(props) {
         window.dispatchEvent(new Event("cartUpdated"));
 
         toast.success("Sepete eklendi");
-
-        alert("Ürün sepete eklendi");
     }
 
     const filteredProducts = useMemo(() => {
@@ -178,8 +176,8 @@ export default function Shop(props) {
                                     <option value="">Popularity</option>
                                     <option value="price,asc">Price: Low to High</option>
                                     <option value="price,desc">Price: High to Low</option>
-                                    <option value="rating,asc">Rating: Low to High</option>
-                                    <option value="rating,desc">Rating: High to Low</option>
+                                    <option value="name,asc">Name: A-Z</option>
+                                    <option value="name,desc">Name: Z-A</option>
                                 </select>
                             </div>
                             <button
