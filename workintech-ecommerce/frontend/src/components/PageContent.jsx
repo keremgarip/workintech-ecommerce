@@ -33,7 +33,7 @@ export default function PageContent() {
 
   const [homeProducts, setHomeProducts] = useState([]);
 
-  const bestsellerProducts = homeProducts.slice(0,6);
+  const bestsellerProducts = homeProducts.slice(0, 6);
 
   const mostPopularOne = homeProducts[6];
   const mostPopularTwo = homeProducts[7];
@@ -216,11 +216,28 @@ export default function PageContent() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 mt-8">
-              {filteredBestSellerProducts.slice(0, 6).map((product) => (
-                <ProductCard
+              {bestsellerProducts.map((product) => (
+                <Link
                   key={product.id}
-                  product={product}
-                />
+                  to={`/product/${product.id}`}
+                  className="flex flex-col items-center text-center gap-2 !text-[#252B42]"
+                >
+                  <div className="w-full h-[200px] flex items-center justify-center bg-[#FAFAFA] overflow-hidden">
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <h5 className="font-bold text-base mt-1 line-clamp-2">
+                    {product.name}
+                  </h5>
+
+                  <span className="text-[#23856D] font-bold">
+                    ${Number(product.price || 0).toFixed(2)}
+                  </span>
+                </Link>
               ))}
             </div>
 
@@ -338,7 +355,7 @@ export default function PageContent() {
       overflow-hidden
     ">
                     <img
-                      src={resolveImage(product.img)}
+                      src={product.imageUrl}
                       className="
           w-full h-full
           object-contain
@@ -556,41 +573,6 @@ export default function PageContent() {
           </div>
         </div>
       </Container>
-    </div>
-  );
-}
-
-function ProductCard({ product }) {
-  return (
-    <div className="flex flex-col items-center text-center gap-2 min-w-0">
-      <div className="w-full h-[200px] flex items-center justify-center bg-[#FAFAFA] overflow-hidden">
-        <img
-          src={resolveImage(product.img)}
-          alt={product.name}
-          className="w-full h-full object-contain"
-        />
-      </div>
-
-      <h5 className="font-bold text-base mt-1">
-        {product.name}
-      </h5>
-
-      <Link
-        to="/shop"
-        className="text-sm text-[#737373]"
-      >
-        {product.category}
-      </Link>
-
-      <div className="flex justify-center gap-2">
-        <span className="text-[#BDBDBD] font-bold">
-          ${Number(product.oldPrice || 0).toFixed(2)}
-        </span>
-
-        <span className="text-[#23856D] font-bold">
-          ${Number(product.price || 0).toFixed(2)}
-        </span>
-      </div>
     </div>
   );
 }
