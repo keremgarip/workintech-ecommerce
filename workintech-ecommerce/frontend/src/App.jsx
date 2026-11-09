@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateOrderPage from "./components/CreateOrder";
 import OrdersPage from "./components/OrdersPage";
 import { verifyTokenThunk } from "./actions/clientThunks";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 
@@ -39,7 +40,7 @@ function App() {
           <PageContent />
         </Route>
 
-        
+
         <Route exact path="/shop">
           <Shop />
         </Route>
@@ -82,6 +83,11 @@ function App() {
 
       </Switch>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+      />
     </>
   )
 }

@@ -104,6 +104,9 @@ export default function Signup() {
       localStorage.setItem("email", response.data.email);
       localStorage.setItem("role", response.data.role);
 
+      window.dispatchEvent(new Event("userLoggedIn"));
+      window.dispatchEvent(new Event("cartUpdated"));
+
       history.push("/shop");
 
     } catch (e) {

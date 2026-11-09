@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { images } from "../utils/assets";
+import { useState } from "react";
 
 const resolveImage = (imagePath) => {
   if (!imagePath) return "";
@@ -31,6 +32,15 @@ function Container({ children, className = "" }) {
 }
 
 export default function PageContent() {
+  const [activeBestSellerTab, setActiveBestSellerTab] = useState(
+    bestSellerTabs[0]
+  );
+
+  const filteredBestSellerProducts = bestSellerProducts.filter(
+    (product) =>
+      String(product.tab || product.category || "").toLowerCase() ===
+      String(activeBestSellerTab).toLowerCase()
+  );
   return (
     <div className="w-full">
       {/* ShopCards */}
@@ -81,7 +91,7 @@ export default function PageContent() {
 
             <div className="relative z-10 p-8">
               <h6 className="font-bold text-sm uppercase">
-                Furniture
+                Featured Products
               </h6>
 
               <p className="mt-2 text-sm">
@@ -106,9 +116,18 @@ export default function PageContent() {
               <div className="flex flex-wrap gap-5 text-gray-600">
                 {bestSellerTabs.map((tab) => (
                   <button
-                    type="button"
                     key={tab}
-                    className="hover:text-[#23A6F0]"
+                    type="button"
+                    onClick={() => setActiveBestSellerTab(tab)}
+                    className={`
+      text-sm font-semibold px-2 py-3
+      border-b-2
+      transition-colors
+      ${activeBestSellerTab === tab
+                        ? "text-[#23A6F0] border-[#23A6F0]"
+                        : "text-gray-500 border-transparent"
+                      }
+    `}
                   >
                     {tab}
                   </button>
@@ -133,7 +152,7 @@ export default function PageContent() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 mt-8">
-              {bestSellerProducts.slice(0, 6).map((product) => (
+              {filteredBestSellerProducts.slice(0, 6).map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -230,39 +249,54 @@ export default function PageContent() {
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
               {bestSellerProducts.slice(0, 6).map((product) => (
-                <div
+                <Link
                   key={product.id}
-                  className="flex flex-col items-center text-center gap-2"
+                  to={`/product/${product.id}`}
+                  className="
+      flex flex-col items-center text-center gap-2 py-2
+      group
+      !text-[#252B42]
+    "
                 >
-                  <div className="w-full h-44 flex items-center justify-center overflow-hidden">
+                  <div className="
+      h-40 w-full
+      flex items-center justify-center
+      bg-gray-50
+      rounded-xl
+      overflow-hidden
+    ">
                     <img
                       src={resolveImage(product.img)}
+                      className="
+          w-full h-full
+          object-contain
+          transition-transform duration-200
+          group-hover:scale-105
+        "
                       alt={product.name}
-                      className="max-w-full max-h-full object-contain"
                     />
                   </div>
 
-                  <h5 className="font-bold text-sm">
-                    {product.name}
-                  </h5>
+                  <div className="space-y-1">
+                    <h5 className="font-bold group-hover:text-[#23A6F0]">
+                      {product.name}
+                    </h5>
 
-                  <Link
-                    to="/shop"
-                    className="text-xs text-gray-500 hover:underline"
-                  >
-                    {product.category}
-                  </Link>
-
-                  <div className="flex justify-center gap-2 text-sm">
-                    <span className="text-[#BDBDBD] font-bold">
-                      ${Number(product.oldPrice || 0).toFixed(2)}
+                    <span className="text-sm text-gray-500">
+                      {product.category}
                     </span>
 
-                    <span className="text-[#23856D] font-bold">
-                      ${Number(product.price || 0).toFixed(2)}
-                    </span>
+                    <div className="flex justify-center gap-2">
+                      <span className="text-[#BDBDBD] font-bold">
+                        ${Number(product.oldPrice || 0).toFixed(2)}
+                      </span>
+
+                      <span className="text-[#23856D] font-bold">
+                        ${Number(product.price || 0).toFixed(2)}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -275,7 +309,7 @@ export default function PageContent() {
           >
             <div className="p-8">
               <h6 className="font-bold uppercase">
-                Furniture
+                Featured Products
               </h6>
               <p className="text-sm">5 Items</p>
             </div>

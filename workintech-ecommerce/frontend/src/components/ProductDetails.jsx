@@ -7,6 +7,7 @@ import { addToCart } from "../api/cartApi";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { images } from "../utils/assets";
+import ImageWithPlaceholder from "./ImageWithPlaceholder";
 
 import { relatedProducts } from "../data/home.data"
 
@@ -342,10 +343,11 @@ export default function ProductDetails(props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center mt-5">
             {relatedProducts.map((rp) => (
               <div key={rp.id}>
-                <img
-                  src={resolveImage(rp.img)}
-                  alt={rp.name}
-                  className="w-[280px]"
+                <ImageWithPlaceholder
+                  src={productImage}
+                  alt={product?.name || "Product"}
+                  wrapperClassName="w-full aspect-square max-h-[560px]"
+                  className="object-contain"
                 />
                 <div className="px-[25px] pt-[25px] pb-[35px] text-center">
                   <h5 className="font-bold">{rp.name}</h5>
