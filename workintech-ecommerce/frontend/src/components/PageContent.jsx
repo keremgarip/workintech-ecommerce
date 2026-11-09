@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 import {
   shopCards,
-  bestSellerTabs,
-  bestSellerProducts,
   benefits,
-  allProducts,
   blogPosts,
 } from "../data/home.data.js";
 
@@ -33,13 +30,13 @@ function Container({ children, className = "" }) {
 }
 
 export default function PageContent() {
-  const [activeBestSellerTab, setActiveBestSellerTab] = useState(
-    bestSellerTabs[0]
-  );
+
   const [homeProducts, setHomeProducts] = useState([]);
 
+  const bestsellerProducts = homeProducts.slice(0,6);
+
   const mostPopularOne = homeProducts[6];
-  const mostPopularTwo = homeProducts[7]
+  const mostPopularTwo = homeProducts[7];
 
   const productPicks = homeProducts.slice(4, 10);
 
@@ -101,11 +98,6 @@ export default function PageContent() {
     loadHomeProducts();
   }, []);
 
-  const filteredBestSellerProducts = bestSellerProducts.filter(
-    (product) =>
-      String(product.tab || product.category || "").toLowerCase() ===
-      String(activeBestSellerTab).toLowerCase()
-  );
   return (
     <div className="w-full">
       {/* ShopCards */}
@@ -328,7 +320,7 @@ export default function PageContent() {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
-              {bestSellerProducts.slice(0, 6).map((product) => (
+              {bestsellerProducts.slice(0, 6).map((product) => (
                 <Link
                   key={product.id}
                   to={`/product/${product.id}`}
