@@ -71,7 +71,7 @@ export default function Header() {
             window.removeEventListener("cartUpdated", handleCartUpdated);
             window.removeEventListener("userLoggedIn", handleCartUpdated);
         };
-    }, []);
+    }, [userEmail]);
 
     useEffect(() => {
         dispatch(fetchCategoriesIfNeeded());
@@ -175,10 +175,16 @@ export default function Header() {
 
                     {/* Mobile buttons */}
                     <div className="flex md:hidden items-center gap-3">
-                        <Link to="/cart" className="flex items-center gap-1">
-                            <ShoppingCart className="w-5 h-5" />
-                            <span>{cartCount}</span>
-                        </Link>
+                        {userEmail && (
+                            <li className="flex gap-1 items-center">
+                                <Link to="/cart" className="flex gap-1 items-center">
+                                    <ShoppingCart className="w-5 h-5" />
+                                    <span className="text-sm font-semibold">
+                                        {cartCount}
+                                    </span>
+                                </Link>
+                            </li>
+                        )}
 
                         <button
                             type="button"

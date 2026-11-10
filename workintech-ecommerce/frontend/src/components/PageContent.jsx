@@ -170,34 +170,6 @@ export default function PageContent() {
                 Bestseller Products
               </h3>
 
-              <div className="flex flex-wrap gap-5 text-gray-600">
-                {bestsellerProducts.map((product) => (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
-                    className="flex flex-col items-center text-center gap-2 py-2 !text-[#252B42]"
-                  >
-                    <div className="h-40 w-full flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
-                      <img
-                        src={product.imageUrl}
-                        className="w-full h-full object-contain"
-                        alt={product.name}
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <h5 className="font-bold line-clamp-2">
-                        {product.name}
-                      </h5>
-
-                      <span className="text-[#23856D] font-bold">
-                        ${Number(product.price || 0).toFixed(2)}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
               <div className="ml-auto flex gap-2">
                 <button
                   type="button"

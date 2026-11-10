@@ -136,34 +136,37 @@ export default function Shop(props) {
     return (
         <main className="w-full">
             <div className="max-w-7xl mx-auto px-4 py-10">
-                <div className="flex items-end justify-between mb-6 py-6">
+                <div className="py-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <h1 className="text-3xl font-bold">Shop</h1>
                 </div>
                 <div>
-                    <div className="py-6 flex justify-between">
-                        <h6 className="text-lg text-[#737373] font-bold">Showing {start}-{end} of {totalNum} results</h6>
-                        <div className="px-[1px] flex gap-[15px] items-center">
-                            <h6 className="text-lg font-bold">Views:</h6>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <h6 className="text-base sm:text-lg text-[#737373] font-bold whitespace-nowrap">Showing {start}-{end} of {totalNum} results</h6>
+                        <div className="flex items-center gap-3">
+                            <h6 className="text-base sm:text-lg font-bold">Views:</h6>
                             <button
                                 type="button"
                                 onClick={() => setView("grid")}
-                                className={`p-2 border rounded-[5px] cursor-pointer ${view === "grid" ? "border-[#23A6F0]" : "border-[#ECECEC]"
+                                className={`p-2 border rounded-[5px] ${view === "grid"
+                                    ? "border-[#23A6F0] bg-[#EAF6FD]"
+                                    : "border-[#ECECEC]"
                                     }`}
-                                title="Grid"
                             >
-                                <LayoutGrid className="w-5 h-5 text-gray-700" />
+                                <LayoutGrid className="w-5 h-5" />
                             </button>
+
                             <button
                                 type="button"
                                 onClick={() => setView("list")}
-                                className={`p-2 border rounded-[5px] cursor-pointer ${view === "list" ? "border-[#23A6F0]" : "border-[#ECECEC]"
+                                className={`p-2 border rounded-[5px] ${view === "list"
+                                    ? "border-[#23A6F0] bg-[#EAF6FD]"
+                                    : "border-[#ECECEC]"
                                     }`}
-                                title="List"
                             >
-                                <ListChecks className="w-5 h-5 text-gray-700" />
+                                <ListChecks className="w-5 h-5" />
                             </button>
                         </div>
-                        <div className="flex gap-[15px] font-base">
+                        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                             <div className="p-4 bg-[#F9F9F9] flex border rounded-[5px] border-[#DDDDDD]">
                                 <select
                                     value={sort || ""}
@@ -171,7 +174,7 @@ export default function Shop(props) {
                                         dispatch(setOffset(0));
                                         dispatch(setSort(e.target.value));
                                     }}
-                                    className="bg-transparent outline-none"
+                                    className="w-full sm:w-auto min-w-[220px] bg-transparent outline-none"
                                 >
                                     <option value="">Popularity</option>
                                     <option value="price,asc">Price: Low to High</option>
@@ -183,7 +186,7 @@ export default function Shop(props) {
                             <button
                                 type="button"
                                 onClick={() => setShowFilter((p) => !p)}
-                                className="font-bold bg-[#23A6F0] text-white rounded-[5px] py-2.5 px-5 !text-black"
+                                className="w-full sm:w-auto font-bold bg-[#23A6F0] !text-white rounded-[5px] py-3 px-5"
                             >
                                 Filter
                             </button>
@@ -245,14 +248,14 @@ export default function Shop(props) {
                     )}
                 </div>
                 {view === "grid" ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                         {filteredProducts.map((p) => (
                             <Link
                                 key={p.id}
                                 to={`/product/${p.id}`}
-                                className="border border-[#ECECEC] rounded-lg p-4 hover:border-[#23A6F0] flex flex-col"
+                                className="border border-[#ECECEC] rounded-lg p-3 hover:border-[#23A6F0] flex flex-col min-w-0"
                             >
-                                <div className="w-full h-[280px] flex items-center justify-center overflow-hidden bg-white">
+                                <div className="w-full aspect-[3/4] flex items-center justify-center overflow-hidden bg-white">
                                     <img
                                         src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
                                         alt={p.name || p.title}
@@ -260,12 +263,12 @@ export default function Shop(props) {
                                     />
                                 </div>
 
-                                <div className="mt-4 text-center">
-                                    <h5 className="font-semibold !text-[#252B42] line-clamp-2 min-h-[48px]">
+                                <div className="mt-3 text-center">
+                                    <h5 className="font-semibold !text-[#252B42] text-sm sm:text-base line-clamp-2 min-h-[40px]">
                                         {p.name || p.title}
                                     </h5>
 
-                                    <h5 className="text-[#23856D] font-bold mt-2">
+                                    <h5 className="text-[#23856D] font-bold mt-2 text-sm sm:text-base">
                                         ${Number(p.price || 0).toFixed(2)}
                                     </h5>
                                 </div>
@@ -273,23 +276,25 @@ export default function Shop(props) {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-5 w-full">
+                    <div className="flex flex-col gap-4 w-full">
                         {filteredProducts.map((p) => (
                             <Link
                                 key={p.id}
                                 to={`/product/${p.id}`}
                                 className="
         w-full
-        flex flex-col md:flex-row
-        gap-6
+        grid grid-cols-[110px_1fr]
+        sm:grid-cols-[160px_1fr]
+        gap-4
         border border-[#ECECEC]
         rounded-lg
-        p-5
+        p-4
         hover:border-[#23A6F0]
         !text-[#252B42]
-    "
+        items-center
+      "
                             >
-                                <div className="w-full md:w-[240px] h-[240px] flex-shrink-0 flex items-center justify-center bg-white overflow-hidden">
+                                <div className="w-full h-[130px] sm:h-[170px] flex items-center justify-center bg-white overflow-hidden">
                                     <img
                                         src={p.imageUrl || p.images?.[0]?.url || p.image || ""}
                                         alt={p.name || p.title}
@@ -297,23 +302,28 @@ export default function Shop(props) {
                                     />
                                 </div>
 
-                                <div className="flex flex-col justify-center flex-1">
-                                    <h3 className="text-xl font-bold">
+                                <div className="min-w-0">
+                                    <h3 className="text-base sm:text-lg font-bold line-clamp-2">
                                         {p.name || p.title}
                                     </h3>
 
                                     {p.description && (
-                                        <p className="text-[#737373] mt-3 max-w-2xl line-clamp-3">
+                                        <p className="text-[#737373] text-sm mt-2 line-clamp-2">
                                             {p.description}
                                         </p>
                                     )}
 
-                                    <div className="mt-5 flex items-center gap-8">
-                                        <span className="text-[#23856D] text-lg font-bold">
+                                    <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5">
+                                        <span className="text-[#23856D] font-bold">
                                             ${Number(p.price || 0).toFixed(2)}
                                         </span>
 
-                                        <span className={Number(p.stock) > 0 ? "text-[#23A6F0] font-semibold" : "text-red-500 font-semibold"}>
+                                        <span
+                                            className={`text-sm font-semibold ${Number(p.stock) > 0
+                                                    ? "text-[#23A6F0]"
+                                                    : "text-red-500"
+                                                }`}
+                                        >
                                             {Number(p.stock) > 0
                                                 ? `${p.stock} in stock`
                                                 : "Out of stock"}

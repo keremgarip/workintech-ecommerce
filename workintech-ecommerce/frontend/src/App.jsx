@@ -22,6 +22,7 @@ import CreateOrderPage from "./components/CreateOrder";
 import OrdersPage from "./components/OrdersPage";
 import { verifyTokenThunk } from "./actions/clientThunks";
 import { ToastContainer } from "react-toastify";
+import Blog from "./components/Blog"
 
 function App() {
 
@@ -62,6 +63,8 @@ function App() {
         <Route path="/about">
           <AboutUs />
         </Route>
+
+        <Route exact path="/blog" component={Blog}/>
 
         <Route path="/signup" component={Signup} />
 
