@@ -152,7 +152,7 @@ export default function PageContent() {
               </h6>
 
               <p className="mt-2 text-sm">
-                5 Items
+                6 Items
               </p>
 
               <Link
@@ -372,7 +372,7 @@ export default function PageContent() {
               <h6 className="font-bold uppercase">
                 Featured Products
               </h6>
-              <p className="text-sm">5 Items</p>
+              <p className="text-sm">6 Items</p>
             </div>
           </div>
         </section>
@@ -435,12 +435,12 @@ export default function PageContent() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6 mt-6">
             {productPicks.map((product) => (
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
-                className="flex flex-col items-center text-center gap-2 w-[240px] !text-[#252B42]"
+                className="flex flex-col items-center text-center gap-2 w-full !text-[#252B42]"
               >
                 <div className="h-64 w-full flex items-center justify-center bg-white rounded-xl overflow-hidden border border-[#ECECEC]">
                   <img

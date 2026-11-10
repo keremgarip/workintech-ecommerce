@@ -19,6 +19,8 @@ export default function Header() {
 
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    const navLinkClass = "text-[#252B42] hover:text-[#23A6F0] transition";
+
     useEffect(() => {
         const syncUser = () => {
             setUserEmail(localStorage.getItem("email"));
@@ -103,7 +105,7 @@ export default function Header() {
                     <ul className="hidden md:flex list-none gap-6 items-center">
                         {headerMenus.map((menu) => (
                             <li key={menu.path}>
-                                <Link to={menu.path}>
+                                <Link to={menu.path} className={`inline-flex items-center gap-1 ${navLinkClass}`}>
                                     {menu.label}
                                 </Link>
                             </li>
@@ -120,7 +122,7 @@ export default function Header() {
                                         onClick={() => setOpen((prev) => !prev)}
                                     >
                                         <UserRound className="w-5 h-5" />
-                                        <span className="font-bold">
+                                        <span className="font-bold text-[#252B42]">
                                             {userEmail}
                                         </span>
                                     </button>
@@ -149,13 +151,13 @@ export default function Header() {
                                 <div className="flex gap-2 items-center">
                                     <UserRound className="w-5 h-5" />
 
-                                    <Link to="/login">
+                                    <Link to="/login" className={navLinkClass}>
                                         Login
                                     </Link>
 
                                     <span className="text-gray-400">/</span>
 
-                                    <Link to="/signup">
+                                    <Link to="/signup" className={navLinkClass}>
                                         Register
                                     </Link>
                                 </div>

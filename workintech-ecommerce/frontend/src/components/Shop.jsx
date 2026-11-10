@@ -140,17 +140,14 @@ export default function Shop(props) {
                     <h1 className="text-3xl font-bold">Shop</h1>
                 </div>
                 <div>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                        <h6 className="text-base sm:text-lg text-[#737373] font-bold whitespace-nowrap">Showing {start}-{end} of {totalNum} results</h6>
-                        <div className="flex items-center gap-3">
-                            <h6 className="text-base sm:text-lg font-bold">Views:</h6>
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+                        <h6 className="font-bold text-xl text-[#737373]">Showing {start}-{end} of {totalNum} results</h6>
+                        <div className="flex flex-wrap items-center gap-4 lg:gap-6">
+                            <span className="font-bold text-[#252B42]">Views:</span>
                             <button
                                 type="button"
                                 onClick={() => setView("grid")}
-                                className={`p-2 border rounded-[5px] ${view === "grid"
-                                    ? "border-[#23A6F0] bg-[#EAF6FD]"
-                                    : "border-[#ECECEC]"
-                                    }`}
+                                className="w-12 h-12 border rounded flex items-center justify-center"
                             >
                                 <LayoutGrid className="w-5 h-5" />
                             </button>
@@ -158,10 +155,7 @@ export default function Shop(props) {
                             <button
                                 type="button"
                                 onClick={() => setView("list")}
-                                className={`p-2 border rounded-[5px] ${view === "list"
-                                    ? "border-[#23A6F0] bg-[#EAF6FD]"
-                                    : "border-[#ECECEC]"
-                                    }`}
+                                className="w-12 h-12 border rounded flex items-center justify-center"
                             >
                                 <ListChecks className="w-5 h-5" />
                             </button>
@@ -174,7 +168,7 @@ export default function Shop(props) {
                                         dispatch(setOffset(0));
                                         dispatch(setSort(e.target.value));
                                     }}
-                                    className="w-full sm:w-auto min-w-[220px] bg-transparent outline-none"
+                                    className="h-14 min-w-[220px] border border-[#DDDDD] rounded px-4 bg-white"
                                 >
                                     <option value="">Popularity</option>
                                     <option value="price,asc">Price: Low to High</option>
@@ -186,7 +180,7 @@ export default function Shop(props) {
                             <button
                                 type="button"
                                 onClick={() => setShowFilter((p) => !p)}
-                                className="w-full sm:w-auto font-bold bg-[#23A6F0] !text-white rounded-[5px] py-3 px-5"
+                                className="h-14 px-8 bg-[#23A6F0] !text-white rounded font-semibold"
                             >
                                 Filter
                             </button>
@@ -248,7 +242,7 @@ export default function Shop(props) {
                     )}
                 </div>
                 {view === "grid" ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredProducts.map((p) => (
                             <Link
                                 key={p.id}
@@ -276,7 +270,7 @@ export default function Shop(props) {
                         ))}
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-col gap-6">
                         {filteredProducts.map((p) => (
                             <Link
                                 key={p.id}
@@ -320,8 +314,8 @@ export default function Shop(props) {
 
                                         <span
                                             className={`text-sm font-semibold ${Number(p.stock) > 0
-                                                    ? "text-[#23A6F0]"
-                                                    : "text-red-500"
+                                                ? "text-[#23A6F0]"
+                                                : "text-red-500"
                                                 }`}
                                         >
                                             {Number(p.stock) > 0
@@ -427,23 +421,47 @@ export default function Shop(props) {
                 </div>
             </div>
             <div className="px-2 py-[50px] flex gap-30 flex items-center justify-center">
-                <div className="clients-item">
-                    <img src="src\assets\hooli.png" alt="Hooli" className="max-w-40" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["hooli.png"]}
+                        alt="Hooli"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
-                <div className="clients-item">
-                    <img src="src\assets\lyft.png" alt="Lyft" className="max-w-40 max-h-15" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["lyft.png"]}
+                        alt="Lyft"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
-                <div className="clients-item">
-                    <img src="src\assets\meta.png" alt="Meta" className="max-w-40 max-h-18" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["meta.png"]}
+                        alt="Meta"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
-                <div className="clients-item">
-                    <img src="src\assets\stripe.png" alt="Stripe" className="max-w-40 max-h-13" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["stripe.png"]}
+                        alt="Stripe"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
-                <div className="clients-item">
-                    <img src="src\assets\aws.png" alt="Amazon Web Services" className="max-w-40 max-h-15" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["aws.png"]}
+                        alt="AWS"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
-                <div className="clients-item">
-                    <img src="src\assets\reddit.png" alt="Reddit" className="max-w-40 max-h-18" />
+                <div className="clients-item flex justify-center">
+                    <img
+                        src={images["reddit.png"]}
+                        alt="Reddit"
+                        className="max-w-[120px] max-h-14 object-contain"
+                    />
                 </div>
             </div>
         </main>

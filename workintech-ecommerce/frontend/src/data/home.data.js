@@ -41,7 +41,7 @@ export const shopCards = [
     title: "Women",
     cta: "Explore Collection",
     img: "src/assets/shopcard-women.jpg",
-    link: "/shop/k", // senin route yapına göre
+    link: "/shop",
   },
   {
     id: "men",
@@ -49,7 +49,7 @@ export const shopCards = [
     title: "Men",
     cta: "Explore Collection",
     img: "src/assets/shopcard-men.jpg",
-    link: "/shop/e",
+    link: "/shop",
   },
   {
     id: "shoes",
@@ -206,6 +206,11 @@ export const blogPosts = [
     desc: "A simple guide to creating outfits with fewer, better pieces.",
     date: "22 April 2024",
     comments: 10,
+    content: [
+      "A capsule wardrobe is built around timeless essentials that can be mixed and matched easily.",
+      "Start by choosing neutral colors and a few core pieces such as a white shirt, denim, a blazer, and comfortable shoes.",
+      "The goal is to reduce clutter while making daily outfit decisions easier and more consistent.",
+    ],
   },
   {
     id: "post-2",
@@ -215,6 +220,11 @@ export const blogPosts = [
     desc: "Make your sneakers work for office, street, and weekend fits.",
     date: "22 April 2024",
     comments: 8,
+    content: [
+      "Sneakers are no longer limited to sportswear and can now be styled for many occasions.",
+      "Pair clean white sneakers with tailored trousers for a smart casual look, or wear chunky sneakers with denim for a relaxed outfit.",
+      "Focus on balance in silhouette and choose sneakers that complement the rest of your palette.",
+    ],
   },
   {
     id: "post-3",
@@ -224,6 +234,11 @@ export const blogPosts = [
     desc: "Pairing colors with basics for a clean, modern look.",
     date: "22 April 2024",
     comments: 12,
+    content: [
+      "Spring styling works best with light neutrals, soft greens, pastel blues, and warm beige tones.",
+      "You can combine these with basics like white tees, denim jackets, or simple knitwear.",
+      "Using one soft accent color with neutral basics is an easy way to keep outfits fresh and balanced.",
+    ],
   },
 ];
 
