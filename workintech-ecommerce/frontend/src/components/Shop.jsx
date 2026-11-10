@@ -7,6 +7,7 @@ import { LayoutGrid, ListChecks } from "lucide-react";
 import { setOffset, setSort } from "../actions/productActions";
 import { addToCart } from "../api/cartApi";
 import { toast } from "react-toastify";
+import { images } from "../utils/assets";
 
 function Spinner() {
     return (
@@ -140,14 +141,23 @@ export default function Shop(props) {
                     <h1 className="text-3xl font-bold">Shop</h1>
                 </div>
                 <div>
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
-                        <h6 className="font-bold text-xl text-[#737373]">Showing {start}-{end} of {totalNum} results</h6>
-                        <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-                            <span className="font-bold text-[#252B42]">Views:</span>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <h6 className="font-bold text-xl text-[#737373] whitespace-nowrap">
+                            Showing {start}-{end} of {totalNum} results
+                        </h6>
+
+                        <div className="flex items-center gap-3">
+                            <span className="font-bold text-[#252B42]">
+                                Views:
+                            </span>
+
                             <button
                                 type="button"
                                 onClick={() => setView("grid")}
-                                className="w-12 h-12 border rounded flex items-center justify-center"
+                                className={`w-12 h-12 border rounded flex items-center justify-center ${view === "grid"
+                                        ? "border-[#23A6F0]"
+                                        : "border-[#DDDDDD]"
+                                    }`}
                             >
                                 <LayoutGrid className="w-5 h-5" />
                             </button>
@@ -155,34 +165,12 @@ export default function Shop(props) {
                             <button
                                 type="button"
                                 onClick={() => setView("list")}
-                                className="w-12 h-12 border rounded flex items-center justify-center"
+                                className={`w-12 h-12 border rounded flex items-center justify-center ${view === "list"
+                                        ? "border-[#23A6F0]"
+                                        : "border-[#DDDDDD]"
+                                    }`}
                             >
                                 <ListChecks className="w-5 h-5" />
-                            </button>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                            <div className="p-4 bg-[#F9F9F9] flex border rounded-[5px] border-[#DDDDDD]">
-                                <select
-                                    value={sort || ""}
-                                    onChange={(e) => {
-                                        dispatch(setOffset(0));
-                                        dispatch(setSort(e.target.value));
-                                    }}
-                                    className="h-14 min-w-[220px] border border-[#DDDDD] rounded px-4 bg-white"
-                                >
-                                    <option value="">Popularity</option>
-                                    <option value="price,asc">Price: Low to High</option>
-                                    <option value="price,desc">Price: High to Low</option>
-                                    <option value="name,asc">Name: A-Z</option>
-                                    <option value="name,desc">Name: Z-A</option>
-                                </select>
-                            </div>
-                            <button
-                                type="button"
-                                onClick={() => setShowFilter((p) => !p)}
-                                className="h-14 px-8 bg-[#23A6F0] !text-white rounded font-semibold"
-                            >
-                                Filter
                             </button>
                         </div>
                     </div>
@@ -198,7 +186,7 @@ export default function Shop(props) {
                                     <select
                                         value={priceFilter}
                                         onChange={(e) => setPriceFilter(e.target.value)}
-                                        className="w-full bg-white border border-[#DDDDDD] rounded px-4 py-3"
+                                        className="w-full bg-white border border-[#DDDDDD] rounded px-4 bg-white"
                                     >
                                         <option value="all">All Prices</option>
                                         <option value="0-25">$0 - $25</option>

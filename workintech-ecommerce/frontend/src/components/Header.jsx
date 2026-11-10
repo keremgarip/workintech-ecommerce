@@ -19,7 +19,7 @@ export default function Header() {
 
     const [mobileOpen, setMobileOpen] = useState(false);
 
-    const navLinkClass = "text-[#252B42] hover:text-[#23A6F0] transition";
+    const navLinkClass = "!text-[#252B42] hover:text-[#23A6F0] transition-colors";
 
     useEffect(() => {
         const syncUser = () => {
@@ -131,7 +131,7 @@ export default function Header() {
                                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-md z-50">
                                             <Link
                                                 to="/previous-orders"
-                                                className="block px-4 py-2 text-sm hover:bg-gray-100"
+                                                className={`block mt-3 ${navLinkClass}`}
                                                 onClick={() => setOpen(false)}
                                             >
                                                 Previous Orders
@@ -164,15 +164,17 @@ export default function Header() {
                             )}
                         </div>
 
-                        <Link
-                            to="/cart"
-                            className="flex gap-1 items-center"
-                        >
-                            <ShoppingCart className="w-5 h-5" />
-                            <span className="text-sm font-semibold">
-                                {cartCount}
-                            </span>
-                        </Link>
+                        {userEmail && (
+                            <Link
+                                to="/cart"
+                                className="flex gap-1 items-center !text-[#252B42]"
+                            >
+                                <ShoppingCart className="w-5 h-5" />
+                                <span className="text-sm font-semibold">
+                                    {cartCount}
+                                </span>
+                            </Link>
+                        )}
                     </div>
 
                     {/* Mobile buttons */}
@@ -210,6 +212,7 @@ export default function Header() {
                                 <Link
                                     key={menu.path}
                                     to={menu.path}
+                                    className={navLinkClass}
                                     onClick={() => setMobileOpen(false)}
                                 >
                                     {menu.label}
@@ -241,13 +244,13 @@ export default function Header() {
                                     </>
                                 ) : (
                                     <div className="flex gap-3">
-                                        <Link to="/login">
+                                        <Link to="/login" className={navLinkClass}>
                                             Login
                                         </Link>
 
                                         <span>/</span>
 
-                                        <Link to="/signup">
+                                        <Link to="/signup" className={navLinkClass}>
                                             Register
                                         </Link>
                                     </div>
