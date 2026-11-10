@@ -534,7 +534,7 @@ export default function PageContent() {
                   </div>
 
                   <div className="flex items-center gap-2.5 text-sm font-semibold">
-                    <Link to="/blog" className="hover:underline">
+                    <Link to="/blog" className="hover:underline !text-[#252B42]">
                       Read More
                     </Link>
                     <ChevronRight className="w-4 h-4" />

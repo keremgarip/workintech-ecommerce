@@ -23,6 +23,7 @@ import OrdersPage from "./components/OrdersPage";
 import { verifyTokenThunk } from "./actions/clientThunks";
 import { ToastContainer } from "react-toastify";
 import Blog from "./components/Blog"
+import BlogDetail from "./components/BlogDetail";
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
         </Route>
 
         <Route exact path="/blog" component={Blog}/>
+        <Route exact path="/blog/:id" component={BlogDetail}/>
 
         <Route path="/signup" component={Signup} />
 

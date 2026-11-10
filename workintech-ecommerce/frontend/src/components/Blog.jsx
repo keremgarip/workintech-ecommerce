@@ -86,16 +86,10 @@ export default function Blog() {
                 </div>
 
                 <Link
-                  to="/shop"
-                  className="
-                    inline-flex items-center gap-2
-                    mt-6
-                    font-semibold
-                    !text-[#252B42]
-                    hover:!text-[#23A6F0]
-                  "
+                  to={`/blog/${post.id}`}
+                  className="inline-flex items-center gap-2 mt-6 font-semibold !text-[#252B42] hover:!text-[#23A6F0]"
                 >
-                  Explore Products
+                  Read More
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>

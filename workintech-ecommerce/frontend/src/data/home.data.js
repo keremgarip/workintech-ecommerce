@@ -199,7 +199,7 @@ export const clients = [
 
 export const blogPosts = [
   {
-    id: "post-1",
+    id: "1",
     img: "src/assets/blog-fashion-1.jpg",
     tags: ["Style", "Trend", "New"],
     title: "How to Build a Capsule Wardrobe",
@@ -213,7 +213,7 @@ export const blogPosts = [
     ],
   },
   {
-    id: "post-2",
+    id: "2",
     img: "src/assets/blog-fashion-2.jpg",
     tags: ["Style", "Tips", "New"],
     title: "Sneaker Styling: 5 Easy Looks",
@@ -227,7 +227,7 @@ export const blogPosts = [
     ],
   },
   {
-    id: "post-3",
+    id: "3",
     img: "src/assets/blog-fashion-3.jpg",
     tags: ["Trend", "Guide", "New"],
     title: "Spring Colors That Always Work",
